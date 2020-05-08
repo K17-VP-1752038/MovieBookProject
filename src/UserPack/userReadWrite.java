@@ -103,7 +103,7 @@ public class userReadWrite {
 			Node users = doc.getFirstChild();
 			
 			// Tao node user voi cac element
-			Node newUser = doc.createElement("user");
+			Node newUser = doc.createElement("User");
 			((Element)newUser).setAttribute("type", mem.getType());
 			((Element)newUser).setAttribute("id", Id);
 			
@@ -139,7 +139,7 @@ public class userReadWrite {
 			Document doc = getDoc();
 			
 			// Tao node user voi cac element
-			NodeList nodeListUser = doc.getElementsByTagName("user");
+			NodeList nodeListUser = doc.getElementsByTagName("User");
             for (int i = 0; i < nodeListUser.getLength(); i++) {
                 Node nNode = nodeListUser.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -171,7 +171,7 @@ public class userReadWrite {
 			Document doc = getDoc();
 			
 			// Tao node user voi cac element
-			NodeList nodeListUser = doc.getElementsByTagName("user");
+			NodeList nodeListUser = doc.getElementsByTagName("User");
             for (int i = 0; i < nodeListUser.getLength(); i++) {
                 Node nNode = nodeListUser.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -195,13 +195,16 @@ public class userReadWrite {
 	}
 	
 	// Xoa mot user
-	public boolean deleteUser(Member user) {
+	public boolean deleteUser(User user) {
 		boolean hadDeleted = false;
+		// Neu user là admin, khong duoc phep xoa
+		if(user.getType().equals("admin"))
+			return hadDeleted;
 		try {
 			Document doc = getDoc();
 			Node users = doc.getFirstChild();
 			// Tao node user voi cac element
-			NodeList nodeListUser = doc.getElementsByTagName("user");
+			NodeList nodeListUser = doc.getElementsByTagName("User");
             for (int i = 0; i < nodeListUser.getLength(); i++) {
                 Node nNode = nodeListUser.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -216,7 +219,7 @@ public class userReadWrite {
                 	}
                 }
             }
-			updateFile(new File("userFile"), doc);
+			updateFile(new File(userFile), doc);
 			
 		} catch (Exception e) {
 			System.out.println("Error delete user: "+e);

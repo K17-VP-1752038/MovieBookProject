@@ -13,7 +13,7 @@ public class FilmLibrary {
 		films.addAll(auth.readSeriesFile(seriesFile));
 	}
 
-	ArrayList<Film> getFilms() {
+	public ArrayList<Film> getFilms() {
 		return films;
 	}
 	

@@ -19,7 +19,7 @@ public class Admin extends User {
 		password = "1";
 	}
 	
-	Admin(String n, String fn, String e, String pas) {
+	public Admin(String n, String fn, String e, String pas) {
 		id = null;
 		name = n;
 		firstname = fn;
@@ -32,13 +32,13 @@ public class Admin extends User {
 	}
 
 	// Admin được quyền xem danh sách các users
-	ArrayList<User> readUsers(String file) {
+	public ArrayList<User> readUsers(String file) {
 		return userManage.ReadUserList(file);
 	}
 	
 	// Admin được xóa member
-	boolean deleteUser(Member U) {
-		if(userManage.deleteUser(U))
+	public boolean deleteUser(User user) {
+		if(userManage.deleteUser(user))
 			return true;
 		return false;
 	}

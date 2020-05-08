@@ -1,21 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Users>
-    <User type = "member" id="MEM1100">
-    <firstname>Nguyễn</firstname>
-    <name>Minh Châu</name>
-    <email>minhchau19396@gmail.com</email>
-    <password>Bongdien</password>
+                    
+    
+    
+    
+    <User id="MEM1000" type="member">
+                                    
+        
+        
+        
+        <firstname>Nguyễn</firstname>
+                                    
+        
+        
+        
+        <name>Minh Châu</name>
+                                    
+        
+        
+        
+        <email>minhchau19396@gmail.com</email>
+                                    
+        
+        
+        
+        <password>Bongdien</password>
+                                    
+    
+    
+    
     </User>
-    <User type="admin" id="AD101">
-    	<firstname>Nguyễn Thị</firstname>
-    	<name>Thùy Trang</name>
-    	<email>ntttrang@gmail.com</email>
-    	<password>chang99</password>
+                    
+    
+    
+    
+    <User id="AD101" type="admin">
+                                    	
+        
+        
+        
+        <firstname>Nguyễn Thị</firstname>
+                                    	
+        
+        
+        
+        <name>Thùy Trang</name>
+                                    	
+        
+        
+        
+        <email>ntttrang@gmail.com</email>
+                                    	
+        
+        
+        
+        <password>chang99</password>
+                                    
+    
+    
+    
     </User>
-    <User type="member" id="MEM1011">
-    	<firstname>Đinh Nguyễn</firstname>
-    	<name>Quốc Bảo</name>
-    	<email>bao@gmail.com</email>
-    	<password>beobeo</password>
+                    
+    
+    
+    
+    <User id="MEM1001" type="member">
+                                    	
+        
+        
+        
+        <firstname>Đinh Nguyễn</firstname>
+                                    	
+        
+        
+        
+        <name>Quốc Bảo</name>
+                                    	
+        
+        
+        
+        <email>bao@gmail.com</email>
+                                    	
+        
+        
+        
+        <password>beobeo</password>
+                                    
+    
+    
+    
     </User>
+            
+
+    
+
 </Users>
