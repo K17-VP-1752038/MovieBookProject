@@ -1,0 +1,73 @@
+package UserPack;
+
+import java.util.ArrayList;
+
+//import IOFilmFile.*;
+
+public class Admin extends User {
+
+//	private int count;
+	private String id;
+	
+	private userReadWrite userManage = new userReadWrite();
+	
+	Admin() {
+		id = null;
+		name = "admin";
+		firstname = null;
+		email = null;
+		password = "1";
+	}
+	
+	Admin(String n, String fn, String e, String pas) {
+		id = null;
+		name = n;
+		firstname = fn;
+		email = e;
+		password = pas;
+	}
+	
+	String getType() {
+		return "admin";
+	}
+
+	// Admin được quyền xem danh sách các users
+	ArrayList<User> readUsers(String file) {
+		return userManage.ReadUserList(file);
+	}
+	
+	// Admin được xóa member
+	boolean deleteUser(Member U) {
+		if(userManage.deleteUser(U))
+			return true;
+		return false;
+	}
+	
+	// Admin được tìm danh sách user theo tên 
+	ArrayList<User> searchUsers(String file, String keyword) {
+		ArrayList<User> list = new ArrayList<>();
+		String k = keyword.toLowerCase();
+		
+		list.addAll(userManage.searchById(file, k));
+		list.addAll(userManage.searchByName(file, k));
+		list.addAll(userManage.searchByEmail(file, k));
+
+		return list;
+	}
+	
+	@Override
+	public String toString() {
+		String res = "";
+		res += "ID: "+ getId()+"\nAdmin: "+getFirstName() +" "+ getName() + "\nEmail: "+ getEmail();
+		return res;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	void setId(String id) {
+		this.id = id;
+	}
+
+}
