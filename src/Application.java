@@ -8,7 +8,6 @@ public class Application {
 
 	private static final String moviesfile="movies/Movies_DB.txt";
 	private static final String seriesfile="series/Series_DB.txt";
-	private static final String userfile ="user.xml";
 	
 	private User user;
 	private boolean access;
@@ -16,7 +15,7 @@ public class Application {
 	private userReadWrite userManage = new userReadWrite();
 	
 	public boolean login(String email, String password) {
-		user = userManage.getUser(email, password, userfile);
+		user = userManage.getUser(email, password);
 		if(user == null)
 			access = false;
 		else
@@ -28,7 +27,7 @@ public class Application {
 //		if(!email.contains("@"))
 //			return false;
 		Member mem = new Member(name, firstname, email, pas);
-		if(userManage.insertUser(mem, userfile))
+		if(userManage.insertUser(mem))
 			return true;
 		return false;
 	}

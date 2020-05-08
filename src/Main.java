@@ -9,7 +9,7 @@ public class Main {
 
 		User user1 = new Admin("Minh Nguyet", "Nguyen", "miknguyet99@gmail.com", "cuncun99");
 		
-		ArrayList<User> users = ((Admin) user1).readUsers("user.xml");
+		ArrayList<User> users = ((Admin) user1).readUsers();
 		for(User U : users)
 			System.out.println(U);
 		

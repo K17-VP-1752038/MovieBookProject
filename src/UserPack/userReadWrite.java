@@ -63,10 +63,10 @@ public class userReadWrite {
 	}
 	
 	// Tim 1 user trong danh sach va tra ve (LOGIN)
-	public User getUser(String email, String pas, String file) {
+	public User getUser(String email, String pas) {
 		User user = null;
 		try {
-			ArrayList<User> list = ReadUserList(file);
+			ArrayList<User> list = ReadUserList();
 			for(User U : list) {
 				if(U.getEmail().equals(email) && U.getPassword().equals(pas))
 					user = U;
@@ -78,8 +78,8 @@ public class userReadWrite {
 	}
 	
 	// Them mot user vao file (SIGN IN)
-	public boolean insertUser(Member mem, String file) {
-		ArrayList<User> userList = ReadUserList(file);
+	public boolean insertUser(Member mem) {
+		ArrayList<User> userList = ReadUserList();
 		// Neu email da ton tai, return false
 		if(isExist(mem.getEmail(), userList))
 			return false;
@@ -229,10 +229,10 @@ public class userReadWrite {
 	
 	//---------Search for an user--------------------------
 	
-	ArrayList<User> searchByName(String file, String name) {
+	ArrayList<User> searchByName(String name) {
 		ArrayList<User> list = new ArrayList<>();
 		try {
-			ArrayList<User> users = ReadUserList(file);
+			ArrayList<User> users = ReadUserList();
 			for(User U : users) {
 				if(U.getName().contains(name))
 					list.add(U);
@@ -243,10 +243,10 @@ public class userReadWrite {
 		return list;
 	}
 	
-	ArrayList<User> searchById(String file, String id) {
+	ArrayList<User> searchById(String id) {
 		ArrayList<User> list = new ArrayList<>();
 		try {
-			ArrayList<User> users = ReadUserList(file);
+			ArrayList<User> users = ReadUserList();
 			for(User U : users) {
 				if(U.getId().contains(id))
 					list.add(U);
@@ -257,10 +257,10 @@ public class userReadWrite {
 		return list;
 	}
 	
-	ArrayList<User> searchByEmail(String file, String mail) {
+	ArrayList<User> searchByEmail(String mail) {
 		ArrayList<User> list = new ArrayList<>();
 		try {
-			ArrayList<User> users = ReadUserList(file);
+			ArrayList<User> users = ReadUserList();
 			for(User U : users) {
 				if(U.getEmail().contains(mail))
 					list.add(U);
@@ -273,7 +273,7 @@ public class userReadWrite {
 	//------------------------------------------------------
 	
 	// Lay danh sach cac thanh vien
-	public ArrayList<User> ReadUserList(String file) {
+	public ArrayList<User> ReadUserList() {
 		Document doc = getDoc();
 		ArrayList<User> list = new ArrayList<>();
         try {

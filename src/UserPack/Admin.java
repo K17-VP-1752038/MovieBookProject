@@ -32,8 +32,8 @@ public class Admin extends User {
 	}
 
 	// Admin được quyền xem danh sách các users
-	public ArrayList<User> readUsers(String file) {
-		return userManage.ReadUserList(file);
+	public ArrayList<User> readUsers() {
+		return userManage.ReadUserList();
 	}
 	
 	// Admin được xóa member
@@ -48,9 +48,9 @@ public class Admin extends User {
 		ArrayList<User> list = new ArrayList<>();
 		String k = keyword.toLowerCase();
 		
-		list.addAll(userManage.searchById(file, k));
-		list.addAll(userManage.searchByName(file, k));
-		list.addAll(userManage.searchByEmail(file, k));
+		list.addAll(userManage.searchById(k));
+		list.addAll(userManage.searchByName(k));
+		list.addAll(userManage.searchByEmail(k));
 
 		return list;
 	}
