@@ -41,7 +41,7 @@ public abstract class User {
 		password = pas;
 	}
 	
-	abstract String getType();
+	public abstract String getType();
 	abstract String getId();
 	abstract void setId(String id);
 	public abstract String toString();

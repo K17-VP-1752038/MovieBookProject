@@ -12,17 +12,15 @@ import java.util.ArrayList;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionListener;
 
+import AppUsed.Application;
 import IOFilmFile.Film;
 import IOFilmFile.filmReadWrite;
 
 import javax.swing.event.ListSelectionEvent;
 
-public class SearchFrame implements ActionListener{
+public class SearchFrame implements ActionListener, ListSelectionListener{
 
-	private static final String filename="D:\\JavaWorkspace\\MovieBookProject\\src\\IOFilmFile\\filmObject.txt";
-
-	filmReadWrite films = new filmReadWrite();
-	ArrayList<Film> filmList;
+	Application app = new Application();
 	private JFrame frmMovieBook;
 	private JTextField keyWord;
 	private JButton btnSearch;
@@ -65,6 +63,7 @@ public class SearchFrame implements ActionListener{
 		
 		keyWord = new JTextField();
 		keyWord.setBounds(71, 35, 271, 26);
+		keyWord.addActionListener(this);
 		frmMovieBook.getContentPane().add(keyWord);
 		
 		btnSearch = new JButton("Search");
@@ -74,12 +73,7 @@ public class SearchFrame implements ActionListener{
 		
 		resultList = new JList<Film>();
 		resultList.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		resultList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				if(resultList.getSelectedIndex() >= 0)
-					changeFilmShow();
-			}
-		});
+		resultList.addListSelectionListener(this);
 		resultList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultList.setFont(new Font("Arial", Font.PLAIN, 12));
 		resultList.setBounds(21, 100, 173, 309);
@@ -106,14 +100,6 @@ public class SearchFrame implements ActionListener{
 		}
 		return names;
 	}
-	
-	private Film[] createListFilms(ArrayList<Film> list) {
-		Film filmList[] = new Film[list.size()];
-        for(int i = 0; i < list.size(); i++) {
-        	filmList[i] = list.get(i);
-        }
-        return filmList;
-    }
 	
 	// Create panel to show movie's information
 	private void createShowFilmPanel() {
@@ -166,7 +152,7 @@ public class SearchFrame implements ActionListener{
 		if(e.getSource() == btnSearch) {
 //			filmList = films.readFilmByName(filename, keyWord.getText());
 			
-			resultList.setListData(createListFilms(filmList));
+			resultList.setListData(app.readFilm());
 		}
 //		if(resultList.getSelectedIndex() != -1) {
 //			Film filmShow = resultList.getSelectedValue();
@@ -176,5 +162,18 @@ public class SearchFrame implements ActionListener{
 //			scrollPane.add(Img);
 //			scrollPane.add(Name);
 //		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) {
+		if(resultList.getSelectedIndex() != -1) {
+			Film filmShow = resultList.getSelectedValue();
+//			JLabel Img = createFilmImg(filmShow.getIcon());
+			JLabel Name = new JLabel(filmShow.getName());
+			
+//			scrollPane.add(Img);
+			scrollPane.add(Name);
+		}
+		
 	}
 }

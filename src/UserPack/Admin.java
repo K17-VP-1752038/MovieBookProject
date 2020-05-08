@@ -19,7 +19,7 @@ public class Admin extends User {
 		password = "1";
 	}
 	
-	public Admin(String n, String fn, String e, String pas) {
+	Admin(String n, String fn, String e, String pas) {
 		id = null;
 		name = n;
 		firstname = fn;
@@ -27,7 +27,7 @@ public class Admin extends User {
 		password = pas;
 	}
 	
-	String getType() {
+	public String getType() {
 		return "admin";
 	}
 

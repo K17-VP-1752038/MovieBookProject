@@ -21,7 +21,7 @@ public class Member extends User{
 		password = pas;
 	}
 	
-	String getType() {
+	public String getType() {
 		return "member";
 	}
 

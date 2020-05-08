@@ -1,31 +1,38 @@
+package AppUsed;
 import java.util.ArrayList;
-
-import IOFilmFile.Film;
-import IOFilmFile.FilmLibrary;
+import IOFilmFile.*;
 import UserPack.*;
 
 public class Application {
-
-	private static final String moviesfile="movies/Movies_DB.txt";
-	private static final String seriesfile="series/Series_DB.txt";
 	
 	private User user;
 	private boolean access;
-	private FilmLibrary movieBook = new FilmLibrary(moviesfile, seriesfile);
-	private userReadWrite userManage = new userReadWrite();
+	private FilmLibrary movieBook;
+	private userReadWrite userManage;
+
+	public Application() {
+		user = null;
+		access = false;
+		movieBook = null;
+		userManage = null;
+	}
 	
+	// If login success, the program can start
 	public boolean login(String email, String password) {
 		user = userManage.getUser(email, password);
-		if(user == null)
+		if(user == null || access)
 			access = false;
-		else
+		else {
 			access = true;
+			movieBook = new FilmLibrary();
+			if(user.getType().equals("admin"))
+				userManage = new userReadWrite();
+		}
 		return access;
 	}
 	
+	// Please check for password and email before you call this function
 	public boolean signIn(String name, String firstname, String email, String pas) {
-//		if(!email.contains("@"))
-//			return false;
 		Member mem = new Member(name, firstname, email, pas);
 		if(userManage.insertUser(mem))
 			return true;
@@ -35,6 +42,8 @@ public class Application {
 	public void logOut() {
 		access = false;
 		user = null;
+		movieBook = null;
+		userManage = null;
 	}
 	
 	public Film[] readFilm() {
@@ -46,6 +55,15 @@ public class Application {
 			return filmlib;
 		}
 		return null;
+	}
+	
+	// Just for admins
+	public User getUser() {
+		return user;
+	}
+	
+	public FilmLibrary getLibrary() {
+		return movieBook;
 	}
 	
 	boolean getAccess() {

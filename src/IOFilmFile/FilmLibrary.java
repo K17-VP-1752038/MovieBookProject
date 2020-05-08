@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class FilmLibrary {
 	
+	private static final String moviesfile="movies/Movies_DB.txt";
+	private static final String seriesfile="series/Series_DB.txt";
 	private ArrayList<Film> films = new ArrayList<>();
 	private filmReadWrite auth = new filmReadWrite();
 	
 	// Constructor
-	public FilmLibrary(String movieFile, String seriesFile) {
-		films.addAll(auth.readMovieFile(movieFile));
-		films.addAll(auth.readSeriesFile(seriesFile));
+	public FilmLibrary() {
+		films.addAll(auth.readMovieFile(moviesfile));
+		films.addAll(auth.readSeriesFile(seriesfile));
 	}
 
 	public ArrayList<Film> getFilms() {
@@ -18,9 +20,9 @@ public class FilmLibrary {
 	}
 	
 	// Load the ArrayList Film back to files
-	void updateStore(String movieFile, String seriesFile) {
+	void updateStore() {
 		try {
-			auth.updateFilmsFile(this, movieFile, seriesFile);
+			auth.updateFilmsFile(this, moviesfile, seriesfile);
 		} catch (Exception e) {
 			System.out.println("Error update film file: "+ e);
 		}
