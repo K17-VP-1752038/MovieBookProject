@@ -1,12 +1,13 @@
 package UserPack;
 
+// phải đọc theo UTF-8
 public abstract class User {
 
-	protected String type;
-	protected String email;
-	protected String firstname;
-	protected String name;
-	protected String password;
+	private String email;
+	private String firstname;
+	private String name;
+	private String password;
+	protected userReadWrite urw = new userReadWrite();
 	
 	String getEmail() {
 		return email;
@@ -25,20 +26,39 @@ public abstract class User {
 	}
 	
 	// SET methods
-	void setEmail(String e) {
+	public void setEmail(String e) {
 		email = e;
 	}
 	
-	void setName(String n) {
+	public void setName(String n) {
 		name = n;
 	}
 	
-	void setFirstName(String n) {
+	public void setFirstName(String n) {
 		firstname = n;
 	}
 	
-	void setPassword(String pas) {
+	public void setPassword(String pas) {
 		password = pas;
+	}
+	
+	// Admin and member can do
+	public User login(String email, String password) {
+		return urw.getUser(email, password);
+	}
+	
+	public boolean updateUserPassword(String oldpass, String newpass) {
+		if(password.length() < 6)
+			return false;
+		if(oldpass.equals(getPassword())) {
+			if(urw.updateUserPassword(this, newpass))
+				return true;
+		}
+		return false;
+	}
+	
+	public void updateUserInfo() {
+		urw.updateUserInfo(this);
 	}
 	
 	public abstract String getType();

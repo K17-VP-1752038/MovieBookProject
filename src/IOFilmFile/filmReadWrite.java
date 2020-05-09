@@ -24,7 +24,7 @@ public class filmReadWrite {
 				list.add(f);
 			}
 		} catch (Exception e) {
-			System.out.println("Error read file!");
+			System.out.println("Error read movie file: " + e);
 		}
 		return list;
 	}
@@ -39,13 +39,14 @@ public class filmReadWrite {
 				f.setGenre(scan.nextLine());
 				f.setDirector(scan.nextLine());
 				f.setDate(scan.nextLine());
-				f.setContent(scan.nextLine());
 				f.setEpisode(scan.nextInt());
+				scan.nextLine();
+				f.setContent(scan.nextLine());
 				
 				list.add(f);
 			}
 		} catch (Exception e) {
-			System.out.println("Error read file!");
+			System.out.println("Error read series file: " + e);
 		}
 		return list;
 	}
@@ -64,9 +65,9 @@ public class filmReadWrite {
 //		}
 //	}
 	
-	public void updateFilmsFile(FilmLibrary lib, String movieFile, String seriesFile) {
-		try(BufferedWriter fw = new BufferedWriter(new FileWriter(movieFile))) {
-			fw.write(lib.showFilms());
+	public void updateFilmsFile(FilmLibrary lib, ArrayList<Film> films, String file) {
+		try(BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+			fw.write(lib.showFilms(films));
 		} catch (Exception e) {
 			System.out.println(e);
 		}

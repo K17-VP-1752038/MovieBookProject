@@ -2,57 +2,56 @@ package UserPack;
 
 import java.util.ArrayList;
 
-//import IOFilmFile.*;
+// Nhớ đọc theo UTF-8
 
 public class Admin extends User {
 
 //	private int count;
 	private String id;
-	
-	private userReadWrite userManage = new userReadWrite();
-	
+		
 	Admin() {
 		id = null;
-		name = "admin";
-		firstname = null;
-		email = null;
-		password = "1";
+		setName("admin");
+		setFirstName(null);
+		setEmail(null);
+		setPassword("1");
 	}
 	
 	Admin(String n, String fn, String e, String pas) {
 		id = null;
-		name = n;
-		firstname = fn;
-		email = e;
-		password = pas;
+		setName(n);
+		setFirstName(fn);
+		setEmail(e);
+		setPassword(pas);
 	}
 	
 	public String getType() {
 		return "admin";
 	}
-
-	// Admin được quyền xem danh sách các users
-	public ArrayList<User> readUsers() {
-		return userManage.ReadUserList();
-	}
-	
-	// Admin được xóa member
-	public boolean deleteUser(User user) {
-		if(userManage.deleteUser(user))
-			return true;
-		return false;
-	}
 	
 	// Admin được tìm danh sách user theo tên 
-	ArrayList<User> searchUsers(String file, String keyword) {
+	public ArrayList<User> searchUsers(String keyword) {
 		ArrayList<User> list = new ArrayList<>();
 		String k = keyword.toLowerCase();
-		
-		list.addAll(userManage.searchById(k));
-		list.addAll(userManage.searchByName(k));
-		list.addAll(userManage.searchByEmail(k));
+
+		list.addAll(urw.searchById(k));
+		list.addAll(urw.searchByName(k));
+		list.addAll(urw.searchByEmail(k));
 
 		return list;
+	}
+	// Admin được quyền xem danh sách các users
+	public ArrayList<User> readUsers() {
+		return urw.ReadUserList();
+	}
+			
+	// Admin được xóa member
+	public boolean deleteUser(User user, String pass) {
+		if(pass.equals(getPassword()))
+			return false;
+		if(urw.deleteUser(user))
+			return true;
+		return false;
 	}
 	
 	@Override

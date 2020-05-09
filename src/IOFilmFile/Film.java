@@ -52,7 +52,9 @@ public abstract class Film{
 	}
 	
 	// Return film to string
-	abstract String showFilm();
+	public abstract String showFilm();
+	public abstract String toString();
+	
 	// Get type of film
-	abstract String getType();
+	public abstract String getType();
 }

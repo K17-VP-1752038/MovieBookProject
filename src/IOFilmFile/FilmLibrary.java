@@ -15,14 +15,25 @@ public class FilmLibrary {
 		films.addAll(auth.readSeriesFile(seriesfile));
 	}
 
+	// return array list Film
 	public ArrayList<Film> getFilms() {
 		return films;
 	}
 	
-	// Load the ArrayList Film back to files
-	void updateStore() {
+	// **Load the ArrayList Film back to files
+	public void updateStore() {
 		try {
-			auth.updateFilmsFile(this, moviesfile, seriesfile);
+			ArrayList<Film> movies = new ArrayList<>();
+			ArrayList<Film> series = new ArrayList<>();
+			for(Film F : films) {
+				if(F.getType().equals("movie"))
+					movies.add(F);
+				else
+					series.add(F);
+			}
+			
+			auth.updateFilmsFile(this, movies, moviesfile);
+			auth.updateFilmsFile(this, series, seriesfile);
 		} catch (Exception e) {
 			System.out.println("Error update film file: "+ e);
 		}
@@ -81,7 +92,7 @@ public class FilmLibrary {
 	}
 	
 	//----Search film---------------------------------
-	ArrayList<Film> searchByName(String name) {
+	public ArrayList<Film> searchByName(String name) {
 		ArrayList<Film> film = new ArrayList<>();
 		for(Film F : films) {
 			String Fname = F.getName().toLowerCase();
@@ -91,7 +102,7 @@ public class FilmLibrary {
 		return film;
 	}
 	
-	ArrayList<Film> searchByDirector(String dir) {
+	public ArrayList<Film> searchByDirector(String dir) {
 		ArrayList<Film> film = new ArrayList<>();
 		for(Film F : films) {
 			String Fname = F.getDirector().toLowerCase();
@@ -101,7 +112,7 @@ public class FilmLibrary {
 		return film;
 	}
 	
-	ArrayList<Film> searchByGenre(String gen) {
+	public ArrayList<Film> searchByGenre(String gen) {
 		ArrayList<Film> film = new ArrayList<>();
 		for(Film F : films) {
 			String Fname = F.getGenre().toLowerCase();
@@ -113,7 +124,7 @@ public class FilmLibrary {
 	//------------------------------------------------
 	
 	// return string
-	String showFilms() {
+	String showFilms(ArrayList<Film> films) {
 		String res = "";
 		int n = films.size();
 		for(int i = 0; i < n; i++) {

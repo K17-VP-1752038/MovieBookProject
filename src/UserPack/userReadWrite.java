@@ -63,22 +63,17 @@ public class userReadWrite {
 	}
 	
 	// Tim 1 user trong danh sach va tra ve (LOGIN)
-	public User getUser(String email, String pas) {
-		User user = null;
-		try {
-			ArrayList<User> list = ReadUserList();
-			for(User U : list) {
-				if(U.getEmail().equals(email) && U.getPassword().equals(pas))
-					user = U;
-			}
-		} catch (Exception e) {
-			System.out.println("Error login: "+e);
+	User getUser(String email, String pas) {
+		ArrayList<User> list = ReadUserList();
+		for(User U : list) {
+			if(U.getEmail().equals(email) && U.getPassword().equals(pas))
+				return U;
 		}
-		return user;
+		return null;
 	}
 	
-	// Them mot user vao file (SIGN IN)
-	public boolean insertUser(Member mem) {
+	// Them mot user vao file (SIGN UP)
+	boolean insertUser(Member mem) {
 		ArrayList<User> userList = ReadUserList();
 		// Neu email da ton tai, return false
 		if(isExist(mem.getEmail(), userList))
@@ -133,8 +128,8 @@ public class userReadWrite {
 		return true;
 	}
 	
-	// Cap nhat thong tin cua mot user (email la ten dang nhap nen khong the doi)
-	public void updateUserInfo(User user, String nam, String fname) {
+	// Cap nhat thong tin cua mot user (ten, ho)
+	void updateUserInfo(User user) {
 		try {
 			Document doc = getDoc();
 			
@@ -146,13 +141,13 @@ public class userReadWrite {
                 	Element U = (Element) nNode;
                 	
                 	// Tim ra user can cap nhat trong danh sach
-                	String mail = U.getElementsByTagName("email").item(0).getTextContent();
-                	if(mail.equals(user.getEmail())) {
+                	String id = U.getAttribute("id");
+                	if(id.equals(user.getId())) {
                 		Element name = (Element) U.getElementsByTagName("name").item(0);
-            			name.setTextContent(nam);
+            			name.setTextContent(user.getName());
             			
             			Element firstname = (Element) U.getElementsByTagName("firstname").item(0);
-            			firstname.setTextContent(fname);
+            			firstname.setTextContent(user.getFirstName());
             			
             			break;
                 	}
@@ -166,7 +161,7 @@ public class userReadWrite {
 	}
 	
 	// Cap nhat password cua mot user
-	public void updateUserPassword(User user, String password) {
+	boolean updateUserPassword(User user, String password) {
 		try {
 			Document doc = getDoc();
 			
@@ -179,23 +174,24 @@ public class userReadWrite {
                 	
                 	// Tim ra user can cap nhat trong danh sach
                 	String mail = U.getElementsByTagName("email").item(0).getTextContent();
+                	
                 	if(mail.equals(user.getEmail())) {
                 		Element newPass = (Element) U.getElementsByTagName("password").item(0);
             			newPass.setTextContent(password);
             			
-            			break;
+            			return true;
                 	}
                 }
             }
 			updateFile(new File(userFile), doc);
-			
 		} catch (Exception e) {
 			System.out.println("Error update user: "+e);
 		}
+		return false;
 	}
 	
 	// Xoa mot user
-	public boolean deleteUser(User user) {
+	boolean deleteUser(User user) {
 		boolean hadDeleted = false;
 		// Neu user là admin, khong duoc phep xoa
 		if(user.getType().equals("admin"))
@@ -227,7 +223,7 @@ public class userReadWrite {
 		return hadDeleted;
 	}
 	
-	//---------Search for an user--------------------------
+	//---------Search for users--------------------------
 	
 	ArrayList<User> searchByName(String name) {
 		ArrayList<User> list = new ArrayList<>();
@@ -273,7 +269,7 @@ public class userReadWrite {
 	//------------------------------------------------------
 	
 	// Lay danh sach cac thanh vien
-	public ArrayList<User> ReadUserList() {
+	ArrayList<User> ReadUserList() {
 		Document doc = getDoc();
 		ArrayList<User> list = new ArrayList<>();
         try {

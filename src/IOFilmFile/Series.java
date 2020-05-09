@@ -34,24 +34,30 @@ public class Series extends Film {
 	}
 	
 	// ham getters
-	int getEpisode() {
+	public int getEpisode() {
 		return Fepisode;
 	}
 	
 	// ham setters
-	public void setEpisode(int ep) {
+	void setEpisode(int ep) {
 		Fepisode = ep;
 	}
 
 	@Override
-	String showFilm() {
+	public String showFilm() {
 		String res = "";
-		res += Fname + "\n"+ Ficon + "\n"+ Fgenre + "\n" + Fdirector + "\n"+ Fdate +"\n"+ Fcontent +"\n"+ Fepisode;
+		res += getName() + "\n"+ getIcon() + "\n"+ getGenre() + "\n" + getDirector() + "\n"+ getDate() +"\n"+ getContent()+"\n"+ getEpisode();
 		return res;
 	}
 
 	@Override
-	String getType() {
+	public String getType() {
 		return "series";
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getName();
 	}
 }

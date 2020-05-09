@@ -43,14 +43,20 @@ public class Movie extends Film {
 	}
 
 	@Override
-	String showFilm() {
+	public String showFilm() {
 		String res = "";
-		res += Fname + "\n"+ Ficon + "\n"+ Fgenre + "\n" + Fdirector + "\n" + Fduration +"\n"+ Fdate +"\n"+ Fcontent;
+		res += getName() + "\n"+ getIcon() + "\n"+ getGenre() + "\n" + getDirector() + "\n" + getDuration() +"\n"+ getDate() +"\n"+ getContent();
 		return res;
 	}
 
 	@Override
-	String getType() {
+	public String getType() {
 		return "movie";
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getName();
 	}
 }
