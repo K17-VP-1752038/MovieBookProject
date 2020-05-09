@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionEvent;
 // phải lưu kiểu UTF-8
 public class SearchFrame implements ActionListener, ListSelectionListener{
 
-	Application app = new Application();
+	private Application app = new Application();
 	private JFrame frmMovieBook;
 	private JTextField keyWord;
 	private JButton btnSearch;
@@ -40,7 +40,11 @@ public class SearchFrame implements ActionListener, ListSelectionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
 			new SearchFrame();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -48,7 +52,7 @@ public class SearchFrame implements ActionListener, ListSelectionListener{
 	 */
 	public SearchFrame() {
 		// Giả sử login, login xong mới có thể sử dụng chương trình
-		if(app.login("bao@gmail.com", "beobeo"));
+		if(app.login("winterheartlove@gmail.com", "beobeo"));
 			initialize();
 	}
 
@@ -137,7 +141,6 @@ public class SearchFrame implements ActionListener, ListSelectionListener{
 			Fimg.setIcon(icon);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -17,8 +17,9 @@ public class Application {
 	
 	// If login success, the program can start
 	public boolean login(String email, String password) {
-		user = user.login(email, password);
-		if(getUser() != null) {
+		User U = new Member();
+		user = U.login(email, password);
+		if(user != null) {
 			access = true;
 			movieBook = new FilmLibrary();
 		}
