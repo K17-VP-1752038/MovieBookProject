@@ -11,6 +11,7 @@ import javax.swing.*;
 //import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.EmptyBorder;
 
 public class Login extends JFrame {
 
@@ -18,7 +19,7 @@ public class Login extends JFrame {
 	
 	private Random ran = new Random();
 	private JTextField tfEmail;
-	private JTextField tfPassword;
+	private JPasswordField tfPassword;
 	
 	
 	/**
@@ -72,6 +73,7 @@ public class Login extends JFrame {
 //		loginForm.add(lblLogin);
 		
 		JPanel form = new JPanel();
+		form.setBorder(new EmptyBorder(8, 5, 1, 5));
 		loginForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
@@ -82,10 +84,39 @@ public class Login extends JFrame {
 		
 		inputLabels.add(new JLabel("Email: "));
 		inputLabels.add(new JLabel("Password: "));
-		tfEmail = new JTextField(12);
-		tfPassword = new JTextField(12);
+		tfEmail = new JTextField(15);
+		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfPassword = new JPasswordField(15);
+		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		inputFields.add(tfEmail);
 		inputFields.add(tfPassword);
+		
+		JPanel panePassFogot = new JPanel();
+		loginForm.add(panePassFogot);
+		
+		JLabel lblPassForgot = new JLabel("Password forgotten?");
+		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
+		panePassFogot.add(lblPassForgot);
+		
+		JPanel paneEnter = new JPanel();
+		paneEnter.setBorder(new EmptyBorder(3, 0, 1, 0));
+		loginForm.add(paneEnter);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		paneEnter.add(btnLogin);
+		
+		JPanel panelText = new JPanel();
+		loginForm.add(panelText);
+		
+		JLabel label = new JLabel("Don't have an account?");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		panelText.add(label);
+		
+		JLabel lblSignup = new JLabel("Sign up");
+		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panelText.add(lblSignup);
 	}
 }
 
