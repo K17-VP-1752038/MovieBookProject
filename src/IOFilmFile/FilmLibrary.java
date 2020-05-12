@@ -6,18 +6,34 @@ public class FilmLibrary {
 	
 	private static final String moviesfile="movies/Movies_DB.txt";
 	private static final String seriesfile="series/Series_DB.txt";
-	private ArrayList<Film> films = new ArrayList<>();
 	private filmReadWrite auth = new filmReadWrite();
+	private ArrayList<Film> films = new ArrayList<>();
+	private ArrayList<Movie> movies = new ArrayList<>();
+	private ArrayList<Series> series = new ArrayList<>();
+	
 	
 	// Constructor
 	public FilmLibrary() {
-		films.addAll(auth.readMovieFile(moviesfile));
-		films.addAll(auth.readSeriesFile(seriesfile));
+		movies = auth.readMovieFile(moviesfile);
+		series = auth.readSeriesFile(seriesfile);
+		
+		films.addAll(movies);
+		films.addAll(series);
 	}
 
 	// return array list Film
 	public ArrayList<Film> getFilms() {
 		return films;
+	}
+	
+	// return array list Movie
+	public ArrayList<Movie> getMovies() {
+		return movies;
+	}
+	
+	// return array list Series
+	public ArrayList<Series> getSeries() {
+		return series;
 	}
 	
 	// **Load the ArrayList Film back to files
@@ -112,12 +128,14 @@ public class FilmLibrary {
 		return film;
 	}
 	
-	public ArrayList<Film> searchByGenre(String gen) {
+	// For an array of genre
+	public ArrayList<Film> searchByGenre(ArrayList<String> gen) {
 		ArrayList<Film> film = new ArrayList<>();
 		for(Film F : films) {
 			String Fname = F.getGenre().toLowerCase();
-			if(Fname.contains(gen.toLowerCase()))
-				film.add(F);
+			for(int i = 0; i < gen.size(); i++)
+				if(Fname.contains(gen.get(i).toLowerCase()))
+					film.add(F);
 		}
 		return film;
 	}

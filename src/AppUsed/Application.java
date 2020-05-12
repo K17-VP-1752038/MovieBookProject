@@ -57,6 +57,29 @@ public class Application {
 		return null;
 	}
 	
+	public Film[] readMovie() {
+		if(getAccess()) {
+			ArrayList<Movie> films = movieBook.getMovies();
+			Film[] filmlib = new Film[films.size()];
+			for(int i = 0; i < films.size(); i++)
+				filmlib[i] = films.get(i);
+			return filmlib;
+		}
+		return null;
+	}
+	
+	public Film[] readSeries() {
+		if(getAccess()) {
+			ArrayList<Series> films = movieBook.getSeries();
+			Film[] filmlib = new Film[films.size()];
+			for(int i = 0; i < films.size(); i++)
+				filmlib[i] = films.get(i);
+			return filmlib;
+		}
+		return null;
+	}
+	
+	// Search films by Name and Director
 	public Film[] searchByKeyWord(String kw) {
 		if(getAccess()) {
 			ArrayList<Film> films = movieBook.searchByName(kw);
