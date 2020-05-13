@@ -16,9 +16,9 @@ public class Application {
 	}
 	
 	// If login success, the program can start
-	public boolean login(String email, String password) {
+	public boolean login(String email, char[] password) {
 		User U = new Member();
-		user = U.login(email, password);
+		user = U.login(email, convertToString(password));
 		if(user != null) {
 			access = true;
 			movieBook = new FilmLibrary();
@@ -27,11 +27,10 @@ public class Application {
 	}
 	
 	// Please check for password and email before you call this function
-	public boolean signUp(String name, String firstname, String email, String pas) {
+	public boolean signUp(String name, String firstname, String email, char[] pas) {
 		user = new Member();
 		if(!getAccess()) {
-			if(((Member)user).signUp(name, firstname, email, pas)) {
-				login(email, pas);
+			if(((Member)user).signUp(name, firstname, email, convertToString(pas))) {
 				return true;
 			}
 		}
@@ -138,5 +137,13 @@ public class Application {
 	
 	private boolean getAccess() {
 		return access;
+	}
+	
+	private String convertToString(char[] arr) {
+		String s = "";
+		for(char i : arr) {
+			s += i;
+		}
+		return s;
 	}
 }

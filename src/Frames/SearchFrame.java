@@ -52,7 +52,8 @@ public class SearchFrame implements ActionListener, ListSelectionListener{
 	 */
 	public SearchFrame() {
 		// Giả sử login, login xong mới có thể sử dụng chương trình
-		if(app.login("winterheartlove@gmail.com", "beobeo"));
+		char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
+		if(app.login("winterheartlove@gmail.com", pass));
 			initialize();
 	}
 

@@ -10,15 +10,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 //import javax.swing.border.EmptyBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
+import AppUsed.Application;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	
+	private Application app = new Application();
 	private Random ran = new Random();
 	private JTextField tfEmail;
 	private JPasswordField tfPassword;
@@ -68,7 +70,7 @@ public class Login extends JFrame {
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
-		loginForm.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		loginForm.setBorder(new EmptyBorder(3, 3, 3, 3));
 		
 		JPanel iconPane = new JPanel();
 		JLabel lblIcon = new JLabel("");
@@ -100,6 +102,7 @@ public class Login extends JFrame {
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		tfPassword = new JPasswordField(15);
 		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfPassword.setToolTipText("Password must have at least 6 characters.");
 		inputFields.add(tfEmail);
 		inputFields.add(tfPassword);
 		
@@ -125,6 +128,7 @@ public class Login extends JFrame {
 		loginForm.add(paneEnter);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(this);
 		btnLogin.setBackground(Color.BLACK);
 		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -141,6 +145,21 @@ public class Login extends JFrame {
 		lblSignup.setForeground(new Color(204, 0, 0));
 		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblSignup);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// Check if user is valid
+		if(!tfEmail.getText().contains("@") || !tfEmail.getText().contains(".") || tfPassword.getPassword().length < 6) {
+			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");
+			tfPassword.setText(null);
+			return;
+		}
+		
+		if(app.login(tfEmail.getText(), tfPassword.getPassword()))
+			JOptionPane.showMessageDialog(new JFrame(), "Welcome "+ tfEmail.getText()+"!");
+		else
+			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");
 	}
 }
 
