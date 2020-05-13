@@ -9,9 +9,11 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 //import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
 
@@ -44,14 +46,14 @@ public class Login extends JFrame {
 	public Login() {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 602, 358);
+		setBounds(100, 100, 628, 445);
 		setLocationRelativeTo(null);
 
 		try {
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(3) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 50);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {
@@ -66,11 +68,21 @@ public class Login extends JFrame {
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
-		loginForm.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "LOGIN", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		loginForm.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
-//		JLabel lblLogin = new JLabel("LOGIN");
-//		lblLogin.setForeground(Color.WHITE);
-//		loginForm.add(lblLogin);
+		JPanel iconPane = new JPanel();
+		JLabel lblIcon = new JLabel("");
+		BufferedImage img;
+		try {
+			img = (BufferedImage) ImageIO.read(new File("Img/usericon.png"));
+			ImageIcon icon = new ImageIcon(img.getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+			lblIcon.setIcon(icon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		iconPane.add(lblIcon);
+		iconPane.setBorder(new EmptyBorder(10, 5, 5, 5));
+		loginForm.add(iconPane);
 		
 		JPanel form = new JPanel();
 		form.setBorder(new EmptyBorder(8, 5, 1, 5));
@@ -95,6 +107,15 @@ public class Login extends JFrame {
 		loginForm.add(panePassFogot);
 		
 		JLabel lblPassForgot = new JLabel("Password forgotten?");
+		lblPassForgot.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				PassForgotten frame = new PassForgotten(tfEmail.getText());
+				frame.setVisible(true);
+				setVisible(false);
+			}
+		});
+		lblPassForgot.setForeground(new Color(0, 0, 255));
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
 		panePassFogot.add(lblPassForgot);
@@ -104,6 +125,8 @@ public class Login extends JFrame {
 		loginForm.add(paneEnter);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setBackground(Color.BLACK);
+		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		paneEnter.add(btnLogin);
 		
@@ -115,6 +138,7 @@ public class Login extends JFrame {
 		panelText.add(label);
 		
 		JLabel lblSignup = new JLabel("Sign up");
+		lblSignup.setForeground(new Color(204, 0, 0));
 		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblSignup);
 	}
