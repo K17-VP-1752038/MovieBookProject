@@ -142,6 +142,14 @@ public class Login extends JFrame implements ActionListener {
 		panelText.add(label);
 		
 		JLabel lblSignup = new JLabel("Sign up");
+		lblSignup.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				SignUp frame = new SignUp();
+				setVisible(false);
+				frame.setVisible(true);
+			}
+		});
 		lblSignup.setForeground(new Color(204, 0, 0));
 		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblSignup);

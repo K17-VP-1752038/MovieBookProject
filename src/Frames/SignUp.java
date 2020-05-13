@@ -10,21 +10,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.FlowLayout;
-import java.awt.SystemColor;
 
 public class SignUp extends JFrame {
 
@@ -59,7 +54,7 @@ public class SignUp extends JFrame {
 	public SignUp() {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 717, 483);
+		setBounds(100, 100, 628, 445);
 		setLocationRelativeTo(null);
 
 		try {
@@ -79,31 +74,24 @@ public class SignUp extends JFrame {
 	}
 	
 	void initialize() {
-		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 200, 200));
+//		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 200, 200));
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
-//		loginForm.setSize(200, 300);
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
 		
-//		JLabel lblLogin = new JLabel("LOGIN");
-//		lblLogin.setForeground(Color.WHITE);
-//		loginForm.add(lblLogin);
-		
+
 		JPanel title = new JPanel();
-		title.setBackground(Color.WHITE);
 		JLabel SignUp = new JLabel("SIGN UP");
 		SignUp.setForeground(Color.BLACK);
 		title.add(SignUp);
 		loginForm.add(title);
 		
 		JPanel form = new JPanel();
-		form.setBackground(Color.WHITE);
 		form.setBorder(new EmptyBorder(8, 5, 3, 5));
 		loginForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
 		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
-		inputLabels.setBackground(Color.WHITE);
 	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
@@ -138,12 +126,10 @@ public class SignUp extends JFrame {
 		inputFields.add(tfConfirm);
 		
 		JPanel panePassFogot = new JPanel();
-		panePassFogot.setBackground(Color.WHITE);
 		loginForm.add(panePassFogot);
 		
 		
 		JPanel paneEnter = new JPanel();
-		paneEnter.setBackground(new Color(255, 255, 255));
 		paneEnter.setBorder(new EmptyBorder(3, 0, 1, 0));
 		loginForm.add(paneEnter);
 		
@@ -154,24 +140,7 @@ public class SignUp extends JFrame {
 		paneEnter.add(btnLogin);
 		
 		JPanel panelText = new JPanel();
-		panelText.setBackground(Color.WHITE);
 		loginForm.add(panelText);
 		
 	}
-}
-
-class ImagePanel extends JPanel {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Image image;
-    public ImagePanel(Image image) {
-        this.image = image;
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
-    }
 }
