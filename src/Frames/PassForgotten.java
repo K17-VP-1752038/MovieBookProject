@@ -46,6 +46,7 @@ private static final long serialVersionUID = 1L;
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 628, 445);
+		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
