@@ -45,7 +45,7 @@ private static final long serialVersionUID = 1L;
 	public PassForgotten(String email) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 628, 445);
+//		setBounds(100, 100, 628, 445);
 		setLocationRelativeTo(null);
 
 		try {
@@ -128,6 +128,8 @@ private static final long serialVersionUID = 1L;
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login frame = new Login();
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
 				setVisible(false);
 				frame.setVisible(true);
 			}

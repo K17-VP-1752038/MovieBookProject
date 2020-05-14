@@ -19,6 +19,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.awt.FlowLayout;
 
 public class SignUp extends JFrame {
@@ -28,7 +29,7 @@ public class SignUp extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 //	private JPanel contentPane;
-	
+	private Random ran = new Random();
 	private JTextField tfEmail, tfFirstName, tfLastName;
 	private JPasswordField tfPassword, tfConfirm;
 
@@ -54,11 +55,12 @@ public class SignUp extends JFrame {
 	public SignUp() {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 628, 445);
+//		setBounds(100, 100, 628, 445);
+//		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/background.png"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(6) +".jpg"));
 			ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 45);

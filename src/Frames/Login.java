@@ -48,11 +48,12 @@ public class Login extends JFrame implements ActionListener {
 	public Login() {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 628, 445);
+//		setBounds(100, 100, 628, 445);
+		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(3) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(6) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -114,6 +115,8 @@ public class Login extends JFrame implements ActionListener {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				PassForgotten frame = new PassForgotten(tfEmail.getText());
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
 				frame.setVisible(true);
 				setVisible(false);
 			}
@@ -146,6 +149,8 @@ public class Login extends JFrame implements ActionListener {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				SignUp frame = new SignUp();
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
 				setVisible(false);
 				frame.setVisible(true);
 			}
@@ -169,22 +174,4 @@ public class Login extends JFrame implements ActionListener {
 		else
 			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");
 	}
-}
-
-
-
-class ImagePanel extends JPanel {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Image image;
-    public ImagePanel(Image image) {
-        this.image = image;
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
-    }
 }
