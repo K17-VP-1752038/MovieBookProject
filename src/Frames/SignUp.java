@@ -16,6 +16,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -83,17 +85,21 @@ public class SignUp extends JFrame {
 		
 
 		JPanel title = new JPanel();
+		title.setBackground(Color.WHITE);
+		title.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel SignUp = new JLabel("SIGN UP");
 		SignUp.setForeground(Color.BLACK);
 		title.add(SignUp);
 		loginForm.add(title);
 		
 		JPanel form = new JPanel();
+		form.setBackground(Color.WHITE);
 		form.setBorder(new EmptyBorder(8, 5, 3, 5));
 		loginForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
 		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
+		inputLabels.setBackground(Color.WHITE);
 	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
@@ -128,12 +134,27 @@ public class SignUp extends JFrame {
 		inputFields.add(tfConfirm);
 		
 		JPanel panePassFogot = new JPanel();
+		panePassFogot.setBackground(Color.WHITE);
 		loginForm.add(panePassFogot);
 		
 		
 		JPanel paneEnter = new JPanel();
+		paneEnter.setBackground(new Color(255, 255, 255));
 		paneEnter.setBorder(new EmptyBorder(3, 0, 1, 0));
 		loginForm.add(paneEnter);
+		
+		JButton btnReturn = new JButton("Return");
+		paneEnter.add(btnReturn);
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login frame = new Login();
+				setVisible(false);
+				frame.setVisible(true);
+			}
+		});
+		btnReturn.setBackground(Color.BLACK);
+		btnReturn.setForeground(Color.WHITE);
+		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JButton btnLogin = new JButton("Sign Up");
 		btnLogin.setBackground(Color.BLACK);
@@ -141,8 +162,16 @@ public class SignUp extends JFrame {
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		paneEnter.add(btnLogin);
 		
-		JPanel panelText = new JPanel();
-		loginForm.add(panelText);
+		JPanel paneBtn = new JPanel();
+		paneBtn.setBorder(new EmptyBorder(3, 0, 1, 0));
+		loginForm.add(paneBtn);
+		paneBtn.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JPanel paneReturn = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) paneReturn.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEADING);
+		paneBtn.add(paneReturn);
+		
 		
 	}
 }
