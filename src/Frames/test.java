@@ -166,7 +166,7 @@ public class test extends JFrame {
 		}
 		//System.out.println(rows.length);
 		
-		table.setModel(new MyModel(rows, cols));
+		table.setModel(new DefaultTableModel(rows, cols));
 		table.setRowHeight(20);
 	}
 }
