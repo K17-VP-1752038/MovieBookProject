@@ -14,14 +14,15 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PassForgotten extends JFrame {
+public class PassForgotten extends JFrame implements ActionListener {
 
 private static final long serialVersionUID = 1L;
 	
 	private Random ran = new Random();
 	private JTextField tfEmail;
 	private JTextField tfPassword;
-	
+	private JButton btnReturn, btnNext;
+	private String Email;
 	
 	/**
 	 * Launch the application.
@@ -39,6 +40,7 @@ private static final long serialVersionUID = 1L;
 		});
 	}
 
+	
 	/**
 	 * Create the frame.
 	 */
@@ -53,17 +55,18 @@ private static final long serialVersionUID = 1L;
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 45);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		initialize(email);
+		setEmail(email);
+		initialize();
 	}
 
-	void initialize(String email) {
+	void initialize() {
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
@@ -92,7 +95,7 @@ private static final long serialVersionUID = 1L;
 		
 		JPanel emailSent = new JPanel();
 		tfEmail = new JTextField(15);
-		tfEmail.setText(email);
+		tfEmail.setText(Email);
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		JButton btnSent = new JButton("Sent");
 		btnSent.setBackground(new Color(139, 0, 0));
@@ -125,16 +128,8 @@ private static final long serialVersionUID = 1L;
 		flowLayout.setAlignment(FlowLayout.LEADING);
 		paneBtn.add(paneReturn);
 		
-		JButton btnReturn = new JButton("Return");
-		btnReturn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login frame = new Login();
-				frame.setSize(getSize());
-				frame.setLocation(getLocation());
-				setVisible(false);
-				frame.setVisible(true);
-			}
-		});
+		btnReturn = new JButton("Return");
+		btnReturn.addActionListener(this);
 		paneReturn.add(btnReturn);
 		btnReturn.setBackground(Color.BLACK);
 		btnReturn.setForeground(Color.WHITE);
@@ -145,21 +140,35 @@ private static final long serialVersionUID = 1L;
 		flowLayout_1.setAlignment(FlowLayout.TRAILING);
 		paneBtn.add(paneNext);
 		
-		JButton btnNext = new JButton("Next");
+		btnNext = new JButton("Next");
+		btnNext.addActionListener(this);
 		btnNext.setBackground(Color.BLACK);
 		btnNext.setForeground(Color.WHITE);
 		paneNext.add(btnNext);
 		
-//		JPanel panelText = new JPanel();
-//		loginForm.add(panelText);
-//		
-//		JLabel label = new JLabel("Don't have an account?");
-//		label.setFont(new Font("Tahoma", Font.PLAIN, 11));
-//		panelText.add(label);
-//		
-//		JLabel lblSignup = new JLabel("Sign up");
-//		lblSignup.setForeground(new Color(204, 0, 0));
-//		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
-//		panelText.add(lblSignup);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnReturn) {
+			Login frame = new Login();
+			frame.setSize(getSize());
+			frame.setLocation(getLocation());
+			frame.setVisible(true);
+			setVisible(false);
+		}
+		
+		if(e.getSource() == btnNext) {
+			PassForgotten2 frame = new PassForgotten2(Email);
+			frame.setSize(getSize());
+			frame.setLocation(getLocation());
+			frame.setVisible(true);
+			setVisible(false);
+		}
+	}
+	
+	public void setEmail(String email) {
+		Email = email;
+	}
+
 }

@@ -1,46 +1,158 @@
 package Frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class PassForgotten2 extends JFrame {
+public class PassForgotten2 extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-
+private static final long serialVersionUID = 1L;
+	
+	private Random ran = new Random();
+	private JPasswordField tfPassword, tfPassConf;
+	private JButton btnReturn, btnFinish;
+	private String Email;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PassForgotten2 frame = new PassForgotten2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PassForgotten2 frame = new PassForgotten2("miknguyet99@gmail.com");
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public PassForgotten2() {
+	public PassForgotten2(String email) {
+		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+//		setBounds(100, 100, 628, 445);
+		setSize(628, 445);
+		setLocationRelativeTo(null);
+
+		try {
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
+			setContentPane(imagePanel);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
+			imagePanel.setLayout(fl_imagePanel);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		initialize(email);
 	}
 
+	void initialize(String email) {
+		JPanel loginForm = new JPanel();
+		getContentPane().add(loginForm);
+//		loginForm.setSize(200, 300);
+		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
+		loginForm.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		JPanel panelText = new JPanel();
+		panelText.setBorder(new EmptyBorder(5, 0, 5, 0));
+		loginForm.add(panelText);
+		JLabel lblForgotPassword = new JLabel("FORGOT PASSWORD");
+		lblForgotPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panelText.add(lblForgotPassword);
+		
+		JPanel form = new JPanel();
+		form.setBorder(new EmptyBorder(10, 6, 4, 5));
+		loginForm.add(form);
+		form.setLayout(new BorderLayout(5, 5));
+		
+		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
+	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
+		form.add(inputLabels, BorderLayout.WEST);
+		form.add(inputFields, BorderLayout.CENTER);
+		
+		inputLabels.add(new JLabel("Password:"));
+		inputLabels.add(new JLabel("Confirm password:"));
+		
+		tfPassword = new JPasswordField(15);
+		inputFields.add(tfPassword);
+		
+		tfPassConf = new JPasswordField(15);
+		inputFields.add(tfPassConf);
+//		tfPassConf.setColumns(10);
+		
+		JPanel panePassFogot = new JPanel();
+		loginForm.add(panePassFogot);
+		
+		JLabel lblPassForgot = new JLabel("Password must be at least 6 characters");
+		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
+		panePassFogot.add(lblPassForgot);
+		
+		JPanel paneBtn = new JPanel();
+		paneBtn.setBorder(new EmptyBorder(3, 0, 1, 0));
+		loginForm.add(paneBtn);
+		paneBtn.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JPanel paneReturn = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) paneReturn.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEADING);
+		paneBtn.add(paneReturn);
+		
+		btnReturn = new JButton("Return");
+		btnReturn.addActionListener(this);
+		paneReturn.add(btnReturn);
+		btnReturn.setBackground(Color.BLACK);
+		btnReturn.setForeground(Color.WHITE);
+		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JPanel paneFinish = new JPanel();
+		FlowLayout fl_paneFinish = (FlowLayout) paneFinish.getLayout();
+		fl_paneFinish.setAlignment(FlowLayout.TRAILING);
+		paneBtn.add(paneFinish);
+		
+		btnFinish = new JButton("Finish");
+		btnFinish.addActionListener(this);
+		btnFinish.setBackground(new Color(165, 42, 42));
+		btnFinish.setForeground(Color.WHITE);
+		paneFinish.add(btnFinish);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnReturn) {
+			PassForgotten frame = new PassForgotten(Email);
+			frame.setSize(getSize());
+			frame.setLocation(getLocation());
+			setVisible(false);
+			frame.setVisible(true);
+		}
+		if(e.getSource() == btnFinish) {
+			Login frame = new Login();
+			frame.setSize(getSize());
+			frame.setLocation(getLocation());
+			setVisible(false);
+			frame.setVisible(true);
+		}
+	}
+	
+	public void setEmail(String email) {
+		Email = email;
+	}
 }

@@ -24,6 +24,7 @@ public class Login extends JFrame implements ActionListener {
 	private Random ran = new Random();
 	private JTextField tfEmail;
 	private JPasswordField tfPassword;
+	private String mail = "";
 	
 	
 	/**
@@ -51,7 +52,7 @@ public class Login extends JFrame implements ActionListener {
 //		setBounds(100, 100, 628, 445);
 		setSize(628, 445);
 		setLocationRelativeTo(null);
-
+		
 		try {
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
@@ -63,6 +64,27 @@ public class Login extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		
+		initialize();
+	}
+	
+	public Login(String email) {
+		setTitle("Movie Book");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(628, 445);
+		setLocationRelativeTo(null);
+		
+		try {
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
+			setContentPane(imagePanel);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
+			imagePanel.setLayout(fl_imagePanel);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mail = email;
 		initialize();
 	}
 
@@ -100,6 +122,7 @@ public class Login extends JFrame implements ActionListener {
 		inputLabels.add(new JLabel("Email: "));
 		inputLabels.add(new JLabel("Password: "));
 		tfEmail = new JTextField(15);
+		tfEmail.setText(mail);
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		tfPassword = new JPasswordField(15);
 		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
