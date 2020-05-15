@@ -137,31 +137,6 @@ public class SignUp extends JFrame {
 		panePassFogot.setBackground(Color.WHITE);
 		loginForm.add(panePassFogot);
 		
-		
-		JPanel paneEnter = new JPanel();
-		paneEnter.setBackground(new Color(255, 255, 255));
-		paneEnter.setBorder(new EmptyBorder(3, 0, 1, 0));
-		loginForm.add(paneEnter);
-		
-		JButton btnReturn = new JButton("Return");
-		paneEnter.add(btnReturn);
-		btnReturn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login frame = new Login();
-				setVisible(false);
-				frame.setVisible(true);
-			}
-		});
-		btnReturn.setBackground(Color.BLACK);
-		btnReturn.setForeground(Color.WHITE);
-		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JButton btnLogin = new JButton("Sign Up");
-		btnLogin.setBackground(Color.BLACK);
-		btnLogin.setForeground(Color.WHITE);
-		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		paneEnter.add(btnLogin);
-		
 		JPanel paneBtn = new JPanel();
 		paneBtn.setBorder(new EmptyBorder(3, 0, 1, 0));
 		loginForm.add(paneBtn);
@@ -172,6 +147,29 @@ public class SignUp extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEADING);
 		paneBtn.add(paneReturn);
 		
+		JButton btnReturn = new JButton("Return");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login frame = new Login();
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
+				setVisible(false);
+				frame.setVisible(true);
+			}
+		});
+		paneReturn.add(btnReturn);
+		btnReturn.setBackground(Color.BLACK);
+		btnReturn.setForeground(Color.WHITE);
+		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
+		JPanel paneNext = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) paneNext.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.TRAILING);
+		paneBtn.add(paneNext);
+		
+		JButton btnNext = new JButton("Sign Up");
+		btnNext.setBackground(Color.BLACK);
+		btnNext.setForeground(Color.WHITE);
+		paneNext.add(btnNext);
 	}
 }
