@@ -76,8 +76,8 @@ public class DetailFrame extends JFrame {
 					app.login("winterheartlove@gmail.com", pass);
 					if(txtFilm.getText().isEmpty() == false) {
 						Flist = (app.searchByKeyWord(txtFilm.getText()));
-						System.out.println("TextField: " + txtFilm.getText());
-						System.out.println(Flist.length);
+						//System.out.println("TextField: " + txtFilm.getText());
+						//System.out.println(Flist.length);
 						Fname = Flist[0].getName();
 						Fdirector = "Directed by: " + Flist[0].getDirector();
 						Fdate = "Released date: "+Flist[0].getDate();
