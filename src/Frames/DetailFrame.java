@@ -70,42 +70,33 @@ public class DetailFrame extends JFrame {
 		JButton btnNewButton = new JButton("Click");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					setVisible(false);
-					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
-					app.login("winterheartlove@gmail.com", pass);
-					if(txtFilm.getText().isEmpty() == false) {
-						Flist = (app.searchByKeyWord(txtFilm.getText()));
-						System.out.println("TextField: " + txtFilm.getText());
-						System.out.println(Flist.length);
-						Fname = Flist[0].getName();
-						Fdirector = "Directed by: " + Flist[0].getDirector();
-						Fdate = "Released date: "+Flist[0].getDate();
-						Fgenre = "Type: " +Flist[0].getGenre();
-						Fcontent = Flist[0].getContent();
-						String[]name = Fname.split(" ");
-						String tmp = "";
-						
-						//lien ket youtube
-						for(int i = 0; i < name.length; i++)
-							tmp = tmp + name[i] + "+";
-						Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
-						
-						if(Flist[0].getType().equals("movie")) {
-							F = "Running time: " + String.valueOf(((Movie)Flist[0]).getDuration());
-							Ficon = "movies\\Img\\" + Flist[0].getIcon();
-						}
-						else {
-							F = "Episodes: " + String.valueOf(((Series)Flist[0]).getEpisode());
-							Ficon = "series\\Img\\" + Flist[0].getIcon();
-						}
-						initialize();
-					}
-					else
-						JOptionPane.showMessageDialog(null, "Ban chua nhap phim can xem");
-				}catch(Exception exc) {
-					System.out.println(exc);
+				setVisible(false);
+				char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
+				app.login("winterheartlove@gmail.com", pass);
+				Flist = (app.searchByKeyWord(txtFilm.getText()));
+				Fname = Flist[0].getName();
+				Fdirector = "Directed by: " + Flist[0].getDirector();
+				Fdate = "Released date: "+Flist[0].getDate();
+				Fgenre = "Type: " +Flist[0].getGenre();
+				Fcontent = Flist[0].getContent();
+				String[]name = Fname.split(" ");
+				String tmp = "";
+				
+				//lien ket youtube
+				for(int i = 0; i < name.length; i++)
+					tmp = tmp + name[i] + "+";
+				Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
+				
+				if(Flist[0].getType().equals("movie")) {
+					F = "Running time: " + String.valueOf(((Movie)Flist[0]).getDuration());
+					Ficon = "movies\\Img\\" + Flist[0].getIcon();
 				}
+				else {
+					F = "Episodes: " + String.valueOf(((Series)Flist[0]).getEpisode());
+					Ficon = "series\\Img\\" + Flist[0].getIcon();
+				}
+				initialize();
+				
 			}
 		});
 		getContentPane().add(btnNewButton);
