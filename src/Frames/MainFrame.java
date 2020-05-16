@@ -2,11 +2,18 @@ package Frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,16 +22,28 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+
+import AppUsed.Application;
+import IOFilmFile.Film;
+import IOFilmFile.Movie;
+
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import javax.swing.JScrollBar;
+import java.awt.ScrollPane;
+import java.awt.Component;
 
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-
+	private Application app = new Application();
 	/**
 	 * Launch the application.
 	 */
@@ -45,7 +64,9 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
-		setSize(800,600);
+		char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
+		app.login("winterheartlove@gmail.com", pass);
+		setSize(950,680);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -95,18 +116,48 @@ public class MainFrame extends JFrame {
 		lblUser.setForeground(Color.BLACK);
 		panelRightTop.add(lblUser);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setAlignmentX(2.0f);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		String[] cols = {"Name", "Age","Gender"};
-		String [][]data = {{"Trang","20","female"},{"Vi","20","female"},{"Nguyet","20","female"}};
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-		table = new JTable(data, cols) {
-			public boolean isCellEditable(int data, int cols) {
-				return false;
+		JPanel panelCenter = new JPanel();
+		panelCenter.setBackground(Color.WHITE);
+		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		Film[]flist = app.readFilm();
+		for(int i = 0; i < 75; i++) {
+			JPanel panel = new JPanel();
+			panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+			panel.setBackground(Color.white);
+			getContentPane().add(panel);
+			JLabel lblImg = new JLabel("");
+			BufferedImage img;
+			try {
+				if(flist[i].getType().equals("movie"))
+					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
+				else
+					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
+				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
+				lblImg.setIcon(icon);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		};
-		table.setPreferredScrollableViewportSize(new Dimension(450,63));
-		table.setFillsViewportHeight(true);
-		getContentPane().add(table);
+			
+			panel.add(lblImg);
+			
+			JLabel lblName = new JLabel(flist[i].getName());
+			lblName.setForeground(Color.RED);
+			lblName.setFont(new Font("Tahoma", Font.BOLD, 15));
+			panel.add(lblName);
+			panelCenter.add(panel);
+		}
+		
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		scrollPane.setPreferredSize(new Dimension(935, 680));
+		getContentPane().add(scrollPane);
+		scrollPane.setViewportView(panelCenter);
+		panelCenter.setLayout(new GridLayout(0, 3, 10, 15));
+
+		
 	}
 
 }

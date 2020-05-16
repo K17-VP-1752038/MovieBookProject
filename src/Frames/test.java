@@ -8,6 +8,8 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,94 +23,37 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import AppUsed.Application;
 import IOFilmFile.Film;
 
-/*class Renderer extends DefaultTableCellRenderer{
-	 
-    public void fillColor(JTable t,JLabel l,boolean isSelected ){
-        //setting the background and foreground when JLabel is selected
-        if(isSelected){
-            l.setBackground(t.getSelectionBackground());
-            l.setForeground(t.getSelectionForeground());
-        }
- 
-        else{
-            l.setBackground(t.getBackground());
-            l.setForeground(t.getForeground());
-        }
- 
+
+class JLabelCellenderer extends JLabel implements TableCellRenderer {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    	TableColumn tc = table.getColumn("Image");
+    	if(column == 1) {
+    		
+	    	//tc.setMinWidth(200);
+	    	//tc.setMaxWidth(200);
+	    	table.setRowHeight(200);
+	       
+    	}
+    	else tc.setPreferredWidth(50);
+    	return (Component)value;
     }
- 
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-         boolean hasFocus, int row, int column)
-     {
- 
-        if(value instanceof JLabel){
-            JLabel label = (JLabel)value;
-            //to make label foreground n background visible you need to
-            // setOpaque -> true
-            label.setIcon(new ImageIcon("icon\\add.png"));
-            label.setOpaque(true);
-            fillColor(table,label,isSelected);
-            return label;
- 
-        }
-        else
-            return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-     }
- 
-}*/
-
-class MyModel extends AbstractTableModel{
-	private String[]cols;
-	private Object[][] rows;
-	public MyModel() {
-		// TODO Auto-generated constructor stub
-	}
-	MyModel(Object[][] data, String[]cols){
-		this.cols = cols;
-		this.rows = data;
-	}
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return this.rows.length;
-	}
-
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return this.cols.length;
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return this.rows[rowIndex][columnIndex];
-	}
-	public String getColsName(int idx) {
-		return this.cols[idx].toString();
-	}
-	public Class getColumnClass(int cols) {
-		return null;
-		
-	}
 }
 
 public class test extends JFrame {
 	private Application app = new Application();
 	private JPanel contentPane;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -122,9 +67,7 @@ public class test extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public test() {
 		char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
 		app.login("winterheartlove@gmail.com", pass);
@@ -133,8 +76,8 @@ public class test extends JFrame {
 		setLocationRelativeTo(null);
 		
 		table = new JTable() {
-			public boolean isCellEditable(int data, int cols) {
-				return false;
+			public boolean isCellEditable(int row, int column) {
+			       return false;
 			}
 			@Override
 		    public Dimension getPreferredScrollableViewportSize() {
@@ -148,25 +91,54 @@ public class test extends JFrame {
 	void Table() {
 		Film[] list = app.readFilm();
 		String[]cols = {"Name","Image"};
+		//JLabel lblimg = new JLabel(new ImageIcon("movies\\Img\\BirdsOfPrey.jpg"));
 		Object[][]rows = new Object[list.length][2];
 		for(int i = 0; i < list.length; i++) {
 			rows[i][0] = list[i].getName();
+			JLabel lblimg = null;
 			if(list[i].getIcon()!=null) {
 				ImageIcon imgI = null;
 				//System.out.println(list[i].getIcon());
-				if(list[0].getType().equals("movie"))
-					imgI = new ImageIcon(new ImageIcon("movies\\Img\\" + list[i].getIcon()).getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-				else
-					imgI = new ImageIcon(new ImageIcon("movies\\Img\\" + list[i].getIcon()).getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-				rows[i][1] = imgI;
+				lblimg = new JLabel();
+				if(list[i].getType().equals("movie"))
+					lblimg.setIcon(new ImageIcon("movies\\Img\\" + list[i].getIcon()));
+				else 
+					lblimg.setIcon(new ImageIcon("series/Img/" + list[i].getIcon()));
+				rows[i][1] = lblimg;
 			}
 			else
 				rows[i][1] = null;
 			
 		}
-		//System.out.println(rows.length);
 		
 		table.setModel(new DefaultTableModel(rows, cols));
+		table.getColumn("Image").setCellRenderer(new JLabelCellenderer());
 		table.setRowHeight(20);
 	}
 }
+/*Film[]flist = app.readFilm();
+getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+for(int i = 0; i < 12; i++) {
+	JPanel panel = new JPanel();
+	panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	getContentPane().add(panel);
+	JLabel lblImg = new JLabel("");
+	BufferedImage img;
+	try {
+		if(flist[i].getType().equals("movie"))
+			img = (BufferedImage) ImageIO.read(new File("movies\\Img\\"+flist[i].getIcon()));
+		else img = (BufferedImage) ImageIO.read(new File("series\\Img\\"+flist[i].getIcon()));
+		ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
+		lblImg.setIcon(icon);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	
+	panel.add(lblImg);
+	
+	JLabel lblName = new JLabel(flist[i].getName());
+	lblName.setForeground(Color.RED);
+	lblName.setFont(new Font("Tahoma", Font.BOLD, 15));
+	panel.add(lblName);
+
+}*/
