@@ -14,37 +14,35 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PassForgotten extends JFrame implements ActionListener {
+public class PassForgotten2 extends JFrame implements ActionListener {
 
 private static final long serialVersionUID = 1L;
 	
 	private Random ran = new Random();
-	private JTextField tfEmail;
-	private JTextField tfPassword;
-	private JButton btnReturn, btnNext;
+	private JPasswordField tfPassword, tfPassConf;
+	private JButton btnReturn, btnFinish;
 	private String Email;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PassForgotten frame = new PassForgotten("miknguyet99@gmail.com");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PassForgotten2 frame = new PassForgotten2("miknguyet99@gmail.com");
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
-	
 	/**
 	 * Create the frame.
 	 */
-	public PassForgotten(String email) {
+	public PassForgotten2(String email) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 628, 445);
@@ -62,11 +60,10 @@ private static final long serialVersionUID = 1L;
 			e.printStackTrace();
 		}
 		
-		setEmail(email);
-		initialize();
+		initialize(email);
 	}
 
-	void initialize() {
+	void initialize(String email) {
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
@@ -90,30 +87,20 @@ private static final long serialVersionUID = 1L;
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
 		
-		inputLabels.add(new JLabel("Email: "));
-		inputLabels.add(new JLabel("Verified code: "));
+		inputLabels.add(new JLabel("Password:"));
+		inputLabels.add(new JLabel("Confirm password:"));
 		
-		JPanel emailSent = new JPanel();
-		tfEmail = new JTextField(15);
-		tfEmail.setText(Email);
-		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-		JButton btnSent = new JButton("Sent");
-		btnSent.setBackground(new Color(139, 0, 0));
-		btnSent.setForeground(Color.WHITE);
-		emailSent.setLayout(new BoxLayout(emailSent, BoxLayout.X_AXIS));
-		emailSent.add(tfEmail);
-		emailSent.add(btnSent);
-		
-		tfPassword = new JTextField(15);
-		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-		inputFields.add(emailSent);
+		tfPassword = new JPasswordField(15);
 		inputFields.add(tfPassword);
+		
+		tfPassConf = new JPasswordField(15);
+		inputFields.add(tfPassConf);
+//		tfPassConf.setColumns(10);
 		
 		JPanel panePassFogot = new JPanel();
 		loginForm.add(panePassFogot);
 		
-		JLabel lblPassForgot = new JLabel("The verified code will be sent to your email.");
-		lblPassForgot.setForeground(new Color(0, 0, 255));
+		JLabel lblPassForgot = new JLabel("Password must be at least 6 characters");
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
 		panePassFogot.add(lblPassForgot);
@@ -135,40 +122,37 @@ private static final long serialVersionUID = 1L;
 		btnReturn.setForeground(Color.WHITE);
 		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JPanel paneNext = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) paneNext.getLayout();
-		flowLayout_1.setAlignment(FlowLayout.TRAILING);
-		paneBtn.add(paneNext);
+		JPanel paneFinish = new JPanel();
+		FlowLayout fl_paneFinish = (FlowLayout) paneFinish.getLayout();
+		fl_paneFinish.setAlignment(FlowLayout.TRAILING);
+		paneBtn.add(paneFinish);
 		
-		btnNext = new JButton("Next");
-		btnNext.addActionListener(this);
-		btnNext.setBackground(Color.BLACK);
-		btnNext.setForeground(Color.WHITE);
-		paneNext.add(btnNext);
-		
+		btnFinish = new JButton("Finish");
+		btnFinish.addActionListener(this);
+		btnFinish.setBackground(new Color(165, 42, 42));
+		btnFinish.setForeground(Color.WHITE);
+		paneFinish.add(btnFinish);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnReturn) {
+			PassForgotten frame = new PassForgotten(Email);
+			frame.setSize(getSize());
+			frame.setLocation(getLocation());
+			setVisible(false);
+			frame.setVisible(true);
+		}
+		if(e.getSource() == btnFinish) {
 			Login frame = new Login();
 			frame.setSize(getSize());
 			frame.setLocation(getLocation());
-			frame.setVisible(true);
 			setVisible(false);
-		}
-		
-		if(e.getSource() == btnNext) {
-			PassForgotten2 frame = new PassForgotten2(Email);
-			frame.setSize(getSize());
-			frame.setLocation(getLocation());
 			frame.setVisible(true);
-			setVisible(false);
 		}
 	}
 	
 	public void setEmail(String email) {
 		Email = email;
 	}
-
 }
