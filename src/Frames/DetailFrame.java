@@ -75,9 +75,10 @@ public class DetailFrame extends JFrame {
 					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
 					app.login("winterheartlove@gmail.com", pass);
 					if(txtFilm.getText().isEmpty() == false) {
+						System.out.println(txtFilm.getText());
 						Flist = (app.searchByKeyWord(txtFilm.getText()));
-						//System.out.println("TextField: " + txtFilm.getText());
-						//System.out.println(Flist.length);
+						System.out.println(Flist.length);
+						
 						Fname = Flist[0].getName();
 						Fdirector = "Directed by: " + Flist[0].getDirector();
 						Fdate = "Released date: "+Flist[0].getDate();
@@ -206,12 +207,19 @@ public class DetailFrame extends JFrame {
 		JPanel panelName = new JPanel();
 		panelName.setOpaque(false);
 		panelRight.add(panelName);
+		panelName.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblName = new JLabel(Fname);
-		panelName.add(lblName);
-		lblName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
-		lblName.setForeground(Color.RED);
-		lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//JLabel lblName = new JLabel(Fname);
+		JTextArea txtName = new JTextArea(Fname);
+		txtName.setLineWrap(true);
+		txtName.setWrapStyleWord(true);
+		txtName.setEditable(false);
+		txtName.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelName.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		panelName.add(txtName);
+		txtName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		txtName.setForeground(Color.RED);
+		
 		
 		JPanel panelType = new JPanel();
 		panelType.setOpaque(false);
@@ -243,7 +251,8 @@ public class DetailFrame extends JFrame {
 		JPanel panelDate = new JPanel();
 		panelDate.setOpaque(false);
 		panelRight.add(panelDate);
-				JLabel lblDate = new JLabel(Fdate);
+		
+		JLabel lblDate = new JLabel(Fdate);
 		panelDate.add(lblDate);
 		lblDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
