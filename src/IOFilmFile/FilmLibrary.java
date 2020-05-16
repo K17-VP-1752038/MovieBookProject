@@ -148,7 +148,8 @@ public class FilmLibrary {
 		for(int i = 0; i < n; i++) {
 			if(i == (n-1))
 				res += films.get(i).showFilm();
-			res += films.get(i).showFilm() + "\n";
+			else
+				res += films.get(i).showFilm() + "\n";
 		}
 		return res;
 	}

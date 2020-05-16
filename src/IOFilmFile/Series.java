@@ -46,7 +46,7 @@ public class Series extends Film {
 	@Override
 	public String showFilm() {
 		String res = "";
-		res += getName() + "\n"+ getIcon() + "\n"+ getGenre() + "\n" + getDirector() + "\n"+ getDate() +"\n"+ getContent()+"\n"+ getEpisode();
+		res += getName() + "\n"+ getIcon() + "\n"+ getGenre() + "\n" + getDirector() + "\n"+ getDate() +"\n" + getEpisode()+"\n"+getContent();
 		return res;
 	}
 
@@ -57,7 +57,6 @@ public class Series extends Film {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return getName();
 	}
 }
