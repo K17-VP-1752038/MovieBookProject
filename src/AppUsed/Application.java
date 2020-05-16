@@ -1,5 +1,6 @@
 package AppUsed;
 import java.util.ArrayList;
+
 import IOFilmFile.*;
 import UserPack.*;
 
@@ -135,6 +136,8 @@ public class Application {
 //	}
 //	//--------------------------------------------
 	
+	
+	// GET methods
 	public FilmLibrary getLibrary() {
 		if(getAccess())
 			return movieBook;
