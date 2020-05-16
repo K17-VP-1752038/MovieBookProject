@@ -1,4 +1,4 @@
-Diary of our days at the breakwater
+﻿Diary of our days at the breakwater
 DiaryOfOurDaysAtTheBreakwater.jpg
 Sport, Animation
 Takaharu Okuma
@@ -13,14 +13,14 @@ Ronald D.Moore
 12
 Outlander is a historical drama television series based on the novel series of the same name by Diana Gabaldon.
 Outlander (Season 1)
-Outlander1(season1).jpg
+Outlander(season1).jpg
 Romantic, Historical fiction, Drama, Adventure, Fantasy
 Ronald D.Moore
 9/8/2014
 16
 In 1945, former World War II nurse Claire Randall and her husband Frank are visiting Inverness, Scotland, when she is carried from the standing stones at Craigh na Dun back in time to 1743. She falls in with a group of rebel Highlanders from Clan MacKenzie, who are being pursued by English redcoats led by Captain Jonathan "Black Jack" Randall, Frank's ancestor. She marries a Highlander, Jamie Fraser, out of necessity, but they quickly fall in love. The Clan suspect her of being a spy, and retain her as a healer, preventing her from attempting to return to her own time. Knowing that the Jacobite cause is doomed to fail, Claire tries to warn them against rebellion. Her husband Jamie is captured, tortured, and raped by the sadistic Randall, but Claire and his clansmen rescue him. Claire tells Jamie that she is pregnant and they set sail for France.
 Outlander (Season 2)
-Outlander2(season2).jpg
+Outlander(season2).jpg
 Romantic, Historical fiction, Drama, Adventure, Fantasy
 Ronald D.Moore
 9/8/2016
@@ -194,7 +194,7 @@ James Demonaco
 4/9/2019
 10
 The Purge is set when the United States has a very low crime rate and unemployment. To maintain this level of stability, the government every year has a campaign called "12 hours of purge" so that people can freely free all their negative emotions. Within these 12 hours, criminal acts (including murder) are not subject to legal scrutiny.
-The Irregular At Magic High School The Movie : The Girl Who Summons The Stars
+The Irregular At Magic HS: The Girl Who Summons The Stars
 TheIrregularAtMagicHighSchoolTheMovieTheGirlWhoSummonsTheStars.jpg
 Animation
 Risako Yoshida
