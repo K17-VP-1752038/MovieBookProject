@@ -16,9 +16,9 @@ public class filmReadWrite {
 				f.setIcon(scan.nextLine());
 				f.setGenre(scan.nextLine());
 				f.setDirector(scan.nextLine());
-				f.setDate(scan.nextLine());
 				f.setDuration(scan.nextInt());
 				scan.nextLine();
+				f.setDate(scan.nextLine());
 				f.setContent(scan.nextLine());
 				
 				list.add(f);
