@@ -91,6 +91,18 @@ public class Application {
 		return null;
 	}
 	
+	// Search films by Genres
+	public Film[] searchByGenre(ArrayList<String> gen) {
+		if(getAccess()) {
+			ArrayList<Film> films = movieBook.searchByGenre(gen);
+			Film[] filmlib = new Film[films.size()];
+			for(int i = 0; i < films.size(); i++)
+				filmlib[i] = films.get(i);
+			return filmlib;
+		}
+		return null;
+	}
+	
 	//---Just for admins---------------------------
 	public boolean isAdmin() {
 		if(user.getType().equals("admin"))
