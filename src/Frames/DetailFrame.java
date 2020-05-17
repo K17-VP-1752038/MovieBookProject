@@ -1,17 +1,11 @@
 package Frames;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.swing.border.EmptyBorder;
 
@@ -25,10 +19,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
-public class DetailFrame extends JFrame {
+class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -36,6 +33,18 @@ public class DetailFrame extends JFrame {
 	private JTextField textKey;
 	private JTextField txtFilm;
 	private String Fname, Fdirector, Fdate, F, Fcontent, Fgenre, Ficon, Ftrailer;
+	private JPanel panelRight;
+	private JPanel panelLeft;
+	private JPanel panelBottom;
+	private JPanel panelTop;
+	private JMenu mnHome;
+	private JMenu mnTVseries;
+	private JMenu mnMovies;
+	private String email;
+	private Application app = new Application();
+	private char[] pwd;
+	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
+	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +68,9 @@ public class DetailFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DetailFrame(Film f) {	
+	public DetailFrame(Film f, String email, char[] password) {	
+		this.email = email;
+		this.pwd = password;
 		Fname = f.getName();
 		Fdirector = "Directed by: " + f.getDirector();
 		Fdate = "Released date: "+ f.getDate();
@@ -72,7 +83,6 @@ public class DetailFrame extends JFrame {
 		for(int i = 0; i < name.length; i++)
 			tmp = tmp + name[i] + "+";
 		Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
-		System.out.println(Ftrailer);
 		if(f.getType().equals("movie")) {
 			F = "Running time: " + String.valueOf(((Movie)f).getDuration());
 			Ficon = "movies\\Img\\" + f.getIcon();
@@ -81,36 +91,37 @@ public class DetailFrame extends JFrame {
 			F = "Episodes: " + String.valueOf(((Series)f).getEpisode());
 			Ficon = "series\\Img\\" + f.getIcon();
 		}
-		initialize();
+		initialize(email, password);
 			
 	}
-	void initialize() {
-		JFrame frame = new JFrame();
-		frame.setSize(1000,700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	void initialize(String email, char[] password) {
+		setSize(950,680);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(new Color(0, 0, 0));
 		setJMenuBar(menuBar);
 		
-		JMenu mnHome = new JMenu("HOME");
+		mnHome = new JMenu("HOME");
 		mnHome.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 		mnHome.setForeground(new Color(255, 0, 0));
 		mnHome.setBackground(new Color(0, 0, 0));
+		mnHome.addMouseListener(this);
 		menuBar.add(mnHome);
 		
-		JMenu mnNewMenu_1 = new JMenu("TVseries");
-		mnNewMenu_1.setBackground(new Color(0, 0, 0));
-		mnNewMenu_1.setForeground(new Color(255, 0, 0));
-		mnNewMenu_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-		menuBar.add(mnNewMenu_1);
+		mnTVseries = new JMenu("TVseries");
+		mnTVseries.setBackground(new Color(0, 0, 0));
+		mnTVseries.setForeground(new Color(255, 0, 0));
+		mnTVseries.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+		mnTVseries.addMouseListener(this);
+		menuBar.add(mnTVseries);
 		
-		JMenu mnNewMenu_2 = new JMenu("Movies");
-		mnNewMenu_2.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-		mnNewMenu_2.setForeground(new Color(255, 0, 0));
-		mnNewMenu_2.setBackground(new Color(0, 0, 0));
-		menuBar.add(mnNewMenu_2);
+		mnMovies = new JMenu("Movies");
+		mnMovies.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+		mnMovies.setForeground(new Color(255, 0, 0));
+		mnMovies.setBackground(new Color(0, 0, 0));
+		mnMovies.addMouseListener(this);
+		menuBar.add(mnMovies);
 		
 		JPanel panelRightTop = new JPanel();
 		panelRightTop.setOpaque(false);
@@ -130,21 +141,55 @@ public class DetailFrame extends JFrame {
 		btnSearch.setBorderPainted(false);
 		btnSearch.setIcon(new ImageIcon(new ImageIcon("icon\\iconsearch.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+				setEnabled(false);
+				MainFrame main = new MainFrame(email, password);
+				main.setVisible(true);
+				main.search(txtSearch.getText(),email, password);
+			}
+		});
 		panelRightTop.add(btnSearch);
 		
 		JLabel lblUser = new JLabel("");
 		lblUser.setIcon(new ImageIcon(new ImageIcon("icon\\iconuser.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		lblUser.setForeground(Color.BLACK);
 		panelRightTop.add(lblUser);
-		frame.getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panelLeft = new JPanel();
+		JMenuBar menuBarSettings = new JMenuBar();
+		menuBarSettings.setBorderPainted(false);
+		menuBarSettings.setBackground(Color.BLACK);
+		panelRightTop.add(menuBarSettings);
+		
+		JMenu mnSettings = new JMenu("");
+		mnSettings.setBackground(Color.BLACK);
+		mnSettings.setOpaque(false);
+		mnSettings.setBorderPainted(false);
+		mnSettings.setIcon(new ImageIcon(new ImageIcon("icon\\iconsettings.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		menuBarSettings.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		menuBarSettings.add(mnSettings);
+		
+		JMenuItem mnChangepwd = new JMenuItem("Change Password");
+		mnSettings.add(mnChangepwd);
+		mnSettings.addSeparator();
+		
+		JMenuItem mnLogOut = new JMenuItem("Log Out");
+		mnSettings.add(mnLogOut);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		panelBottom = new JPanel();
+		getContentPane().add(panelBottom);
+		panelBottom.setLayout(new GridLayout(0, 2, 0, 0));
+		panelLeft = new JPanel();
+		panelBottom.add(panelLeft);
+		
 		panelLeft.setBackground(Color.WHITE);
-		frame.getContentPane().add(panelLeft);
-		
-		FlowLayout fl_panelLeft = new FlowLayout(FlowLayout.CENTER, 0, 0);
 		panelLeft.setOpaque(false);
-		panelLeft.setLayout(fl_panelLeft);
+		panelLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		JLabel lblimg = new JLabel("");
 		lblimg.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -168,29 +213,24 @@ public class DetailFrame extends JFrame {
 		
 		panelLeft.add(lblimg);
 		
-		
-		JPanel panelRight = new JPanel();
+		panelRight = new JPanel();
 		panelRight.setBackground(Color.WHITE);
-		frame.getContentPane().add(panelRight);
 		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+		panelBottom.add(panelRight);
 		
 		JPanel panelName = new JPanel();
 		panelName.setOpaque(false);
 		panelRight.add(panelName);
-		//panelName.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 		
-		//JLabel lblName = new JLabel(Fname);
 		JTextArea txtName = new JTextArea(Fname);
 		txtName.setLineWrap(true);
 		txtName.setWrapStyleWord(true);
 		txtName.setEditable(false);
-		//txtName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelName.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 		panelName.setLayout(new GridLayout(0, 1, 0, 0));
 		panelName.add(txtName);
 		txtName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		txtName.setForeground(Color.RED);
-		
 		
 		JPanel panelType = new JPanel();
 		panelType.setOpaque(false);
@@ -200,7 +240,6 @@ public class DetailFrame extends JFrame {
 		JLabel lblType = new JLabel(Fgenre);
 		panelType.add(lblType);
 		lblType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelDirector = new JPanel();
 		panelDirector.setOpaque(false);
@@ -210,11 +249,9 @@ public class DetailFrame extends JFrame {
 		JLabel lblDirector = new JLabel(Fdirector);
 		panelDirector.add(lblDirector);
 		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//lblDirector.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JLabel lblTime = new JLabel(F);
 		lblTime.setFont(new Font("Tahoma", Font.BOLD, 14));
-		//lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelF = new JPanel();
 		panelF.setOpaque(false);
@@ -231,9 +268,7 @@ public class DetailFrame extends JFrame {
 		
 		JLabel lblDate = new JLabel(Fdate);
 		panelDate.add(lblDate);
-		//lblDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		//lblDate.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelContent = new JPanel();
 		panelRight.add(panelContent);
@@ -248,8 +283,162 @@ public class DetailFrame extends JFrame {
 		txtContent.setWrapStyleWord(true);
 		txtContent.setText(Fcontent);
 		txtContent.setEditable(false);
-		frame.setVisible(true);
+		 
+		panelTop = new JPanel();
+		panelTop.setPreferredSize(new Dimension(950,30));
+		panelTop.setBackground(Color.white);
+		panelTop.setOpaque(false);
+		panelTop.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+		panelTop.setLayout(new GridLayout(0,13,0,0));
+		
+		cbaction = new JCheckBox("Action");
+		cbaction.setToolTipText("Action");
+		cbaction.setBorderPainted(false);
+		panelTop.add(cbaction);
+		
+		cbsport = new JCheckBox("Sport");
+		cbsport.setToolTipText("Sport");
+		cbsport.setBorderPainted(false);
+		panelTop.add(cbsport);
+		
+		cbanimation = new JCheckBox("Animation");
+		cbanimation.setToolTipText("Animation");
+		cbanimation.setBorderPainted(false);
+		panelTop.add(cbanimation);
+		
+		cbroman = new JCheckBox("Roman");
+		cbroman.setToolTipText("Roman");
+		cbroman.setBorderPainted(false);
+		panelTop.add(cbroman);
+		
+		cbdrama = new JCheckBox("Drama");
+		cbdrama.setToolTipText("Drama");
+		cbdrama.setBorderPainted(false);
+		panelTop.add(cbdrama);
+
+		cbadventure = new JCheckBox("Adventure");
+		cbadventure.setToolTipText("Adventure");
+		cbadventure.setBorderPainted(false);
+		panelTop.add(cbadventure);
+
+		cbfantasy = new JCheckBox("Fantasy");
+		cbfantasy.setToolTipText("Fantasy");
+		cbfantasy.setBorderPainted(false);
+		panelTop.add(cbfantasy);
+		
+		cbhorror = new JCheckBox("Horror");
+		cbhorror.setToolTipText("Horror");
+		cbhorror.setBorderPainted(false);
+		panelTop.add(cbhorror);
+		
+		cbdetective = new JCheckBox("Detective");
+		cbdetective.setToolTipText("Detective");
+		cbdetective.setBorderPainted(false);
+		panelTop.add(cbdetective);
+		
+		cbthriller = new JCheckBox("Thriller");
+		cbthriller.setToolTipText("Thriller");
+		cbthriller.setBorderPainted(false);
+		panelTop.add(cbthriller);
+		
+		cbcomedy = new JCheckBox("Comedy");
+		cbcomedy.setToolTipText("Comedy");
+		cbcomedy.setBorderPainted(false);
+		panelTop.add(cbcomedy);
+		
+		cbfiction = new JCheckBox("Fiction");
+		cbfiction.setToolTipText("Fiction");
+		cbfiction.setBorderPainted(false);
+		panelTop.add(cbfiction);
+		
+		cbaction.addItemListener(this);
+		cbadventure.addItemListener(this);
+		cbcomedy.addItemListener(this);
+		cbdetective.addItemListener(this);
+		cbdrama.addItemListener(this);
+		cbfantasy.addItemListener(this);
+		cbfiction.addItemListener(this);
+		cbhorror.addItemListener(this);
+		cbroman.addItemListener(this);
+		cbsport.addItemListener(this);
+		cbthriller.addItemListener(this);
+		cbanimation.addItemListener(this);
+		
+		JButton btnSearchGenre = new JButton("Filter");
+		btnSearchGenre.setBorderPainted(false);
+		btnSearchGenre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnSearchGenre.setBackground(new Color(69, 170, 242));
+		btnSearchGenre.setForeground(Color.white);
+		btnSearchGenre.addActionListener(this);
+		panelTop.add(btnSearchGenre);
+		
+		getContentPane().add(panelTop, BorderLayout.NORTH);
 	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		Film[]flist = null;
+		setVisible(false);
+		setEnabled(false);
+		MainFrame main = new MainFrame(this.email, this.pwd);
+		app.login(this.email, this.pwd);
+		if(e.getSource() == mnHome) 
+			main.setVisible(true);
+		if(e.getSource() == mnTVseries) {
+			main.setVisible(true);
+			flist = app.readSeries();
+			main.Filter(flist);
+		}
+		if(e.getSource() == mnMovies){
+			main.setVisible(true);
+			flist = app.readMovie();
+			main.Filter(flist);
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		JCheckBox cb = (JCheckBox)e.getItem();
+		if(cb.isSelected()) 
+			listCheckbox.add(cb.getText());
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String str = e.getActionCommand();
+		setVisible(false);
+		setEnabled(false);
+		MainFrame main = new MainFrame(this.email, this.pwd);
+		app.login(this.email, this.pwd);
+		if(str.equals("Filter")) {
+			main.setVisible(true);
+			Film[]f = app.searchByGenre(listCheckbox);
+			main.Filter(f);
+			listCheckbox.clear();
+		}
+	}
+
+	
 }
 
 
