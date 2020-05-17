@@ -49,8 +49,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
+import javax.swing.JTextPane;
 
-class MainFrame extends JFrame{
+class test extends JFrame{
 
 	private JPanel contentPane;
 	private Application app = new Application();
@@ -61,7 +62,7 @@ class MainFrame extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					test frame = new test();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -73,7 +74,7 @@ class MainFrame extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public test() {
 		char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
 		app.login("winterheartlove@gmail.com", pass);
 		setSize(950,680);
@@ -126,62 +127,24 @@ class MainFrame extends JFrame{
 		lblUser.setForeground(Color.BLACK);
 		panelRightTop.add(lblUser);
 		
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panel = new JPanel();
+		getContentPane().add(panel);
+		panel.setPreferredSize(new Dimension(935,50));
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel.add(lblNewLabel);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setAlignmentX(2.0f);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		getContentPane().add(scrollPane);
 		JPanel panelCenter = new JPanel();
-		panelCenter.setBackground(Color.WHITE);
-		getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		Film[]flist = app.readFilm();
-		int i;
-		for(i = 0; i < flist.length; i++) {
-			JPanel panel = new JPanel();
-			//panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-			panel.setLayout(new FlowLayout());
-			panel.setPreferredSize(new Dimension(280,250));
-			
-			panel.setBackground(Color.white);
-			getContentPane().add(panel);
-			JLabel lblImg = new JLabel("");
-			BufferedImage img;
-			try {
-				if(flist[i].getType().equals("movie"))
-					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
-				else
-					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
-				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
-				lblImg.setIcon(icon);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			lblImg.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			
-			panel.add(lblImg);
-			Film f = flist[i];
-			lblImg.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					new DetailFrame(f);
-					setVisible(false);
-				}
-			});
-			JTextArea txtName = new JTextArea(flist[i].getName());
-			txtName.setPreferredSize(new Dimension(280,40));
-			txtName.setLineWrap(true);
-			txtName.setWrapStyleWord(true);
-			txtName.setEditable(false);
-			txtName.setForeground(Color.RED);
-			txtName.setFont(new Font("Tahoma", Font.BOLD, 15));
-			panel.add(txtName);
-			panelCenter.add(panel);
-		}
-		
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
-		scrollPane.setPreferredSize(new Dimension(935, 680));
+		panelCenter.setBackground(Color.red);
 		getContentPane().add(scrollPane);
 		scrollPane.setViewportView(panelCenter);
 		panelCenter.setLayout(new GridLayout(0, 3, 10, 15));
+		
 
 	}
 

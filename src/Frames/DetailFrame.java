@@ -34,85 +34,55 @@ public class DetailFrame extends JFrame {
 	private JTextField textField;
 	private JTextField txtSearch;
 	private JTextField textKey;
-	private Application app = new Application();
-	Film[] Flist;
 	private JTextField txtFilm;
 	private String Fname, Fdirector, Fdate, F, Fcontent, Fgenre, Ficon, Ftrailer;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new DetailFrame();
+					Application app = new Application();
+					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
+					app.login("winterheartlove@gmail.com", pass);
+					Film[]f = app.readFilm();
+					new DetailFrame(f[0]);
 					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public DetailFrame() {
-		setSize(400,200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	public DetailFrame(Film f) {	
+		Fname = f.getName();
+		Fdirector = "Directed by: " + f.getDirector();
+		Fdate = "Released date: "+ f.getDate();
+		Fgenre = "Type: " + f.getGenre();
+		Fcontent = f.getContent();
+		String[]name = f.getName().split(" ");
+		String tmp = "";
 		
-		txtFilm = new JTextField();
-		getContentPane().add(txtFilm);
-		txtFilm.setColumns(15);
-		
-		JButton btnNewButton = new JButton("Click");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					setVisible(false);
-					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
-					app.login("winterheartlove@gmail.com", pass);
-					if(txtFilm.getText().isEmpty() == false) {
-						System.out.println(txtFilm.getText());
-						Flist = (app.searchByKeyWord(txtFilm.getText()));
-						System.out.println(Flist.length);
-						
-						Fname = Flist[0].getName();
-						Fdirector = "Directed by: " + Flist[0].getDirector();
-						Fdate = "Released date: "+Flist[0].getDate();
-						Fgenre = "Type: " +Flist[0].getGenre();
-						Fcontent = Flist[0].getContent();
-						String[]name = Fname.split(" ");
-						String tmp = "";
-						
-						//lien ket youtube
-						for(int i = 0; i < name.length; i++)
-							tmp = tmp + name[i] + "+";
-						Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
-						
-						if(Flist[0].getType().equals("movie")) {
-							F = "Running time: " + String.valueOf(((Movie)Flist[0]).getDuration());
-							Ficon = "movies\\Img\\" + Flist[0].getIcon();
-						}
-						else {
-							F = "Episodes: " + String.valueOf(((Series)Flist[0]).getEpisode());
-							Ficon = "series\\Img\\" + Flist[0].getIcon();
-						}
-						initialize();
-					}
-					else
-						JOptionPane.showMessageDialog(null, "Ban chua nhap phim can xem");
-				}catch(Exception exc) {
-					System.out.println(exc);
-				}
-			}
-		});
-		getContentPane().add(btnNewButton);
-		setVisible(true);
-		//initialize();
-
+		//lien ket youtube
+		for(int i = 0; i < name.length; i++)
+			tmp = tmp + name[i] + "+";
+		Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
+		System.out.println(Ftrailer);
+		if(f.getType().equals("movie")) {
+			F = "Running time: " + String.valueOf(((Movie)f).getDuration());
+			Ficon = "movies\\Img\\" + f.getIcon();
+		}
+		else {
+			F = "Episodes: " + String.valueOf(((Series)f).getEpisode());
+			Ficon = "series\\Img\\" + f.getIcon();
+		}
+		initialize();
+			
 	}
 	void initialize() {
 		JFrame frame = new JFrame();
@@ -207,15 +177,16 @@ public class DetailFrame extends JFrame {
 		JPanel panelName = new JPanel();
 		panelName.setOpaque(false);
 		panelRight.add(panelName);
-		panelName.setLayout(new GridLayout(0, 1, 0, 0));
+		//panelName.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 		
 		//JLabel lblName = new JLabel(Fname);
 		JTextArea txtName = new JTextArea(Fname);
 		txtName.setLineWrap(true);
 		txtName.setWrapStyleWord(true);
 		txtName.setEditable(false);
-		txtName.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//txtName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelName.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		panelName.setLayout(new GridLayout(0, 1, 0, 0));
 		panelName.add(txtName);
 		txtName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		txtName.setForeground(Color.RED);
@@ -224,39 +195,45 @@ public class DetailFrame extends JFrame {
 		JPanel panelType = new JPanel();
 		panelType.setOpaque(false);
 		panelRight.add(panelType);
+		panelType.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		
 		JLabel lblType = new JLabel(Fgenre);
 		panelType.add(lblType);
 		lblType.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//lblType.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelDirector = new JPanel();
 		panelDirector.setOpaque(false);
 		panelRight.add(panelDirector);
+		panelDirector.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		
 		JLabel lblDirector = new JLabel(Fdirector);
 		panelDirector.add(lblDirector);
 		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDirector.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//lblDirector.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JLabel lblTime = new JLabel(F);
 		lblTime.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//lblTime.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelF = new JPanel();
 		panelF.setOpaque(false);
 		panelRight.add(panelF);
+		panelF.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		panelF.add(lblTime);
 		
 		JPanel panelDate = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panelDate.getLayout();
+		flowLayout_1.setHgap(20);
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		panelDate.setOpaque(false);
 		panelRight.add(panelDate);
 		
 		JLabel lblDate = new JLabel(Fdate);
 		panelDate.add(lblDate);
-		lblDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		//lblDate.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblDate.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//lblDate.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		JPanel panelContent = new JPanel();
 		panelRight.add(panelContent);
