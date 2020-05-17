@@ -62,7 +62,7 @@ public class SignUp extends JFrame {
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
 			ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 45);
@@ -85,7 +85,6 @@ public class SignUp extends JFrame {
 		
 
 		JPanel title = new JPanel();
-		title.setBackground(Color.WHITE);
 		title.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel SignUp = new JLabel("SIGN UP");
 		SignUp.setForeground(Color.BLACK);
@@ -93,13 +92,11 @@ public class SignUp extends JFrame {
 		loginForm.add(title);
 		
 		JPanel form = new JPanel();
-		form.setBackground(Color.WHITE);
 		form.setBorder(new EmptyBorder(8, 5, 3, 5));
 		loginForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
 		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
-		inputLabels.setBackground(Color.WHITE);
 	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
@@ -134,7 +131,6 @@ public class SignUp extends JFrame {
 		inputFields.add(tfConfirm);
 		
 		JPanel panePassFogot = new JPanel();
-		panePassFogot.setBackground(Color.WHITE);
 		loginForm.add(panePassFogot);
 		
 		JPanel paneBtn = new JPanel();
@@ -160,7 +156,6 @@ public class SignUp extends JFrame {
 		paneReturn.add(btnReturn);
 		btnReturn.setBackground(Color.BLACK);
 		btnReturn.setForeground(Color.WHITE);
-		btnReturn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JPanel paneNext = new JPanel();
 		FlowLayout flowLayout_1 = (FlowLayout) paneNext.getLayout();

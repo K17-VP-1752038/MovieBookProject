@@ -54,7 +54,8 @@ public class userReadWrite {
 	}
 	
 	// Kiem tra tai khoan da ton tai chua
-	boolean isExist(String email, ArrayList<User> list) {
+	boolean isExist(String email) {
+		ArrayList<User> list = ReadUserList();
 		for(User U : list) {
 			if(U.getEmail().equals(email))
 				return true;
@@ -76,7 +77,7 @@ public class userReadWrite {
 	boolean insertUser(Member mem) {
 		ArrayList<User> userList = ReadUserList();
 		// Neu email da ton tai, return false
-		if(isExist(mem.getEmail(), userList))
+		if(isExist(mem.getEmail()))
 			return false;
 		String s = userList.get(0).getId().substring(3);
 		int count = Integer.parseInt(s) + 1;
@@ -161,7 +162,7 @@ public class userReadWrite {
 	}
 	
 	// Cap nhat password cua mot user
-	boolean updateUserPassword(User user, String password) {
+	boolean updateUserPassword(String email, String password) {
 		try {
 			Document doc = getDoc();
 			
@@ -175,19 +176,18 @@ public class userReadWrite {
                 	// Tim ra user can cap nhat trong danh sach
                 	String mail = U.getElementsByTagName("email").item(0).getTextContent();
                 	
-                	if(mail.equals(user.getEmail())) {
+                	if(mail.equals(email)) {
                 		Element newPass = (Element) U.getElementsByTagName("password").item(0);
             			newPass.setTextContent(password);
-            			
-            			return true;
                 	}
                 }
             }
 			updateFile(new File(userFile), doc);
+   			return true;
 		} catch (Exception e) {
 			System.out.println("Error update user: "+e);
+			return false;
 		}
-		return false;
 	}
 	
 	// Xoa mot user

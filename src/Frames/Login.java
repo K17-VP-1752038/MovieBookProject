@@ -54,7 +54,7 @@ public class Login extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -137,7 +137,7 @@ public class Login extends JFrame implements ActionListener {
 		lblPassForgot.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				PassForgotten frame = new PassForgotten(tfEmail.getText());
+				PassForgotten frame = new PassForgotten(tfEmail.getText(), app);
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
 				frame.setVisible(true);

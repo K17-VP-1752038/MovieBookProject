@@ -1,122 +1,222 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Users>
-                        
+                                        
+    
+    
+    
+    
     
     
     
     
     <User id="MEM1000" type="member">
-                                            
+                                                                            
+        
+        
+        
+        
         
         
         
         
         <firstname>Nguyễn</firstname>
-                                            
+                                                                            
+        
+        
+        
+        
         
         
         
         
         <name>Minh Châu</name>
-                                            
+                                                                            
+        
+        
+        
+        
         
         
         
         
         <email>minhchau19396@gmail.com</email>
-                                            
+                                                                            
+        
+        
+        
+        
         
         
         
         
         <password>Bongdien</password>
-                                            
+                                                                            
+    
+    
+    
+    
     
     
     
     
     </User>
-                        
+                                        
+    
+    
+    
+    
     
     
     
     
     <User id="AD101" type="admin">
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <firstname>Nguyễn Thị</firstname>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <name>Thùy Trang</name>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <email>nguyentthuytrang1110@gmail.com</email>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <password>changchang</password>
-                                            
+                                                                            
+    
+    
+    
+    
     
     
     
     
     </User>
-                        
+                                        
+    
+    
+    
+    
     
     
     
     
     <User id="MEM1001" type="member">
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <firstname>Đinh Nguyễn</firstname>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <name>Quốc Bảo</name>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <email>winterheartlove@gmail.com</email>
-                                            	
+                                                                            	
+        
+        
+        
+        
         
         
         
         
         <password>beobeo</password>
-                                            
+                                                                            
     
+    
+    
+    
+    
+    
+    
+    
+    </User>
+                                
+
+    
+
+
+    
+    
+    
+    
+    <User id="MEM1002" type="member">
+                                        
+        
+        
+        
+        <name>Minh Nguyệt</name>
+                                        
+        
+        
+        
+        <firstname>Nguyễn</firstname>
+                                        
+        
+        
+        
+        <email>miknguyet99@gmail.com</email>
+                                        
+        
+        
+        
+        <password>cuncun99</password>
+                                    
     
     
     
     </User>
                 
 
-    
 
 
-    <User id="MEM1002" type="member">
-        <name>Minh Nguyệt</name>
-        <firstname>Nguyễn</firstname>
-        <email>miknguyet99@gmail.com</email>
-        <password>cuncun99</password>
-    </User>
 </Users>

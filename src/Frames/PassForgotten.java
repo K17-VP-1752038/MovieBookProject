@@ -11,6 +11,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+
+import AppUsed.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -19,40 +22,41 @@ public class PassForgotten extends JFrame implements ActionListener {
 private static final long serialVersionUID = 1L;
 	
 	private Random ran = new Random();
+	private Application app;
+	private int randomCode;
 	private JTextField tfEmail;
-	private JTextField tfPassword;
+	private JTextField tfCode;
 	private JButton btnReturn, btnNext;
-	private String Email;
+	private String email = "";
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PassForgotten frame = new PassForgotten("miknguyet99@gmail.com");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					PassForgotten frame = new PassForgotten("miknguyet99@gmail.com");
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	
 	/**
 	 * Create the frame.
 	 */
-	public PassForgotten(String email) {
+	public PassForgotten(String email, Application application) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 628, 445);
 		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -62,6 +66,7 @@ private static final long serialVersionUID = 1L;
 			e.printStackTrace();
 		}
 		
+		app = application;
 		setEmail(email);
 		initialize();
 	}
@@ -76,7 +81,7 @@ private static final long serialVersionUID = 1L;
 		JPanel panelText = new JPanel();
 		panelText.setBorder(new EmptyBorder(5, 0, 5, 0));
 		loginForm.add(panelText);
-		JLabel lblForgotPassword = new JLabel("FORGOT PASSWORD");
+		JLabel lblForgotPassword = new JLabel("PASSWORD FORGOT");
 		lblForgotPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblForgotPassword);
 		
@@ -90,24 +95,40 @@ private static final long serialVersionUID = 1L;
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
 		
-		inputLabels.add(new JLabel("Email: "));
-		inputLabels.add(new JLabel("Verified code: "));
+		inputLabels.add(new JLabel("Email:"));
+		inputLabels.add(new JLabel("Verified code:"));
 		
 		JPanel emailSent = new JPanel();
 		tfEmail = new JTextField(15);
-		tfEmail.setText(Email);
+		tfEmail.setText(email);
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
 		JButton btnSent = new JButton("Sent");
+		btnSent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(email.equals(null))
+					JOptionPane.showMessageDialog(new JFrame(), "Please write your email.");
+				else {
+					if(app.getUser().isExist(tfEmail.getText())) {
+						randomCode = ran.nextInt(999999);
+						MailConfig.sendEmail(email, "Forgot Password", "Your verify code is "+ randomCode);
+						JOptionPane.showMessageDialog(new JFrame(), "The verify code has been sent to your email.");
+					}
+					else
+						JOptionPane.showMessageDialog(new JFrame(), "This account does not exist.");
+				}
+			}
+		});
+		
 		btnSent.setBackground(new Color(139, 0, 0));
 		btnSent.setForeground(Color.WHITE);
 		emailSent.setLayout(new BoxLayout(emailSent, BoxLayout.X_AXIS));
 		emailSent.add(tfEmail);
 		emailSent.add(btnSent);
 		
-		tfPassword = new JTextField(15);
-		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfCode = new JTextField(15);
+		tfCode.setFont(new Font("Arial", Font.PLAIN, 12));
 		inputFields.add(emailSent);
-		inputFields.add(tfPassword);
+		inputFields.add(tfCode);
 		
 		JPanel panePassFogot = new JPanel();
 		loginForm.add(panePassFogot);
@@ -159,16 +180,17 @@ private static final long serialVersionUID = 1L;
 		}
 		
 		if(e.getSource() == btnNext) {
-			PassForgotten2 frame = new PassForgotten2(Email);
-			frame.setSize(getSize());
-			frame.setLocation(getLocation());
-			frame.setVisible(true);
-			setVisible(false);
+			if(randomCode == Integer.parseInt(tfCode.getText())) {
+				PassForgotten2 frame = new PassForgotten2(email, app);
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
+				frame.setVisible(true);
+				setVisible(false);
+			}
 		}
 	}
 	
-	public void setEmail(String email) {
-		Email = email;
+	private void setEmail(String mail) {
+		email = mail;
 	}
-
 }

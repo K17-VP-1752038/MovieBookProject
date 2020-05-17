@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -11,8 +12,11 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import AppUsed.Application;
+import AppUsed.MailConfig;
+
+import java.awt.event.*;
 
 public class PassForgotten2 extends JFrame implements ActionListener {
 
@@ -21,8 +25,8 @@ private static final long serialVersionUID = 1L;
 	private Random ran = new Random();
 	private JPasswordField tfPassword, tfPassConf;
 	private JButton btnReturn, btnFinish;
-	private String Email;
-	
+	private Application app;
+	private String email;
 	/**
 	 * Launch the application.
 	 */
@@ -30,7 +34,8 @@ private static final long serialVersionUID = 1L;
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
 //				try {
-//					PassForgotten2 frame = new PassForgotten2("miknguyet99@gmail.com");
+//					Application app = new Application();
+//					PassForgotten2 frame = new PassForgotten2("miknguyet99@gmail.com", app);
 //					frame.setVisible(true);
 //				} catch (Exception e) {
 //					e.printStackTrace();
@@ -42,7 +47,7 @@ private static final long serialVersionUID = 1L;
 	/**
 	 * Create the frame.
 	 */
-	public PassForgotten2(String email) {
+	public PassForgotten2(String mail, Application ap) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 628, 445);
@@ -50,7 +55,7 @@ private static final long serialVersionUID = 1L;
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -60,10 +65,12 @@ private static final long serialVersionUID = 1L;
 			e.printStackTrace();
 		}
 		
-		initialize(email);
+		app = ap;
+		email = mail;
+		initialize();
 	}
 
-	void initialize(String email) {
+	void initialize() {
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
@@ -95,12 +102,11 @@ private static final long serialVersionUID = 1L;
 		
 		tfPassConf = new JPasswordField(15);
 		inputFields.add(tfPassConf);
-//		tfPassConf.setColumns(10);
 		
 		JPanel panePassFogot = new JPanel();
 		loginForm.add(panePassFogot);
 		
-		JLabel lblPassForgot = new JLabel("Password must be at least 6 characters");
+		JLabel lblPassForgot = new JLabel("Password must be at least 6 characters.");
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
 		panePassFogot.add(lblPassForgot);
@@ -137,22 +143,36 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnReturn) {
-			PassForgotten frame = new PassForgotten(Email);
+			PassForgotten frame = new PassForgotten("", app);
 			frame.setSize(getSize());
 			frame.setLocation(getLocation());
 			setVisible(false);
 			frame.setVisible(true);
 		}
+		
 		if(e.getSource() == btnFinish) {
-			Login frame = new Login();
-			frame.setSize(getSize());
-			frame.setLocation(getLocation());
-			setVisible(false);
-			frame.setVisible(true);
+//			char[] p = tfPassword.getPassword();
+			if(Arrays.equals(tfPassword.getPassword(), tfPassConf.getPassword())) {
+				if(app.updatePassword(email, tfPassword.getPassword())) {
+					MailConfig.sendEmail(app.getUser().getEmail(), "Password Changed", "You have changed your password in Movie Book since "+ new java.util.Date());
+					setOpacity(1f);
+					try {
+						Thread.sleep(400);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+					if(app.login(email, tfPassword.getPassword()))
+						System.out.println("Login success!");
+//					MainFrame frame = new MainFrame(app);
+//					frame.setSize(getSize());
+//					frame.setLocation(getLocation());
+//					frame.setVisible(true);
+					setVisible(false);
+				}
+			}
+			else
+				JOptionPane.showMessageDialog(new JFrame(), "Password does not match.");
 		}
 	}
 	
-	public void setEmail(String email) {
-		Email = email;
-	}
 }

@@ -12,17 +12,17 @@ import javax.mail.internet.MimeMessage;
 
 public class MailConfig {
 		
-	private final String host = "smtp.gmail.com";
-	private final String user = "applicationautomatic@gmail.com";
-	private final String pass = "BlackDiamond";
+	private static final String host = "smtp.gmail.com";
+	private static final String user = "applicationautomatic@gmail.com";
+	private static final String pass = "BlackDiamond";
 
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
+//
+//		MailConfig send = new MailConfig();
+//		send.sendEmail("winterheartlove@gmail.com", "Sign up for Movie Book", "Welcome to the world of amazing movies!");
+//	}
 
-		MailConfig send = new MailConfig();
-		send.sendEmail("winterheartlove@gmail.com", "Sign up for Movie Book", "Welcome to the world of amazing movies!");
-	}
-
-	void sendEmail(String toMail, String subject, String cont) {
+	public static void sendEmail(String toMail, String subject, String cont) {
 		
 		// Get system properties
 	    Properties pros = System.getProperties();

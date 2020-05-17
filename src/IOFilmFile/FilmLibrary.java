@@ -132,10 +132,13 @@ public class FilmLibrary {
 	public ArrayList<Film> searchByGenre(ArrayList<String> gen) {
 		ArrayList<Film> film = new ArrayList<>();
 		for(Film F : films) {
+			boolean flag = true;
 			String Fname = F.getGenre().toLowerCase();
 			for(int i = 0; i < gen.size(); i++)
-				if(Fname.contains(gen.get(i).toLowerCase()))
-					film.add(F);
+				if(!Fname.contains(gen.get(i).toLowerCase()))
+					flag = false;
+			if(flag && !film.contains(F))
+				film.add(F);
 		}
 		return film;
 	}

@@ -3,13 +3,13 @@ package UserPack;
 // phải đọc theo UTF-8
 public abstract class User {
 
-	private String email;
+	private String email = "";
 	private String firstname;
 	private String name;
 	private String password;
 	protected userReadWrite urw = new userReadWrite();
 	
-	String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 	
@@ -48,17 +48,31 @@ public abstract class User {
 	}
 	
 	public boolean updateUserPassword(String oldpass, String newpass) {
-		if(password.length() < 6)
+		if(newpass.length() < 6)
 			return false;
 		if(oldpass.equals(getPassword())) {
-			if(urw.updateUserPassword(this, newpass))
+			if(urw.updateUserPassword(getEmail(), newpass))
 				return true;
 		}
 		return false;
 	}
 	
+	public boolean updateUserPassword(String pass) {
+		if(pass.length() < 6)
+			return false;
+		if(urw.updateUserPassword(getEmail(), pass))
+			return true;
+		return false;
+	}
+	
 	public void updateUserInfo() {
 		urw.updateUserInfo(this);
+	}
+	
+	public boolean isExist(String email) {
+		if(urw.isExist(email))
+			return true;
+		return false;
 	}
 	
 	public abstract String getType();

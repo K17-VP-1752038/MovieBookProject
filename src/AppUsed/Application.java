@@ -11,7 +11,7 @@ public class Application {
 	private FilmLibrary movieBook;
 
 	public Application() {
-		user = null;
+		user = new Member();
 		access = false;
 		movieBook = null;
 	}
@@ -104,6 +104,26 @@ public class Application {
 		return null;
 	}
 	
+	// Update password when user forgot
+	public boolean updatePassword(String email, char[] pass) {
+		if(email.equals(null))
+			return false;
+		getUser().setEmail(email);
+		System.out.println(convertToString(pass));
+		if (getUser().updateUserPassword(convertToString(pass)))
+			return true;
+		return false;
+	}
+	
+	// User change password
+	public boolean updatePassword(char[] oldpass, char[] pass) {
+		if (getAccess()) {
+			if (user.updateUserPassword(convertToString(oldpass), convertToString(pass)))
+				return true;
+		}
+		return false;
+	}
+	
 	//---Just for admins---------------------------
 	public boolean isAdmin() {
 		if(user.getType().equals("admin"))
@@ -145,9 +165,7 @@ public class Application {
 	}
 	
 	public User getUser() {
-		if(getAccess())
-			return user;
-		return null;
+		return user;
 	}
 	
 	private boolean getAccess() {
