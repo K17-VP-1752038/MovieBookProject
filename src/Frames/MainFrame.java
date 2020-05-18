@@ -56,7 +56,7 @@ import java.awt.Component;
 import javax.swing.JMenuItem;
 
 class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
-	private Application app = new Application();
+	private Application app;
 	private JPanel panelBottom;
 	private JScrollPane scrollPane;
 	private JTextArea txtName;
@@ -64,34 +64,32 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenu mnHome;
 	private JMenu mnTVseries;
 	private JMenu mnMovies;
-	private String email;
-	private char[] pwd;
 	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
-					MainFrame frame = new MainFrame("winterheartlove@gmail.com", pass);
+					char[] pass = new char[] {'c', 'u', 'n', 'c', 'u', 'n', '9', '9'};
+					Application app = new Application();
+					app.login("miknguyet99@gmail.com", pass);
+					MainFrame frame = new MainFrame(app);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(String email, char[] password) {
-		app.login(email, password);
-		this.email = email;
-		this.pwd = password;
+	public MainFrame(Application app) {
+		this.app = app;
 		setSize(950,680);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -142,7 +140,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				search(txtSearch.getText(), email, password);
+				search(txtSearch.getText(), app);
 			}
 		});
 		panelRightTop.add(btnSearch);
@@ -275,7 +273,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		getContentPane().add(panelTop, BorderLayout.NORTH);
 
 	}
-	void search(String txtsearch, String email, char[] password) {
+	void search(String txtsearch, Application app) {
 		if(txtsearch.isEmpty() == false) {
 			Film[]flist = app.searchByKeyWord(txtsearch);
 			if(flist.length > 0) {
@@ -295,7 +293,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		// TODO Auto-generated method stub
 		Film[]flist = null;
 		if(e.getSource() == mnHome) 
-			setVisible(true);
+			flist = app.readFilm();
 		if(e.getSource() == mnTVseries)
 			flist = app.readSeries();
 		if(e.getSource() == mnMovies)
@@ -332,7 +330,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			lblImg.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					new DetailFrame(f, email, pwd).setVisible(true);
+					new DetailFrame(f, app).setVisible(true);
 					setVisible(false);
 					setEnabled(false);
 				}

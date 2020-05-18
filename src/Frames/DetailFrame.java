@@ -40,9 +40,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	private JMenu mnHome;
 	private JMenu mnTVseries;
 	private JMenu mnMovies;
-	private String email;
-	private Application app = new Application();
-	private char[] pwd;
+	private Application app;
 	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
 	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	/**
@@ -68,9 +66,8 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	/**
 	 * Create the frame.
 	 */
-	public DetailFrame(Film f, String email, char[] password) {	
-		this.email = email;
-		this.pwd = password;
+	public DetailFrame(Film f, Application app) {	
+		this.app = app;
 		Fname = f.getName();
 		Fdirector = "Directed by: " + f.getDirector();
 		Fdate = "Released date: "+ f.getDate();
@@ -91,10 +88,10 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			F = "Episodes: " + String.valueOf(((Series)f).getEpisode());
 			Ficon = "series\\Img\\" + f.getIcon();
 		}
-		initialize(email, password);
+		initialize(app);
 			
 	}
-	void initialize(String email, char[] password) {
+	void initialize(Application app) {
 		setSize(950,680);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -145,11 +142,11 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				MainFrame main = new MainFrame(app);
+				main.setVisible(true);
+				main.search(txtSearch.getText(),app);
 				setVisible(false);
 				setEnabled(false);
-				MainFrame main = new MainFrame(email, password);
-				main.setVisible(true);
-				main.search(txtSearch.getText(),email, password);
 			}
 		});
 		panelRightTop.add(btnSearch);
@@ -380,8 +377,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 		Film[]flist = null;
 		setVisible(false);
 		setEnabled(false);
-		MainFrame main = new MainFrame(this.email, this.pwd);
-		app.login(this.email, this.pwd);
+		MainFrame main = new MainFrame(app);
 		if(e.getSource() == mnHome) 
 			main.setVisible(true);
 		if(e.getSource() == mnTVseries) {
@@ -426,16 +422,15 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String str = e.getActionCommand();
-		setVisible(false);
-		setEnabled(false);
-		MainFrame main = new MainFrame(this.email, this.pwd);
-		app.login(this.email, this.pwd);
+		MainFrame main = new MainFrame(app);
 		if(str.equals("Filter")) {
 			main.setVisible(true);
 			Film[]f = app.searchByGenre(listCheckbox);
 			main.Filter(f);
 			listCheckbox.clear();
 		}
+		setVisible(false);
+		setEnabled(false);
 	}
 
 	

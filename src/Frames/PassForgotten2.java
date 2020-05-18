@@ -163,10 +163,10 @@ private static final long serialVersionUID = 1L;
 					}
 					if(app.login(email, tfPassword.getPassword()))
 						System.out.println("Login success!");
-//					MainFrame frame = new MainFrame(app);
+					MainFrame frame = new MainFrame(app);
 //					frame.setSize(getSize());
 //					frame.setLocation(getLocation());
-//					frame.setVisible(true);
+					frame.setVisible(true);
 					setVisible(false);
 				}
 			}
