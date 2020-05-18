@@ -31,9 +31,8 @@ public class Application {
 	public boolean signUp(String name, String firstname, String email, char[] pas) {
 		user = new Member();
 		if(!getAccess()) {
-			if(((Member)user).signUp(name, firstname, email, convertToString(pas))) {
+			if(((Member)user).signUp(name, firstname, email, convertToString(pas)))
 				return true;
-			}
 		}
 		return false;
 	}

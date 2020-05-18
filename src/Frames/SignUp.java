@@ -3,17 +3,14 @@ package Frames;
 import java.awt.BorderLayout;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import AppUsed.*;
+
 import javax.swing.JTextField;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 import java.awt.FlowLayout;
 
@@ -34,27 +32,28 @@ public class SignUp extends JFrame {
 	private Random ran = new Random();
 	private JTextField tfEmail, tfFirstName, tfLastName;
 	private JPasswordField tfPassword, tfConfirm;
+	private Application app;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUp frame = new SignUp();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					SignUp frame = new SignUp();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public SignUp() {
+	public SignUp(Application ap) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 628, 445);
@@ -73,7 +72,7 @@ public class SignUp extends JFrame {
 		}
 //		contentPane = new JPanel();
 //		setContentPane(contentPane);
-		
+		app = ap;
 		initialize();
 	}
 	
@@ -165,6 +164,33 @@ public class SignUp extends JFrame {
 		JButton btnNext = new JButton("Sign Up");
 		btnNext.setBackground(Color.BLACK);
 		btnNext.setForeground(Color.WHITE);
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(app.getUser().isExist(tfEmail.getText())) {
+					JOptionPane.showMessageDialog(new JFrame(), "Email account's already existed");
+					return;
+				}
+					
+				if(Arrays.equals(tfPassword.getPassword(), tfConfirm.getPassword())) {
+					if(!MailConfig.emailValidate(tfEmail.getText())) {
+						JOptionPane.showMessageDialog(new JFrame(), "Email is invalid.");
+						return;
+					}
+					if(app.signUp(tfLastName.getText(), tfFirstName.getText(), tfEmail.getText(), tfPassword.getPassword())) {
+						Login frame = new Login(tfEmail.getText());
+						frame.setSize(getSize());
+						frame.setLocation(getLocation());
+						frame.setVisible(true);
+						setVisible(false);
+					}
+					else {
+						JOptionPane.showMessageDialog(new JFrame(), "Please fill your infomation.");
+					}
+				}
+				else
+					JOptionPane.showMessageDialog(new JFrame(), "Password is incorrect.");
+			}
+		});
 		paneNext.add(btnNext);
 	}
 }

@@ -28,7 +28,7 @@ public class Member extends User{
 	
 	// Member can sign up
 	public boolean signUp(String name, String firstname, String email, String pas) {
-		if(!email.contains("@") || !email.contains(".") || pas.length()<6)
+		if(name.equals(null) && firstname.equals(null))
 			return false;
 		if(urw.insertUser(new Member(name, firstname, email, pas)))
 			return true;

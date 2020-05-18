@@ -34,7 +34,7 @@ public class Login extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					Login frame = new Login("miknguyet99@gmail.com");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,12 +69,13 @@ public class Login extends JFrame implements ActionListener {
 	
 	public Login(String email) {
 		setTitle("Movie Book");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(628, 445);
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(5) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -83,7 +84,6 @@ public class Login extends JFrame implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		mail = email;
 		initialize();
 	}
@@ -127,6 +127,7 @@ public class Login extends JFrame implements ActionListener {
 		tfPassword = new JPasswordField(15);
 		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		tfPassword.setToolTipText("Password must have at least 6 characters.");
+		tfPassword.addActionListener(this);
 		inputFields.add(tfEmail);
 		inputFields.add(tfPassword);
 		
@@ -171,7 +172,7 @@ public class Login extends JFrame implements ActionListener {
 		lblSignup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				SignUp frame = new SignUp();
+				SignUp frame = new SignUp(app);
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
 				setVisible(false);

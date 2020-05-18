@@ -110,7 +110,11 @@ private static final long serialVersionUID = 1L;
 				else {
 					if(app.getUser().isExist(tfEmail.getText())) {
 						randomCode = ran.nextInt(999999);
-						MailConfig.sendEmail(email, "Forgot Password", "Your verify code is "+ randomCode);
+						try {
+							MailConfig.sendEmail(email, "Forgot Password", "Your verify code is "+ randomCode);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(new JFrame(), "The verify code has been sent to your email.");
 					}
 					else

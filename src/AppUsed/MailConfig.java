@@ -1,5 +1,6 @@
 package AppUsed;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -7,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -16,13 +18,29 @@ public class MailConfig {
 	private static final String user = "applicationautomatic@gmail.com";
 	private static final String pass = "BlackDiamond";
 
-//	public static void main(String[] args) {
-//
-//		MailConfig send = new MailConfig();
-//		send.sendEmail("winterheartlove@gmail.com", "Sign up for Movie Book", "Welcome to the world of amazing movies!");
-//	}
+	public static void main(String[] args) {
 
-	public static void sendEmail(String toMail, String subject, String cont) {
+		System.out.println(MailConfig.emailValidate("miknguyet99@123.com"));
+	}
+
+	public static boolean emailValidate(String email) {
+		
+		EmailValidator validator = EmailValidator.getInstance();
+		
+		// Check if email's validate
+		if(validator.isValid(email)) {
+			try {
+				MailConfig.sendEmail(email, "Verify Email - Movie Book", "We just want to confirm if your email is valid.");
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		return false;
+		
+	}
+	
+	public static void sendEmail(String toMail, String subject, String cont) throws AddressException, MessagingException {
 		
 		// Get system properties
 	    Properties pros = System.getProperties();
@@ -46,28 +64,24 @@ public class MailConfig {
         // Used to debug SMTP issues
         session.setDebug(true);
         
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
+        // Create a default MimeMessage object.
+        MimeMessage message = new MimeMessage(session);
 
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(user));
+        // Set From: header field of the header.
+        message.setFrom(new InternetAddress(user));
 
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
+        // Set To: header field of the header.
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
 
-            // Set Subject: header field
-            message.setSubject(subject);
+        // Set Subject: header field
+        message.setSubject(subject);
 
-            // Now set the actual message
-            message.setText(cont);
+        // Now set the actual message
+        message.setText(cont);
 
-            System.out.println("sending...");
-            // Send message
-            Transport.send(message);
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-        }
+        System.out.println("sending...");
+        // Send message
+        Transport.send(message);
+        System.out.println("Sent message successfully....");
 	}
 }

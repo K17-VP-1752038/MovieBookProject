@@ -154,7 +154,11 @@ private static final long serialVersionUID = 1L;
 //			char[] p = tfPassword.getPassword();
 			if(Arrays.equals(tfPassword.getPassword(), tfPassConf.getPassword())) {
 				if(app.updatePassword(email, tfPassword.getPassword())) {
-					MailConfig.sendEmail(app.getUser().getEmail(), "Password Changed", "You have changed your password in Movie Book since "+ new java.util.Date());
+					try {
+						MailConfig.sendEmail(app.getUser().getEmail(), "Password Changed", "You have changed your password in Movie Book since "+ new java.util.Date());
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
 					setOpacity(1f);
 					try {
 						Thread.sleep(400);
