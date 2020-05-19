@@ -64,8 +64,13 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenu mnHome;
 	private JMenu mnTVseries;
 	private JMenu mnMovies;
+	private JMenu mnAdmin;
 	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
+	private JMenuItem mnChangeinfo;
+	private JMenuItem mnChangepwd;
+	private JMenuItem mnLogOut;
+	private JMenuItem mnAbout;
 	/**
 	 * Launch the application.
 	 */
@@ -119,6 +124,14 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		mnMovies.addMouseListener(this);
 		menuBar.add(mnMovies);
 		
+		if(app.isAdmin()) {
+			mnAdmin = new JMenu("Manager");
+			mnAdmin.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			mnAdmin.setForeground(new Color(255, 255, 255));
+			mnAdmin.setBackground(new Color(0, 0, 0));
+			menuBar.add(mnAdmin);
+		}
+		
 		JPanel panelRightTop = new JPanel();
 		panelRightTop.setBackground(new Color(0, 0, 0));
 		FlowLayout flowLayout = (FlowLayout) panelRightTop.getLayout();
@@ -145,9 +158,10 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		});
 		panelRightTop.add(btnSearch);
 		
-		JLabel lblUser = new JLabel("");
-		lblUser.setIcon(new ImageIcon(new ImageIcon("icon\\iconuser.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		lblUser.setForeground(Color.BLACK);
+		JLabel lblUser = new JLabel(app.getUser().getName());
+		//lblUser.setIcon(new ImageIcon(new ImageIcon("icon\\iconuser.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
+		//lblUser.setForeground(Color.BLACK);
+		lblUser.setForeground(Color.white);
 		panelRightTop.add(lblUser);
 		
 		JMenuBar menuBarSettings = new JMenuBar();
@@ -162,12 +176,20 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		mnSettings.setIcon(new ImageIcon(new ImageIcon("icon\\iconsettings.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
 		menuBarSettings.add(mnSettings);
 		
-		JMenuItem mnChangepwd = new JMenuItem("Change Password");
-		mnSettings.add(mnChangepwd);
-		mnSettings.addSeparator();
+		mnChangeinfo = new JMenuItem("Change Information");
+		mnSettings.add(mnChangeinfo);
 		
-		JMenuItem mnLogOut = new JMenuItem("Log Out");
+		mnChangepwd = new JMenuItem("Change Password");
+		mnSettings.add(mnChangepwd);
+		
+		mnLogOut = new JMenuItem("Log Out");
 		mnSettings.add(mnLogOut);
+		mnSettings.addSeparator();
+		mnLogOut.addActionListener(this);
+		
+		mnLogOut = new JMenuItem("About");
+		mnSettings.add(mnLogOut);
+		
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(2.0f);
@@ -395,6 +417,12 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			cbsport.setSelected(false);
 			cbthriller.setSelected(false);
 			listCheckbox.clear();
+		}
+		if(str.equals("Log Out")) {
+			app.logout();
+			Login login = new Login();
+			login.setVisible(true);
+			setVisible(false);
 		}
 	}
 

@@ -41,8 +41,7 @@ public class Application {
 		access = false;
 		user = null;
 		movieBook = null;
-		if(isAdmin())
-			getLibrary().updateStore();
+
 	}
 	
 	public Film[] readFilm() {

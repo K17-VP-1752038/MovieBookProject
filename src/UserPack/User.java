@@ -13,7 +13,7 @@ public abstract class User {
 		return email;
 	}
 	
-	String getName() {
+	public String getName() {
 		return name;
 	}
 	
