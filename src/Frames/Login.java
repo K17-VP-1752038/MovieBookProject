@@ -17,6 +17,33 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
+class MyThread extends Thread{
+	private LoadingFrame load;
+	private MainFrame main;
+	private Application app;
+	MyThread(String name, Application app){
+		super(name);
+		this.app = app;
+	}
+	
+	public void run() {
+		// TODO Auto-generated method stub
+		try
+        { 	
+			load = new LoadingFrame();
+			load.setVisible(true);
+			main = new MainFrame(app);
+			Thread.sleep(10);
+			main.setVisible(true);
+			load.setVisible(false);
+        } catch (Exception e) { 
+            // Throwing an exception 
+            System.out.println ("Exception is caught"); 
+        } 	
+	}
+}
+
 public class Login extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -183,6 +210,7 @@ public class Login extends JFrame implements ActionListener {
 		lblSignup.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblSignup);
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -195,17 +223,9 @@ public class Login extends JFrame implements ActionListener {
 		
 		if(app.login(tfEmail.getText(), tfPassword.getPassword()))
 		{
-//			try {
-				LoadingFrame frame = new LoadingFrame();
-				frame.setVisible(true);
-//			} catch (Exception e1) {
-//				e1.printStackTrace();
-//			}
 			this.setVisible(false);
-			
-			MainFrame main = new MainFrame(app);
-			main.setVisible(true);
-			frame.setVisible(false);
+			MyThread thrd = new MyThread("Movie Book", app);
+			thrd.start();
 		}
 		else
 			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");

@@ -195,7 +195,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(2.0f);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
