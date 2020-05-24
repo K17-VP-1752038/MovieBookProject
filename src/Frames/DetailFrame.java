@@ -1,5 +1,6 @@
 package Frames;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,9 +11,11 @@ import IOFilmFile.Film;
 import IOFilmFile.Movie;
 import IOFilmFile.Series;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
 
@@ -220,7 +223,15 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			}
 		});
 		lblimg.setBackground(Color.WHITE);
-		lblimg.setIcon(new ImageIcon(Ficon));
+		BufferedImage img;
+		try {
+			img = (BufferedImage) ImageIO.read(new File(Ficon));
+			ImageIcon icon = new ImageIcon(img.getScaledInstance(475,680, Image.SCALE_SMOOTH));
+			lblimg.setIcon(icon);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//lblimg.setIcon(new ImageIcon(Ficon));
 		
 		panelLeft.add(lblimg);
 		
@@ -283,12 +294,16 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 		
 		JPanel panelContent = new JPanel();
 		panelRight.add(panelContent);
-		panelContent.setLayout(new BoxLayout(panelContent, BoxLayout.X_AXIS));
 		
 		JTextArea txtContent = new JTextArea();
+		JScrollPane scroll = new JScrollPane();
+		scroll.setEnabled(false);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setViewportView(txtContent);
 		panelContent.setOpaque(false);
 		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
-		panelContent.add(txtContent);
+		panelContent.setLayout(new CardLayout(0, 0));
+		panelContent.add(scroll, "name_892678557399800");
 		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
 		txtContent.setLineWrap(true);
 		txtContent.setWrapStyleWord(true);
