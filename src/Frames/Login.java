@@ -195,9 +195,17 @@ public class Login extends JFrame implements ActionListener {
 		
 		if(app.login(tfEmail.getText(), tfPassword.getPassword()))
 		{
+//			try {
+				LoadingFrame frame = new LoadingFrame();
+				frame.setVisible(true);
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//			}
+			this.setVisible(false);
+			
 			MainFrame main = new MainFrame(app);
 			main.setVisible(true);
-			setVisible(false);
+			frame.setVisible(false);
 		}
 		else
 			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");

@@ -1,39 +1,33 @@
 package Frames;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
+import javax.swing.*;
 import java.awt.Image;
-
-import javax.swing.JLabel;
 
 public class LoadingFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoadingFrame frame = new LoadingFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					LoadingFrame frame = new LoadingFrame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -41,23 +35,30 @@ public class LoadingFrame extends JFrame {
 	public LoadingFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setLocationRelativeTo(null);
-		setSize(400,400);
+		setTitle("Movie Book");
+		setBackground(Color.WHITE);
+		//this.setLocationRelativeTo(null);
+		setBounds(500, 200, 340,300);
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.white);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		contentPane.setBackground(Color.WHITE);
 		
 		JLabel lblgif = new JLabel();
-		lblgif.setPreferredSize(new Dimension(628,445));
-		lblgif.setIcon(new ImageIcon(new ImageIcon("Img/BeanEater.gif").getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+//		lblgif.setPreferredSize(new Dimension(628,445));
+		lblgif.setIcon(new ImageIcon(new ImageIcon("Img/BeanEater.gif").getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+
+		JPanel paneIcon = new JPanel();
+		paneIcon.setOpaque(false);
+		paneIcon.add(lblgif);
+		contentPane.add(paneIcon);
 		
-		contentPane.add(lblgif);
-		
-		JLabel load = new JLabel("Loading...");
-		contentPane.add(load);
-		
+		JPanel paneLbl = new JPanel();
+		paneLbl.add(new JLabel("Please wait for loading..."));
+		paneLbl.setOpaque(false);
+		contentPane.add(paneLbl);
 	}
 
 }

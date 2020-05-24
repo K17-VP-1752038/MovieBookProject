@@ -178,18 +178,20 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		
 		mnChangeinfo = new JMenuItem("Change Information");
 		mnSettings.add(mnChangeinfo);
+		mnChangeinfo.addActionListener(this);
 		
 		mnChangepwd = new JMenuItem("Change Password");
 		mnSettings.add(mnChangepwd);
+		mnChangepwd.addActionListener(this);
+		
+		mnAbout = new JMenuItem("About");
+		mnSettings.add(mnAbout);
+		mnAbout.addActionListener(this);
+		mnSettings.addSeparator();
 		
 		mnLogOut = new JMenuItem("Log Out");
 		mnSettings.add(mnLogOut);
-		mnSettings.addSeparator();
 		mnLogOut.addActionListener(this);
-		
-		mnLogOut = new JMenuItem("About");
-		mnSettings.add(mnLogOut);
-		
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(2.0f);
@@ -313,14 +315,6 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Film[]flist = null;
-		if(e.getSource() == mnHome) 
-			flist = app.readFilm();
-		if(e.getSource() == mnTVseries)
-			flist = app.readSeries();
-		if(e.getSource() == mnMovies)
-			flist = app.readMovie();
-		Filter(flist);
 	}
 	
 	void Filter(Film[]flist) {
@@ -376,7 +370,14 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Film[]flist = null;
+		if(e.getSource() == mnHome) 
+			flist = app.readFilm();
+		if(e.getSource() == mnTVseries)
+			flist = app.readSeries();
+		if(e.getSource() == mnMovies)
+			flist = app.readMovie();
+		Filter(flist);
 	}
 
 	@Override
@@ -423,6 +424,20 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			Login login = new Login();
 			login.setVisible(true);
 			setVisible(false);
+		}
+		if(str.equals("Change Information")) {
+			UserFrame login = new UserFrame(app, 0);
+			login.setVisible(true);
+			setVisible(false);
+		}
+		if(str.equals("Change Password")) {
+			UserFrame login = new UserFrame(app, 1);
+			login.setVisible(true);
+			setVisible(false);
+		}
+		if(str.equals("About")) {
+			AboutUs frame = new AboutUs();
+			frame.setVisible(true);
 		}
 	}
 

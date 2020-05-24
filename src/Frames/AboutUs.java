@@ -1,6 +1,7 @@
 package Frames;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.imageio.ImageIO;
 //import AppUsed.*;
 import java.awt.image.BufferedImage;
@@ -11,27 +12,27 @@ public class AboutUs extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AboutUs frame = new AboutUs();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					AboutUs frame = new AboutUs();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public AboutUs() {
 		setTitle("Movie Book");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(100, 100, 717, 483);
-		setSize(628, 445);
+		setSize(550, 500);
 		setLocationRelativeTo(null);
 
 		try {
@@ -44,8 +45,7 @@ public class AboutUs extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		contentPane = new JPanel();
-//		setContentPane(contentPane);
+
 
 		initialize();
 	}
@@ -54,20 +54,21 @@ public class AboutUs extends JFrame {
 		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 100, 100));
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
-//		loginForm.setSize(200, 300);
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
 
 		JPanel title = new JPanel();
 		title.setBackground(Color.WHITE);
 		title.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JLabel AboutUs = new JLabel("About Us");
+		JLabel AboutUs = new JLabel("Terms & Conditions");
 		AboutUs.setForeground(Color.BLACK);
 		title.add(AboutUs);
 		loginForm.add(title);
 
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		JScrollPane scr = new JScrollPane(textArea);
+		textArea.setBorder(new EmptyBorder(10, 10, 5, 5));
 		//scr.setBounds(15, 15, 400, 300);
 		//textfield.setBounds(5, 5, 1300, 1200);
 
@@ -78,7 +79,9 @@ public class AboutUs extends JFrame {
 				+ "or if you are still a minor where you are to access this app,you need parental  permission"
 				+ "\r\n" + "to enter this app or access its content.\r\n" + "\r\n"
 				+ "Please do not copy, re-upload movie content.\r\n" + "\r\n"
-				+ "By signing up on this app, you accept all of the clauses.");
+				+ "Application had been created and designed by Meme team since 24 May 2020." + "\r\n\n"
+				+ "By signing up on this app, you accept all of the clauses." +"\r\n\n"
+				+ "Thanks for your cooperation.\n");
 		loginForm.add(textArea);
 		loginForm.add(scr);
 

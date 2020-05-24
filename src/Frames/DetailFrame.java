@@ -1,29 +1,18 @@
 package Frames;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-
-import javax.swing.border.EmptyBorder;
 
 import AppUsed.Application;
 import IOFilmFile.Film;
 import IOFilmFile.Movie;
 import IOFilmFile.Series;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
 
@@ -51,22 +40,22 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Application app = new Application();
-					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
-					app.login("winterheartlove@gmail.com", pass);
-					Film[]f = app.readFilm();
-					new DetailFrame(f[0]);
-					//frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Application app = new Application();
+//					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o'};
+//					app.login("winterheartlove@gmail.com", pass);
+//					Film[]f = app.readFilm();
+//					new DetailFrame(f[0]);
+//					//frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -185,17 +174,20 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 		
 		mnChangeinfo = new JMenuItem("Change Information");
 		mnSettings.add(mnChangeinfo);
+		mnChangeinfo.addActionListener(this);
 		
 		mnChangepwd = new JMenuItem("Change Password");
 		mnSettings.add(mnChangepwd);
+		mnChangepwd.addActionListener(this);
+		
+		mnAbout = new JMenuItem("About");
+		mnSettings.add(mnAbout);
+		mnAbout.addActionListener(this);
+		mnSettings.addSeparator();
 		
 		mnLogOut = new JMenuItem("Log Out");
 		mnSettings.add(mnLogOut);
-		mnSettings.addSeparator();
-		mnLogOut.addActionListener(this);
-		
-		mnLogOut = new JMenuItem("About");
-		mnSettings.add(mnLogOut);
+		mnLogOut.addActionListener(this);		
 		
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -396,8 +388,12 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
 		Film[]flist = null;
-		setVisible(false);
 		setEnabled(false);
 		MainFrame main = new MainFrame(app);
 		if(e.getSource() == mnHome) 
@@ -412,11 +408,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			flist = app.readMovie();
 			main.Filter(flist);
 		}
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		setVisible(false);
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -461,9 +453,21 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			login.setVisible(true);
 			setVisible(false);
 		}
-	}
-
-	
+		if(str.equals("Change Information")) {
+			UserFrame login = new UserFrame(app, 0);
+			login.setVisible(true);
+			setVisible(false);
+		}
+		if(str.equals("Change Password")) {
+			UserFrame login = new UserFrame(app, 1);
+			login.setVisible(true);
+			setVisible(false);
+		}
+		if(str.equals("About")) {
+			AboutUs frame = new AboutUs();
+			frame.setVisible(true);
+		}
+	}	
 }
 
 
