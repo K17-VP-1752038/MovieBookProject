@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import javax.swing.border.EmptyBorder;
 
 class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
 
@@ -301,7 +302,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setViewportView(txtContent);
 		panelContent.setOpaque(false);
-		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
+		panelContent.setBorder(new EmptyBorder(0, 20, 0, 10));
 		panelContent.setLayout(new CardLayout(0, 0));
 		panelContent.add(scroll, "name_892678557399800");
 		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
