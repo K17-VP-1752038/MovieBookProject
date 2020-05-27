@@ -70,8 +70,7 @@ public class SignUp extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		contentPane = new JPanel();
-//		setContentPane(contentPane);
+
 		app = ap;
 		initialize();
 	}

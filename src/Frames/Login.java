@@ -22,7 +22,7 @@ class MyThread extends Thread{
 	private LoadingFrame load;
 	private MainFrame main;
 	private Application app;
-	MyThread(String name, Application app){
+	MyThread(String name, Application app) {
 		super(name);
 		this.app = app;
 	}
@@ -34,7 +34,7 @@ class MyThread extends Thread{
 			load = new LoadingFrame();
 			load.setVisible(true);
 			main = new MainFrame(app);
-			Thread.sleep(10);
+//			Thread.sleep(10);
 			main.setVisible(true);
 			load.setVisible(false);
         } catch (Exception e) { 
@@ -216,7 +216,7 @@ public class Login extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Check if user is valid
 		if(!tfEmail.getText().contains("@") || !tfEmail.getText().contains(".") || tfPassword.getPassword().length < 6) {
-			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");
+			JOptionPane.showMessageDialog(new JFrame(), "Email or password is invalid.");
 			tfPassword.setText(null);
 			return;
 		}

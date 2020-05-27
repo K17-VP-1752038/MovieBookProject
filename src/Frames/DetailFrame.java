@@ -66,6 +66,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 	 */
 	public DetailFrame(Film f, Application app) {	
 		this.app = app;
+		setTitle("Movie Book");
 		Fname = f.getName();
 		Fdirector = "Directed by: " + f.getDirector();
 		Fdate = "Released date: "+ f.getDate();
@@ -79,7 +80,7 @@ class DetailFrame extends JFrame implements MouseListener, ActionListener, ItemL
 			tmp = tmp + name[i] + "+";
 		Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
 		if(f.getType().equals("movie")) {
-			F = "Running time: " + String.valueOf(((Movie)f).getDuration());
+			F = "Running time: " + String.valueOf(((Movie)f).getDuration()) + " minutes";
 			Ficon = "movies\\Img\\" + f.getIcon();
 		}
 		else {

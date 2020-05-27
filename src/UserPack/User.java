@@ -17,11 +17,11 @@ public abstract class User {
 		return name;
 	}
 	
-	String getFirstName() {
+	public String getFirstName() {
 		return firstname;
 	}
 	
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	

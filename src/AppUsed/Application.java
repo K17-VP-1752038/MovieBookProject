@@ -41,7 +41,6 @@ public class Application {
 		access = false;
 		user = null;
 		movieBook = null;
-
 	}
 	
 	public Film[] readFilm() {

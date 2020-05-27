@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,7 +21,6 @@ public class PassForgotten2 extends JFrame implements ActionListener {
 
 private static final long serialVersionUID = 1L;
 	
-	private Random ran = new Random();
 	private JPasswordField tfPassword, tfPassConf;
 	private JButton btnReturn, btnFinish;
 	private Application app;
@@ -55,7 +53,7 @@ private static final long serialVersionUID = 1L;
 		setLocationRelativeTo(null);
 
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin2.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -160,18 +158,11 @@ private static final long serialVersionUID = 1L;
 						e2.printStackTrace();
 					}
 					setOpacity(1f);
-					try {
-						Thread.sleep(400);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
 					if(app.login(email, tfPassword.getPassword()))
 						System.out.println("Login success!");
-					MainFrame frame = new MainFrame(app);
-//					frame.setSize(getSize());
-//					frame.setLocation(getLocation());
-					frame.setVisible(true);
-					setVisible(false);
+					this.setVisible(false);
+					MyThread thrd = new MyThread("Movie Book", app);
+					thrd.start();
 				}
 			}
 			else
