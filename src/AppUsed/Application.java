@@ -1,5 +1,10 @@
 package AppUsed;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import IOFilmFile.*;
 import UserPack.*;
@@ -89,6 +94,19 @@ public class Application {
 		return null;
 	}
 	
+	// Search films for each type
+	public Film[] searchByKeyWord(String kw, String type) {
+		if(getAccess()) {
+			ArrayList<Film> films = movieBook.searchByName(kw);
+			Film[] filmlib = new Film[films.size()];
+			for(int i = 0; i < films.size(); i++)
+				if(films.get(i).getType().equals(type))
+					filmlib[i] = films.get(i);
+			return filmlib;
+		}
+		return null;
+	}
+	
 	// Search films by Genres
 	public Film[] searchByGenre(ArrayList<String> gen) {
 		if(getAccess()) {
@@ -153,6 +171,19 @@ public class Application {
 //	}
 //	//--------------------------------------------
 	
+	// Save image to local file
+	boolean saveImage(String name, File file) {
+		name.replaceAll(" ", "");
+		try {
+			BufferedImage image = ImageIO.read(file);			
+			ImageIO.write(image, "jpg", new File("Img/"+ name +".jpg"));
+			
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	// GET methods
 	public FilmLibrary getLibrary() {
