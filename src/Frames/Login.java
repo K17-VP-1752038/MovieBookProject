@@ -34,7 +34,7 @@ class MyThread extends Thread{
 			load = new LoadingFrame();
 			load.setVisible(true);
 			main = new MainFrame(app);
-//			Thread.sleep(10);
+			//Thread.sleep(1000);
 			main.setVisible(true);
 			load.setVisible(false);
         } catch (Exception e) { 

@@ -6,37 +6,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-
+import javax.swing.*;
 import AppUsed.Application;
 import IOFilmFile.Film;
-import Panels.DetailPanel;
+import Panels.*;
 
-import javax.swing.*;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import javax.swing.JMenuItem;
 
 class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Application app;
 	private JPanel panelBottom, panelCenter;
 	private JScrollPane scrollPane, scrollMovies, scrollSeries, scrollSearch, scrollFilter;
@@ -53,10 +38,11 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenuItem mnLogOut;
 	private JMenuItem mnAbout;
 	private DetailPanel detail;
+	private UserPanel user;
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,7 +56,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
@@ -158,9 +144,11 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		
 		mnChangeinfo = new JMenuItem("Change Information");
 		mnSettings.add(mnChangeinfo);
+		mnChangeinfo.addActionListener(this);
 		
 		mnChangepwd = new JMenuItem("Change Password");
 		mnSettings.add(mnChangepwd);
+		mnChangepwd.addActionListener(this);
 		
 		mnLogOut = new JMenuItem("Log Out");
 		mnSettings.add(mnLogOut);
@@ -198,7 +186,8 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelCenter.add("Show series",scrollSeries);
 		panelCenter.add("Search",scrollSearch);
 		panelCenter.add("Filter",scrollFilter);
-		
+		user = new UserPanel(app);
+		panelCenter.add("Settings", user);
 		
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
@@ -306,6 +295,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		detail = new DetailPanel(app);
 		panelCenter.add("Show detail", detail);
 	}
+	
 	void search(String txtsearch, Application app) {
 		if(txtsearch.isEmpty() == false) {
 			Film[]flist = app.searchByKeyWord(txtsearch);
@@ -441,11 +431,24 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Filter");
 		}
+		if(str.equals("Change Information")) {
+			user.setIndex(0);
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Settings");
+		}
+		if(str.equals("Change Password")) {
+			user.setIndex(1);
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Settings");
+		}
 		if(str.equals("Log Out")) {
-			app.logout();
-			Login login = new Login();
-			login.setVisible(true);
-			setVisible(false);
+			int op = JOptionPane.showConfirmDialog(null, "Are you sure want to log out?");
+			if(op == 0) {
+				app.logout();
+				Login login = new Login();
+				login.setVisible(true);
+				setVisible(false);
+			}
 		}
 		if(str.equals("About")) {
 			AboutUs about = new AboutUs();
