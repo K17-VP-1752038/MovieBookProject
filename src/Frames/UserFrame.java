@@ -39,22 +39,22 @@ public class UserFrame extends JFrame implements ActionListener, MouseListener, 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Application ap = new Application();
-//					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o','9','9'};
-//					if(ap.login("winterheartlove18@gmail.com", pass)) {
-//						UserFrame frame = new UserFrame(ap, 0);
-//						frame.setVisible(true);
-//					}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/*public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Application ap = new Application();
+					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o','9','9'};
+					if(ap.login("winterheartlove18@gmail.com", pass)) {
+						UserFrame frame = new UserFrame(ap, 0);
+						frame.setVisible(true);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}*/
 
 	/**
 	 * Create the frame.
@@ -368,7 +368,7 @@ public class UserFrame extends JFrame implements ActionListener, MouseListener, 
 		Film[]flist = null;
 		setEnabled(false);
 		MainFrame main = new MainFrame(app);
-		if(e.getSource() == mnHome) 
+		/*if(e.getSource() == mnHome) 
 			main.setVisible(true);
 		if(e.getSource() == mnTVseries) {
 			main.setVisible(true);
@@ -379,7 +379,7 @@ public class UserFrame extends JFrame implements ActionListener, MouseListener, 
 			main.setVisible(true);
 			flist = app.readMovie();
 			main.Filter(flist);
-		}
+		}*/
 		setVisible(false);
 	}
 

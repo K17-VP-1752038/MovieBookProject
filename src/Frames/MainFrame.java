@@ -1,22 +1,9 @@
 package Frames;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -31,20 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
 
 import AppUsed.Application;
 import IOFilmFile.Film;
-import IOFilmFile.Movie;
+import Panels.DetailPanel;
 
-import javax.swing.JTable;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import java.awt.GridLayout;
-import javax.swing.JScrollBar;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -52,13 +34,12 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Component;
 import javax.swing.JMenuItem;
 
 class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
 	private Application app;
-	private JPanel panelBottom;
-	private JScrollPane scrollPane;
+	private JPanel panelBottom, panelCenter;
+	private JScrollPane scrollPane, scrollMovies, scrollSeries, scrollSearch, scrollFilter;
 	private JTextArea txtName;
 	private JTextField txtSearch;
 	private JMenu mnHome;
@@ -71,6 +52,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenuItem mnChangepwd;
 	private JMenuItem mnLogOut;
 	private JMenuItem mnAbout;
+	private DetailPanel detail;
 	/**
 	 * Launch the application.
 	 */
@@ -159,8 +141,6 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelRightTop.add(btnSearch);
 		
 		JLabel lblUser = new JLabel(app.getUser().getName());
-		//lblUser.setIcon(new ImageIcon(new ImageIcon("icon\\iconuser.png").getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT)));
-		//lblUser.setForeground(Color.BLACK);
 		lblUser.setForeground(Color.white);
 		panelRightTop.add(lblUser);
 		
@@ -178,33 +158,61 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		
 		mnChangeinfo = new JMenuItem("Change Information");
 		mnSettings.add(mnChangeinfo);
-		mnChangeinfo.addActionListener(this);
 		
 		mnChangepwd = new JMenuItem("Change Password");
 		mnSettings.add(mnChangepwd);
-		mnChangepwd.addActionListener(this);
-		
-		mnAbout = new JMenuItem("About");
-		mnSettings.add(mnAbout);
-		mnAbout.addActionListener(this);
-		mnSettings.addSeparator();
 		
 		mnLogOut = new JMenuItem("Log Out");
 		mnSettings.add(mnLogOut);
+		mnSettings.addSeparator();
 		mnLogOut.addActionListener(this);
 		
+		mnAbout = new JMenuItem("About");
+		mnAbout.addActionListener(this);
+		mnSettings.add(mnAbout);
+		
+		panelCenter = new JPanel();
+		panelCenter.setLayout(new CardLayout());
 		scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(2.0f);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
+		scrollMovies = new JScrollPane();
+		scrollMovies.setAlignmentX(2.0f);
+		scrollMovies.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		scrollSeries = new JScrollPane();
+		scrollSeries.setAlignmentX(2.0f);
+		scrollSeries.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		scrollFilter = new JScrollPane();
+		scrollFilter.setAlignmentX(2.0f);
+		scrollFilter.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		scrollSearch = new JScrollPane();
+		scrollSearch.setAlignmentX(2.0f);
+		scrollSearch.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		panelCenter.add("Show films",scrollPane);
+		panelCenter.add("Show movies",scrollMovies);
+		panelCenter.add("Show series",scrollSeries);
+		panelCenter.add("Search",scrollSearch);
+		panelCenter.add("Filter",scrollFilter);
+		
+		
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
 		Film[]flist = app.readFilm();
-		Filter(flist);
+		Filter(flist, scrollPane);
+		
+		flist = app.readMovie();
+		Filter(flist, scrollMovies);
+		
+		flist = app.readSeries();
+		Filter(flist, scrollSeries);
+		
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		getContentPane().add(scrollPane);
-		//scrollPane.setViewportView(panelBottom);
-		//panelBottom.setLayout(new GridLayout(0, 3, 10, 15));
+		getContentPane().add(panelCenter);
 		
 		JPanel panelTop = new JPanel();
 		panelTop.setPreferredSize(new Dimension(950,30));
@@ -295,18 +303,20 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelTop.add(btnSearchGenre);
 		
 		getContentPane().add(panelTop, BorderLayout.NORTH);
-
+		detail = new DetailPanel(app);
+		panelCenter.add("Show detail", detail);
 	}
 	void search(String txtsearch, Application app) {
 		if(txtsearch.isEmpty() == false) {
 			Film[]flist = app.searchByKeyWord(txtsearch);
 			if(flist.length > 0) {
-				Filter(flist);
+				Filter(flist, scrollSearch);
+				CardLayout card = (CardLayout)panelCenter.getLayout();
+				card.show(panelCenter, "Search");
 			}else
 				JOptionPane.showMessageDialog(panelBottom, "Not Found");
 			
 		}
-		//scrollPane.setPreferredSize(new Dimension(935, 680));
 		else {
 			JOptionPane.showMessageDialog(panelBottom, "Not Found");
 		}
@@ -315,19 +325,33 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource() == mnHome) {
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Show films");
+		}
+		if(e.getSource() == mnTVseries) {
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Show series");
+		}
+		if(e.getSource() == mnMovies) {
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Show movies");
+		}
 	}
 	
-	void Filter(Film[]flist) {
+	void Filter(Film[]flist, JScrollPane scroll) {
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
+		JLabel[] lblImg = new JLabel[flist.length];
+		
 		for(int i = 0; i < flist.length; i++) {
 			JPanel panel = new JPanel();
 			panel.setLayout(new FlowLayout());
 			panel.setPreferredSize(new Dimension(280,250));
-			
 			panel.setBackground(Color.white);
-			getContentPane().add(panel);
-			JLabel lblImg = new JLabel("");
+			
+			lblImg[i] = new JLabel();
+			
 			BufferedImage img;
 			try {
 				if(flist[i].getType().equals("movie"))
@@ -335,20 +359,20 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 				else
 					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
-				lblImg.setIcon(icon);
+				lblImg[i].setIcon(icon);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			lblImg.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			lblImg[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
 			
-			panel.add(lblImg);
+			panel.add(lblImg[i]);
 			Film f = flist[i];
-			lblImg.addMouseListener(new MouseAdapter() {
+			lblImg[i].addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					new DetailFrame(f, app).setVisible(true);
-					setVisible(false);
-					setEnabled(false);
+					detail.setContent(f);
+					CardLayout card = (CardLayout) panelCenter.getLayout();
+					card.show(panelCenter, "Show detail");
 				}
 			});
 			txtName = new JTextArea(flist[i].getName());
@@ -361,8 +385,8 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			panel.add(txtName);
 			panelBottom.add(panel);
 		}
-		getContentPane().add(scrollPane);
-		scrollPane.setViewportView(panelBottom);
+		//getContentPane().add(scrollPane);
+		scroll.setViewportView(panelBottom);
 		panelBottom.setLayout(new GridLayout(0, 3, 10, 15));
 	}
 	
@@ -370,14 +394,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Film[]flist = null;
-		if(e.getSource() == mnHome) 
-			flist = app.readFilm();
-		if(e.getSource() == mnTVseries)
-			flist = app.readSeries();
-		if(e.getSource() == mnMovies)
-			flist = app.readMovie();
-		Filter(flist);
+		
 	}
 
 	@Override
@@ -404,7 +421,10 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		String str = e.getActionCommand();
 		if(str.equals("Filter")) {
 			Film[]f = app.searchByGenre(listCheckbox);
-			Filter(f);
+			if(f.length == 0) 
+				JOptionPane.showMessageDialog(panelBottom, "Not Found");
+			else 
+				Filter(f, scrollFilter);
 			cbaction.setSelected(false);
 			cbadventure.setSelected(false);
 			cbanimation.setSelected(false);
@@ -418,6 +438,8 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			cbsport.setSelected(false);
 			cbthriller.setSelected(false);
 			listCheckbox.clear();
+			CardLayout card = (CardLayout)panelCenter.getLayout();
+			card.show(panelCenter, "Filter");
 		}
 		if(str.equals("Log Out")) {
 			app.logout();
@@ -425,19 +447,9 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			login.setVisible(true);
 			setVisible(false);
 		}
-		if(str.equals("Change Information")) {
-			UserFrame login = new UserFrame(app, 0);
-			login.setVisible(true);
-			setVisible(false);
-		}
-		if(str.equals("Change Password")) {
-			UserFrame login = new UserFrame(app, 1);
-			login.setVisible(true);
-			setVisible(false);
-		}
 		if(str.equals("About")) {
-			AboutUs frame = new AboutUs();
-			frame.setVisible(true);
+			AboutUs about = new AboutUs();
+			about.setVisible(true);
 		}
 	}
 
@@ -449,4 +461,5 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			listCheckbox.add(cb.getText());
 				
 	}
+	
 }

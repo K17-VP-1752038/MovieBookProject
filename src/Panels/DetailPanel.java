@@ -1,0 +1,156 @@
+package Panels;
+
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.swing.*;
+
+import AppUsed.Application;
+import IOFilmFile.Film;
+import IOFilmFile.Movie;
+import IOFilmFile.Series;
+
+public class DetailPanel extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	private JPanel panelRight;
+	private JPanel panelLeft;
+	private String Ftrailer;
+	private JLabel lblType,lblDirector, lblF, lblimg, lblDate;
+	private JTextArea txtName, txtContent;
+	private Application app;
+	
+	public DetailPanel(Application app) {
+		this.app = app;		
+		setLayout(new GridLayout(0, 2, 0, 0));
+		panelLeft = new JPanel();
+		this.add(panelLeft);
+		
+		panelLeft.setBackground(Color.WHITE);
+		panelLeft.setOpaque(false);
+		panelLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
+		lblimg = new JLabel("");
+		lblimg.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblimg.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Desktop d = Desktop.getDesktop();
+				try {
+					d.browse(new URI(Ftrailer));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		lblimg.setBackground(Color.WHITE);
+		
+		
+		panelLeft.add(lblimg);
+		
+		panelRight = new JPanel();
+		panelRight.setBackground(Color.WHITE);
+		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+		this.add(panelRight);
+		
+		JPanel panelName = new JPanel();
+		panelName.setOpaque(false);
+		panelRight.add(panelName);
+		
+		txtName = new JTextArea();
+		txtName.setLineWrap(true);
+		txtName.setWrapStyleWord(true);
+		txtName.setEditable(false);
+		panelName.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+		panelName.setLayout(new GridLayout(0, 1, 0, 0));
+		panelName.add(txtName);
+		txtName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
+		txtName.setForeground(Color.RED);
+		
+		JPanel panelType = new JPanel();
+		panelType.setOpaque(false);
+		panelRight.add(panelType);
+		panelType.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
+		
+		lblType = new JLabel();
+		panelType.add(lblType);
+		lblType.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		JPanel panelDirector = new JPanel();
+		panelDirector.setOpaque(false);
+		panelRight.add(panelDirector);
+		panelDirector.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
+		
+		lblDirector = new JLabel();
+		panelDirector.add(lblDirector);
+		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		lblF = new JLabel();
+		lblF.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		JPanel panelF = new JPanel();
+		panelF.setOpaque(false);
+		panelRight.add(panelF);
+		panelF.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
+		panelF.add(lblF);
+		
+		JPanel panelDate = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panelDate.getLayout();
+		flowLayout_1.setHgap(20);
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panelDate.setOpaque(false);
+		panelRight.add(panelDate);
+		
+		lblDate = new JLabel();
+		panelDate.add(lblDate);
+		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		JPanel panelContent = new JPanel();
+		panelRight.add(panelContent);
+		panelContent.setLayout(new BoxLayout(panelContent, BoxLayout.X_AXIS));
+		
+		txtContent = new JTextArea();
+		panelContent.setOpaque(false);
+		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
+		panelContent.add(txtContent);
+		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
+		txtContent.setLineWrap(true);
+		txtContent.setWrapStyleWord(true);
+		txtContent.setEditable(false);
+	}
+	
+	public void setContent(Film f) {
+		txtName.setText(f.getName());
+		lblDirector.setText("Directed by: " + f.getDirector());
+		lblDate.setText("Released date: "+ f.getDate());
+		lblType.setText("Type: " + f.getGenre());
+		txtContent.setText(f.getContent());
+		
+		String[]name = f.getName().split(" ");
+		String tmp = "";
+		
+		for(int i = 0; i < name.length; i++)
+			tmp = tmp + name[i] + "+";
+		Ftrailer = "https://www.youtube.com/results?search_query=" + tmp + "trailer";
+		if(f.getType().equals("movie")) {
+			lblF.setText("Running time: " + String.valueOf(((Movie)f).getDuration()) + " minutes");
+			String str = "movies\\Img\\" + f.getIcon();
+			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+		}
+		else {
+			lblF.setText("Episodes: " + String.valueOf(((Series)f).getEpisode()));
+			String str = "series\\Img\\" + f.getIcon();
+			lblimg.setIcon(new ImageIcon(str));
+		}
+	}
+}
