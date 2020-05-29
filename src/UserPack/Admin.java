@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Admin extends User {
 
-//	private int count;
 	private String id;
 		
 	Admin() {
@@ -44,12 +43,21 @@ public class Admin extends User {
 	public ArrayList<User> readUsers() {
 		return urw.ReadUserList();
 	}
-			
+	
+	private User findUser(String ID) {
+		for(User U : readUsers())
+			if(U.getId().equals(ID))
+				return U;
+		return null;
+	}
+	
 	// Admin được xóa member
-	public boolean deleteUser(User user, String pass) {
+	public boolean deleteUser(String ID, String pass) {
 		if(pass.equals(getPassword()))
 			return false;
-		if(urw.deleteUser(user))
+		if(findUser(ID) == null)
+			return false;
+		if(urw.deleteUser(findUser(ID)))
 			return true;
 		return false;
 	}

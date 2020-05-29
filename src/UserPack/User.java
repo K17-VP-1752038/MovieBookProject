@@ -76,7 +76,7 @@ public abstract class User {
 	}
 	
 	public abstract String getType();
-	abstract String getId();
+	public abstract String getId();
 	abstract void setId(String id);
 	public abstract String toString();
 }
