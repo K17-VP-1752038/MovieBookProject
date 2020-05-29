@@ -1,10 +1,10 @@
 package Panels;
-
 import java.awt.CardLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -12,17 +12,24 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import AppUsed.Application;
+import Frames.*;
 import IOFilmFile.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
@@ -38,16 +45,19 @@ public class filmManage extends JPanel implements ActionListener {
 	private String type = "";
 	private JTextField tfSearch;
 	private JButton btnSearch, btnNew;
-	
+	private JPopupMenu jpu;
+	private JMenuItem jmiUpd;
+	private JMenuItem jmiDel;
+	private Film f[];
 	/**
 	 * Create the panel.
 	 */
 	@SuppressWarnings("serial")
-	public filmManage(Application ap, String typ) {
+	public filmManage(Application app, String typ) {
 
 		setLayout(new BorderLayout());
 		
-		this.app = ap;
+		this.app = app;
 		this.type = typ;
 		
 		//--------Panel show all---------------------
@@ -86,15 +96,35 @@ public class filmManage extends JPanel implements ActionListener {
 			
 			setModelList(app.readSeries());
 		}
-
+		jpu = new JPopupMenu();
+        jmiUpd = new JMenuItem("Update");
+        jmiDel = new JMenuItem("Delete");
+        jmiUpd.addActionListener(this);
+        jmiDel.addActionListener(this);
+        jpu.add(jmiUpd);
+        jpu.add(jmiDel);
 		JTable table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent me) {
+				if(SwingUtilities.isRightMouseButton(me) == true)
+				{
+					int row = table.rowAtPoint(me.getPoint());
+					table.clearSelection();
+					table.addRowSelectionInterval(row,row);
+					f = app.searchByKeyWord((String)table.getValueAt(table.getSelectedRow(), 0));
+				}
+				
+            }
+		});
+		table.setComponentPopupMenu(jpu);
 		paneTable.add(new JScrollPane(table));
 				
 		JPanel paneBtn = new JPanel();
 		paneTable.add(paneBtn);
 				
 		JButton btnReload = new JButton("Reload");
+		btnReload.addActionListener(this);
 		paneBtn.add(btnReload);
 			
 		btnNew = new JButton("Add new");
@@ -103,7 +133,7 @@ public class filmManage extends JPanel implements ActionListener {
 		
 		
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -111,10 +141,16 @@ public class filmManage extends JPanel implements ActionListener {
 			tableModel.setRowCount(0);
 			setModelList(app.searchByKeyWord(tfSearch.getText(), type));
 		}
-		if(e.getSource() == btnNew) {
-			CardLayout card = (CardLayout)getLayout();
-			card.show(this, "Insert");
+		
+		String str = e.getActionCommand();
+		if(str.equals("Update")) {
+			UpdateFrame up = new UpdateFrame(app,f[0]);
+			up.setVisible(true);
 		}
+		if(str.equals("Reload")) {
+			
+		}
+		
 	}
 
 	void setModelList(Film[] films) {

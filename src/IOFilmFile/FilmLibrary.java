@@ -94,9 +94,9 @@ public class FilmLibrary {
 	}
 	
 	// Update film
-	boolean updateFilm(Film F, Film newF) {
-		if(have(newF)) return false;
-		if(checkDuplicate(newF)) return false;
+	public boolean updateFilm(Film F, Film newF) {
+		//if(have(newF)) return false;
+		//if(checkDuplicate(newF)) return false;
 		if(!F.getType().equals(newF.getType())) return false;
 		String name = newF.getName().replaceAll(" ", "");
 		newF.setIcon(name);

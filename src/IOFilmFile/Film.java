@@ -12,22 +12,22 @@ public abstract class Film{
 	protected String Fcontent;
 	
 	// SET methods
-	void setName(String name) {
+	public void setName(String name) {
 		this.Fname = name;
 	}
-	void setIcon(String icon) {
+	public void setIcon(String icon) {
 		this.Ficon = icon;
 	}
-	void setGenre(String genre) {
+	public void setGenre(String genre) {
 		this.Fgenre = genre;
 	}
-	void setDirector(String director) {
+	public void setDirector(String director) {
 		this.Fdirector = director;
 	}
-	void setDate(String date) {
+	public void setDate(String date) {
 		this.Fdate = date;
 	}
-	void setContent(String content) {
+	public void setContent(String content) {
 		this.Fcontent = content;
 	}
 	

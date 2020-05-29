@@ -172,7 +172,7 @@ public class Application {
 //	//--------------------------------------------
 	
 	// Save image to local file
-	boolean saveImage(String name, File file, String type) {
+	public boolean saveImage(String name, File file, String type) {
 		String img = name.replaceAll(" ", "");
 		try {
 			BufferedImage image = ImageIO.read(file);

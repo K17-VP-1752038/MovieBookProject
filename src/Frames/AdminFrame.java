@@ -29,8 +29,8 @@ public class AdminFrame extends JFrame {
 			public void run() {
 				try {
 					Application app = new Application();
-					char[] pass = new char[] {'b', 'e', 'o', 'b', 'e', 'o','9','9'};
-					app.login("winterheartlove18@gmail.com", pass);
+					char[] pass = new char[] {'t', 'h', 'u', 'y', 't', 'r','a','n','g'};
+					app.login("nguyentthuytrang1110@gmail.com", pass);
 					AdminFrame frame = new AdminFrame(app);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -75,7 +75,7 @@ public class AdminFrame extends JFrame {
 		//------Panel Series created--------------------------
 		tabbedPane.addTab("Series management", new filmManage(app, "series"));
 		
-		JPanel paneUser = new JPanel();
-		tabbedPane.addTab("Users management", paneUser);
+		//JPanel paneUser = new JPanel();
+		tabbedPane.addTab("Users management", new userManage(app));
 	}
 }
