@@ -87,6 +87,8 @@ public class FilmLibrary {
 			return false;
 		if(checkDuplicate(F))
 			return false;
+		String name = F.getName().replaceAll(" ", "");
+		F.setIcon(name);
 		films.add(F);
 		return true;
 	}
@@ -95,14 +97,16 @@ public class FilmLibrary {
 	boolean updateFilm(Film F, Film newF) {
 		if(have(newF)) return false;
 		if(checkDuplicate(newF)) return false;
-		if(! F.getType().equals(newF.getType())) return false;
-		
+		if(!F.getType().equals(newF.getType())) return false;
+		String name = newF.getName().replaceAll(" ", "");
+		newF.setIcon(name);
 		// find the location of Film F in films
 		int index = 0;
 		for(Film film : films) {
 			if(film.equals(F)) break;
 			index++;
 		}
+		// change the info of the film in position index
 		films.set(index, newF);
 		return true;
 	}

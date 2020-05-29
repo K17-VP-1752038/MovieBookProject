@@ -173,13 +173,13 @@ public class Application {
 	
 	// Save image to local file
 	boolean saveImage(String name, File file, String type) {
-		name.replaceAll(" ", "");
+		String img = name.replaceAll(" ", "");
 		try {
 			BufferedImage image = ImageIO.read(file);
 			if(type.equals("movie"))
-				ImageIO.write(image, "jpg", new File("movies/Img/"+ name +".jpg"));
+				ImageIO.write(image, "jpg", new File("movies/Img/"+ img +".jpg"));
 			else
-				ImageIO.write(image, "jpg", new File("series/Img/"+ name +".jpg"));
+				ImageIO.write(image, "jpg", new File("series/Img/"+ img +".jpg"));
 
 			return true;
 		} catch (IOException e) {
