@@ -140,7 +140,7 @@ private static final long serialVersionUID = 1L;
 		JLabel lblPassForgot = new JLabel("The verified code will be sent to your email.");
 		lblPassForgot.setForeground(new Color(0, 0, 255));
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
+		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 12));
 		panePassFogot.add(lblPassForgot);
 		
 		JPanel paneBtn = new JPanel();

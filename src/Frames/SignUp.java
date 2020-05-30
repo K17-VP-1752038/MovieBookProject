@@ -164,10 +164,13 @@ public class SignUp extends JFrame {
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(app.getUser().isExist(tfEmail.getText())) {
-					JOptionPane.showMessageDialog(new JFrame(), "Email account's already existed");
+					JOptionPane.showMessageDialog(null, "Email account's already existed.");
 					return;
 				}
-					
+				if(tfPassword.getPassword().length < 6) {
+					JOptionPane.showMessageDialog(null, "Password must have at least 6 characters.");
+					return;
+				}				
 				if(Arrays.equals(tfPassword.getPassword(), tfConfirm.getPassword())) {
 					if(!MailConfig.emailValidate(tfEmail.getText())) {
 						JOptionPane.showMessageDialog(new JFrame(), "Email is invalid.");
@@ -181,11 +184,11 @@ public class SignUp extends JFrame {
 						setVisible(false);
 					}
 					else {
-						JOptionPane.showMessageDialog(new JFrame(), "Please fill your infomation.");
+						JOptionPane.showMessageDialog(null, "Please fill your infomation.");
 					}
 				}
 				else
-					JOptionPane.showMessageDialog(new JFrame(), "Password is incorrect.");
+					JOptionPane.showMessageDialog(null, "Password is incorrect.");
 			}
 		});
 		paneNext.add(btnNext);

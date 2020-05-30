@@ -48,7 +48,6 @@ private static final long serialVersionUID = 1L;
 	public PassForgotten2(String mail, Application ap) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 628, 445);
 		setSize(628, 445);
 		setLocationRelativeTo(null);
 
@@ -71,7 +70,6 @@ private static final long serialVersionUID = 1L;
 	void initialize() {
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
-//		loginForm.setSize(200, 300);
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
 		loginForm.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -149,7 +147,6 @@ private static final long serialVersionUID = 1L;
 		}
 		
 		if(e.getSource() == btnFinish) {
-//			char[] p = tfPassword.getPassword();
 			if(Arrays.equals(tfPassword.getPassword(), tfPassConf.getPassword())) {
 				if(app.updatePassword(email, tfPassword.getPassword())) {
 					try {
@@ -158,11 +155,12 @@ private static final long serialVersionUID = 1L;
 						e2.printStackTrace();
 					}
 					setOpacity(1f);
-					if(app.login(email, tfPassword.getPassword()))
-						System.out.println("Login success!");
-					this.setVisible(false);
-					MyThread thrd = new MyThread("Movie Book", app);
-					thrd.start();
+					if(app.login(email, tfPassword.getPassword())) {
+//						System.out.println("Login success!");
+						this.setVisible(false);
+						MyThread thrd = new MyThread("Movie Book", app);
+						thrd.start();
+					}
 				}
 			}
 			else

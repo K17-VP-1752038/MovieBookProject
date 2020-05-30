@@ -26,7 +26,6 @@ class MyThread extends Thread{
 	}
 	
 	public void run() {
-		// TODO Auto-generated method stub
 		try
         { 	
 			load = new LoadingFrame();
@@ -37,7 +36,7 @@ class MyThread extends Thread{
 			load.setVisible(false);
         } catch (Exception e) { 
             // Throwing an exception 
-            System.out.println ("Exception is caught"); 
+            System.out.println ("Exception in thread is caught"); 
         } 	
 	}
 }
@@ -215,7 +214,7 @@ public class Login extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Check if user is valid
 		if(!tfEmail.getText().contains("@") || !tfEmail.getText().contains(".") || tfPassword.getPassword().length < 6) {
-			JOptionPane.showMessageDialog(new JFrame(), "Email or password is invalid.");
+			JOptionPane.showMessageDialog(null, "Email or password is invalid.");
 			tfPassword.setText(null);
 			return;
 		}
@@ -227,6 +226,6 @@ public class Login extends JFrame implements ActionListener {
 			thrd.start();
 		}
 		else
-			JOptionPane.showMessageDialog(new JFrame(), "Email or password is incorrect.");
+			JOptionPane.showMessageDialog(null, "Email or password is incorrect.");
 	}
 }
