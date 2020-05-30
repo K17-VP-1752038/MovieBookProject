@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -17,17 +18,24 @@ import IOFilmFile.Series;
 public class DetailPanel extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel panelRight;
 	private JPanel panelLeft;
 	private String Ftrailer;
 	private JLabel lblType,lblDirector, lblF, lblimg, lblDate;
 	private JTextArea txtName, txtContent;
-	private Application app;
+	private ArrayList<Film> films;
+	private JPanel paneBtn, panePrevious, paneNext;
+	private JLabel lblPrevious, lblNext;
+	private int index;
+	private JScrollPane scrollPane;
 	
 	public DetailPanel(Application app) {
-		this.app = app;		
+		this.films = app.getLibrary().getFilms();
+		
 		setLayout(new GridLayout(0, 2, 0, 0));
 		panelLeft = new JPanel();
 		this.add(panelLeft);
@@ -117,16 +125,66 @@ public class DetailPanel extends JPanel {
 		
 		JPanel panelContent = new JPanel();
 		panelRight.add(panelContent);
-		panelContent.setLayout(new BoxLayout(panelContent, BoxLayout.X_AXIS));
-		
-		txtContent = new JTextArea();
 		panelContent.setOpaque(false);
 		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
-		panelContent.add(txtContent);
+		panelContent.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelContent.add(scrollPane);
+		
+		txtContent = new JTextArea();
+		scrollPane.setViewportView(txtContent);
 		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
 		txtContent.setLineWrap(true);
 		txtContent.setWrapStyleWord(true);
 		txtContent.setEditable(false);
+		
+		paneBtn = new JPanel();
+		panelRight.add(paneBtn);
+		paneBtn.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panePrevious = new JPanel();
+		panePrevious.setBackground(Color.WHITE);
+		panePrevious.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		FlowLayout flowLayout = (FlowLayout) panePrevious.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEADING);
+		panePrevious.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				index--;
+				if(index < 0)
+					index = films.size() - 1;
+				setContent(getFilmInPos(index));
+				System.out.println(index);
+			}
+		});
+		paneBtn.add(panePrevious);
+		
+		lblPrevious = new JLabel("< Previous");
+		lblPrevious.setForeground(SystemColor.textHighlight);
+		panePrevious.add(lblPrevious);
+		
+		paneNext = new JPanel();
+		paneNext.setBackground(Color.WHITE);
+		paneNext.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		FlowLayout flowLayout_2 = (FlowLayout) paneNext.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.TRAILING);
+		paneNext.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				index++;
+				if(index > films.size()-1)
+					index = 0;
+				setContent(getFilmInPos(index));
+				System.out.println(index);
+			}
+		});
+		paneBtn.add(paneNext);
+		
+		lblNext = new JLabel("Next >");
+		lblNext.setForeground(SystemColor.textHighlight);
+		paneNext.add(lblNext);
 	}
 	
 	public void setContent(Film f) {
@@ -152,5 +210,24 @@ public class DetailPanel extends JPanel {
 			String str = "series\\Img\\" + f.getIcon();
 			lblimg.setIcon(new ImageIcon(str));
 		}
+		
+		this.index = getPosOfFilm(f);
 	}
+	
+	// Get the film in position and the position of film
+	public int getPosOfFilm(Film film) {
+		return films.indexOf(film);		
+	}
+	
+	public Film getFilmInPos(int index) {
+		return films.get(index);		
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+//
+//	public void setIndex(int index) {
+//		this.index = index;
+//	}
 }
