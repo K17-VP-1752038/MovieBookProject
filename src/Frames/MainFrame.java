@@ -17,7 +17,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.JMenuItem;
 
-class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener{
+class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener {
 	/**
 	 * 
 	 */
@@ -37,7 +37,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenuItem mnChangepwd;
 	private JMenuItem mnLogOut;
 	private JMenuItem mnAbout;
-	private DetailPanel detail;
+	private DetailPanel2 detail;
 	private UserPanel user;
 	/**
 	 * Launch the application.
@@ -63,6 +63,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	 */
 	public MainFrame(Application app) {
 		this.app = app;
+		
 		setSize(950,680);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -292,7 +293,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelTop.add(btnSearchGenre);
 		
 		getContentPane().add(panelTop, BorderLayout.NORTH);
-		detail = new DetailPanel(app);
+		detail = new DetailPanel2(app);
 		panelCenter.add("Show detail", detail);
 	}
 	
@@ -464,5 +465,4 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			listCheckbox.add(cb.getText());
 				
 	}
-	
 }
