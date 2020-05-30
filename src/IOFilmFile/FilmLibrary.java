@@ -1,6 +1,11 @@
 package IOFilmFile;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class FilmLibrary {
 	
@@ -8,17 +13,12 @@ public class FilmLibrary {
 	private static final String seriesfile="series/Series_DB.txt";
 	private filmReadWrite auth = new filmReadWrite();
 	private ArrayList<Film> films = new ArrayList<>();
-	private ArrayList<Movie> movies = new ArrayList<>();
-	private ArrayList<Series> series = new ArrayList<>();
-	
+	private ArrayList<filmImage> images = new ArrayList<>();
 	
 	// Constructor
 	public FilmLibrary() {
-		movies = auth.readMovieFile(moviesfile);
-		series = auth.readSeriesFile(seriesfile);
-		
-		films.addAll(movies);
-		films.addAll(series);
+		films.addAll(auth.readMovieFile(moviesfile));
+		films.addAll(auth.readSeriesFile(seriesfile));
 	}
 
 	// return array list Film
@@ -28,31 +28,65 @@ public class FilmLibrary {
 	
 	// return array list Movie
 	public ArrayList<Movie> getMovies() {
+		ArrayList<Movie> movies = new ArrayList<>();
+		for(Film F : films)
+			if(F.getType().equals("movie"))
+				movies.add((Movie)F);
 		return movies;
 	}
 	
 	// return array list Series
 	public ArrayList<Series> getSeries() {
+		ArrayList<Series> series = new ArrayList<>();
+		for(Film F : films)
+			if(F.getType().equals("series"))
+				series.add((Series)F);
 		return series;
 	}
 	
 	// **Load the ArrayList Film back to files
-	public void updateStore() {
+	public void updateMovieStore(File file, String type) {
 		try {
 			ArrayList<Film> movies = new ArrayList<>();
-			ArrayList<Film> series = new ArrayList<>();
 			for(Film F : films) {
 				if(F.getType().equals("movie"))
 					movies.add(F);
-				else
-					series.add(F);
 			}
 			
 			auth.updateFilmsFile(this, movies, moviesfile);
-			auth.updateFilmsFile(this, series, seriesfile);
+			for(filmImage I : images) {
+				BufferedImage image = ImageIO.read(I.getFile());
+				if(I.getType().equals("movie"))
+					ImageIO.write(image, "jpg", new File("movies/Img/"+ I.getName() +".jpg"));
+			}
 		} catch (Exception e) {
-			System.out.println("Error update film file: "+ e);
+			System.out.println("Error update movie file: "+ e);
 		}
+	}
+	
+	public void updateSeriesStore(File file, String type) {
+		try {
+			ArrayList<Film> series = new ArrayList<>();
+			for(Film F : films) {
+				if(F.getType().equals("series"))
+					series.add(F);
+			}
+			
+			auth.updateFilmsFile(this, series, seriesfile);
+			for(filmImage I : images) {
+				BufferedImage image = ImageIO.read(I.getFile());
+				if(I.getType().equals("series"))
+					ImageIO.write(image, "jpg", new File("series/Img/"+ I.getName() +".jpg"));
+			}
+		} catch (Exception e) {
+			System.out.println("Error update series file: "+ e);
+		}
+	}
+	
+	// Save image to local file
+	public void saveImage(String name, File file, String type) {
+		filmImage img = new filmImage(name, file, type);
+		images.add(img);
 	}
 	
 	// Check if the film existed, return true 
@@ -73,7 +107,7 @@ public class FilmLibrary {
 	}
 	
 	// Delete film
-	boolean deleteFilm(Film F) { 
+	public boolean deleteFilm(Film F) { 
 		if(films.remove(F)) {
 			return true;
 		}
@@ -81,7 +115,7 @@ public class FilmLibrary {
 	}
 	
 	// Add new film
-	boolean insertFilm(Film F) {
+	public boolean insertFilm(Film F) {
 		// check for errors
 		if(this.have(F))
 			return false;
@@ -95,7 +129,7 @@ public class FilmLibrary {
 	
 	// Update film
 	public boolean updateFilm(Film F, Film newF) {
-		//if(have(newF)) return false;
+		if(have(newF)) return false;
 		//if(checkDuplicate(newF)) return false;
 		if(!F.getType().equals(newF.getType())) return false;
 		String name = newF.getName().replaceAll(" ", "");

@@ -10,6 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import AppUsed.Application;
 import IOFilmFile.Film;
+import IOFilmFile.Movie;
+import IOFilmFile.Series;
 import Panels.filmManage;
 
 import javax.swing.JLabel;
@@ -37,7 +39,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class InsertFrame extends JFrame {
 
@@ -48,7 +52,8 @@ public class InsertFrame extends JFrame {
 	private JTextField txtName;
 	private JTextField txtDirector;
 	private JPanel panel_1_1;
-	private JTextField txtDate;
+	private JTextField textField;
+	private File file;
 	/**
 	 * Launch the application.
 	 */
@@ -56,8 +61,7 @@ public class InsertFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateFrame frame = new UpdateFrame();
-					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,11 +71,11 @@ public class InsertFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InsertFrame(Application app) {
+	public InsertFrame(Application app, AdminFrame ad,String type) {
 		this.app = app;
 		setTitle("Insert");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400,350);
+		setSize(400,400);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -99,6 +103,8 @@ public class InsertFrame extends JFrame {
 		panelF.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panelName = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panelName.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panelName.setBackground(SystemColor.activeCaption);
 		panelF.add(panelName);
 		
@@ -152,24 +158,65 @@ public class InsertFrame extends JFrame {
 		panelDirector.add(txtDirector);
 		txtDirector.setColumns(34);
 		
+		JPanel panel_2 = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) panel_2.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
+		panel_2.setBackground(SystemColor.activeCaption);
+		panelF.add(panel_2);
+		
+		JPanel panelFMovie_Series = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panelFMovie_Series.getLayout();
+		flowLayout_1.setHgap(0);
+		
+		panelFMovie_Series.setBackground(SystemColor.activeCaption);
+		panel_2.add(panelFMovie_Series);
+		
+		JLabel lblF = new JLabel();
+		lblF.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panelFMovie_Series.add(lblF);
+		
+		textField = new JTextField();
+		if(type.equals("movie")) {
+			lblF.setText("Time");
+			textField.setColumns(34);
+			panelFMovie_Series.setBorder(new EmptyBorder(0, 0, 0, 19));
+		}
+		else {
+			lblF.setText("Episode");
+			textField.setColumns(34);
+
+		}
+
+		panel_2.add(textField);
+		
+		
 		JPanel panelDate = new JPanel();
 		panelDate.setBackground(SystemColor.activeCaption);
 		panelF.add(panelDate);
+		panelDate.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1_2_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1_2_1.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel_1_2_1.setBorder(new EmptyBorder(0, 0, 0, 12));
+		
 		panel_1_2_1.setBackground(SystemColor.activeCaption);
-		panelDate.add(panel_1_2_1);
+		panelDate.add(panel_1_2_1, BorderLayout.WEST);
 		
 		JLabel lblImg_2_1 = new JLabel("Date");
 		lblImg_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_1_2_1.add(lblImg_2_1);
 		
-		txtDate = new JTextField();
-		txtDate.setText((String) null);
-		txtDate.setColumns(34);
-		panelDate.add(txtDate);
+		JPanel paneDateChooser = new JPanel();
+		paneDateChooser.setBackground(SystemColor.activeCaption);
+		paneDateChooser.setLayout(null);
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(10, 5, 273, 23);
+		dateChooser.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 15));
+		dateChooser.setDateFormatString("dd/MM/yyyy");
+		//dateChooser.setFont(arg0);
+		paneDateChooser.add(dateChooser);
+		panelDate.add(paneDateChooser, BorderLayout.CENTER);
 		
 		JPanel panelImg = new JPanel();
 		panelImg.setBackground(SystemColor.activeCaption);
@@ -201,9 +248,9 @@ public class InsertFrame extends JFrame {
 		        jfc.setFileFilter(imgF);
 		        jfc.setMultiSelectionEnabled(false);
 		        int r = jfc.showOpenDialog(null); 
-		        File file = jfc.getSelectedFile();
+		        file = jfc.getSelectedFile();
 		        if (r == JFileChooser.APPROVE_OPTION) { 
-		        	//app.saveImage(txtName.getText(), file, f.getType());
+		        	txtImg.setText(file.getAbsolutePath());
 		        } 
 		        else
 		            JOptionPane.showMessageDialog(btnAdd, "User cancelled the operation"); 
@@ -254,6 +301,7 @@ public class InsertFrame extends JFrame {
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ad.setEnabled(true);
 				setVisible(false);
 			}
 		});
@@ -261,10 +309,41 @@ public class InsertFrame extends JFrame {
 		btnClose.setBackground(Color.BLACK);
 		panelBtn.add(btnClose);
 		
-		JButton btnNewButton = new JButton("Insert");
-		btnNewButton.setBackground(Color.BLACK);
-		btnNewButton.setForeground(Color.WHITE);
-		panelBtn.add(btnNewButton);
+		JButton btnInsert = new JButton("Insert");
+		btnInsert.setBackground(Color.BLACK);
+		btnInsert.setForeground(Color.WHITE);
+		btnInsert.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Film f;	
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					String sd = dateFormat.format(dateChooser.getDate());
+					if(txtName.getText().isBlank() || txtGenre.getText().isBlank() || sd.isBlank() ||
+						txtDirector.getText().isBlank() || txtImg.getText().isBlank() || 
+						txtContent.getText().isBlank() || textField.getText().isBlank()){
+						JOptionPane.showMessageDialog(null, "Missing text content");
+						return;
+					}
+					if(type.equals("movie")) 
+						f = new Movie(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), Integer.parseInt(textField.getText()), sd, txtContent.getText());
+					else
+						f = new Series(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), sd, txtContent.getText(), Integer.parseInt(textField.getText()));
+					if(app.getLibrary().insertFilm(f)) {
+						app.getLibrary().saveImage(txtName.getText(), file, type);
+						setVisible(false);
+						ad.setEnabled(true);
+						JOptionPane.showMessageDialog(null, "Insert successfully");
+					}
+					else JOptionPane.showMessageDialog(null, "Insert failed");
+				}catch(Exception exc) {
+					JOptionPane.showMessageDialog(null, "Error");
+				}
+			}
+		});
+		panelBtn.add(btnInsert);
 	}
 
 }

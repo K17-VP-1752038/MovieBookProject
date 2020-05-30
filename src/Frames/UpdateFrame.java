@@ -12,30 +12,10 @@ import AppUsed.Application;
 import IOFilmFile.Film;
 import Panels.filmManage;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.ImageIcon;
-import javax.swing.BoxLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.SystemColor;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.awt.event.ActionEvent;
 
@@ -64,11 +44,11 @@ public class UpdateFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UpdateFrame(Application app, Film f) {
+	public UpdateFrame(Application app, AdminFrame ad, Film f) {
 		this.app = app;
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Update");
 		newF = f;
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400,350);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -149,11 +129,12 @@ public class UpdateFrame extends JFrame {
 		        int r = jfc.showOpenDialog(null); 
 		        File file = jfc.getSelectedFile();
 		        if (r == JFileChooser.APPROVE_OPTION) { 
-		        	app.saveImage(f.getName(), file, f.getType());
-		        	txtImg.setText(f.getName()+".jpg");
+		        	txtImg.setText(file.getAbsolutePath());
+		        	app.getLibrary().saveImage(f.getName(), file, f.getType());
 		        } 
 		        else
 		            JOptionPane.showMessageDialog(btnAdd, "User cancelled the operation"); 
+		        
 			}
 		});
 		btnAdd.setPreferredSize(new Dimension(30,25));
@@ -202,11 +183,13 @@ public class UpdateFrame extends JFrame {
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ad.setEnabled(true);
 				setVisible(false);
 			}
 		});
 		btnClose.setForeground(Color.WHITE);
 		btnClose.setBackground(Color.BLACK);
+	
 		panelBtn.add(btnClose);
 		
 		JButton btnUpd = new JButton("Update");
@@ -218,12 +201,24 @@ public class UpdateFrame extends JFrame {
 				
 				app.getLibrary().updateFilm(f, newF);
 				System.out.println(newF.getContent());
+				ad.setEnabled(true);
 				setVisible(false);
 			}
 		});
 		btnUpd.setForeground(Color.WHITE);
 		btnUpd.setBackground(Color.BLACK);
 		panelBtn.add(btnUpd);
-	}
+		this.addWindowListener(
+		    new WindowAdapter() 
+		    {
+		        @Override
+		        public void windowClosing(WindowEvent e) 
+		        {
+		        	ad.setEnabled(true);
+		        	setVisible(false);
+		        }
+
+		    });
+		}
 
 }

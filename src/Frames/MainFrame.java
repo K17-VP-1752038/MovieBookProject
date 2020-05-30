@@ -42,13 +42,13 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					char[] pass = new char[] {'c', 'u', 'n', 'c', 'u', 'n', '9', '9'};
+					char[] pass = new char[] {'t', 'h', 'u', 'y', 't', 'r', 'a', 'n','g'};
 					Application app = new Application();
-					app.login("miknguyet99@gmail.com", pass);
+					app.login("nguyentthuytrang1110@gmail.com", pass);
 					MainFrame frame = new MainFrame(app);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -57,7 +57,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
@@ -98,7 +98,9 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			mnAdmin.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			mnAdmin.setForeground(new Color(255, 255, 255));
 			mnAdmin.setBackground(new Color(0, 0, 0));
+			mnAdmin.addMouseListener(this);
 			menuBar.add(mnAdmin);
+			
 		}
 		
 		JPanel panelRightTop = new JPanel();
@@ -327,6 +329,12 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		if(e.getSource() == mnMovies) {
 			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Show movies");
+		}
+		if(e.getSource() == mnAdmin) {
+			AdminFrame ad = new AdminFrame(app, this);
+			ad.setVisible(true);
+			setEnabled(false);
+			
 		}
 	}
 	

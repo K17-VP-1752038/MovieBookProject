@@ -23,7 +23,7 @@ public class Series extends Film {
 		Fepisode = B.Fepisode;
 	}
 	
-	Series(String name, String icon, String genre, String director, String date, String content, int season, int episode){
+	public Series(String name, String icon, String genre, String director, String date, String content, int episode){
 		Fcontent = content;
 		Ficon = icon;
 		Fname = name;

@@ -98,11 +98,17 @@ public class Application {
 	public Film[] searchByKeyWord(String kw, String type) {
 		if(getAccess()) {
 			ArrayList<Film> films = movieBook.searchByName(kw);
-			Film[] filmlib = new Film[films.size()];
+			ArrayList<Film> filmlib = new ArrayList<>();
 			for(int i = 0; i < films.size(); i++)
 				if(films.get(i).getType().equals(type))
-					filmlib[i] = films.get(i);
-			return filmlib;
+					filmlib.add(films.get(i));
+			
+			System.out.println(filmlib.size());
+			Film[] f = new Film[filmlib.size()];
+			for(int i = 0; i < filmlib.size(); i++)
+				f[i] = filmlib.get(i);
+			
+			return f;
 		}
 		return null;
 	}
@@ -171,22 +177,6 @@ public class Application {
 //	}
 //	//--------------------------------------------
 	
-	// Save image to local file
-	public boolean saveImage(String name, File file, String type) {
-		String img = name.replaceAll(" ", "");
-		try {
-			BufferedImage image = ImageIO.read(file);
-			if(type.equals("movie"))
-				ImageIO.write(image, "jpg", new File("movies/Img/"+ img +".jpg"));
-			else
-				ImageIO.write(image, "jpg", new File("series/Img/"+ img +".jpg"));
-
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 	
 	// GET methods
 	public FilmLibrary getLibrary() {

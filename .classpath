@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/javax.mail-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-validator-1.4.0.jar"/>
+	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

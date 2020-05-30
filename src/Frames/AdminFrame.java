@@ -10,6 +10,11 @@ import Panels.*;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class AdminFrame extends JFrame {
 
@@ -24,7 +29,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,11 +44,11 @@ public class AdminFrame extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
-	public AdminFrame(Application app) {
+	public AdminFrame(Application app, MainFrame frame) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(950, 680);
 		setLocationRelativeTo(null);
@@ -53,6 +58,15 @@ public class AdminFrame extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnReturn = new JMenu("< Return");
+		mnReturn.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+				frame.setEnabled(true);
+			}
+		});
 		mnReturn.setForeground(Color.WHITE);
 		menuBar.add(mnReturn);
 		contentPane = new JPanel();
@@ -70,10 +84,10 @@ public class AdminFrame extends JFrame {
 		getContentPane().add(tabbedPane);
 		
 		//------Panel Movies created--------------------------
-		tabbedPane.addTab("Movies management", new filmManage(app, "movie"));
+		tabbedPane.addTab("Movies management", new filmManage(app, this, "movie"));
 
 		//------Panel Series created--------------------------
-		tabbedPane.addTab("Series management", new filmManage(app, "series"));
+		tabbedPane.addTab("Series management", new filmManage(app, this, "series"));
 		
 		//JPanel paneUser = new JPanel();
 		tabbedPane.addTab("Users management", new userManage(app));

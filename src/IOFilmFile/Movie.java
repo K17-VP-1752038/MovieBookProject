@@ -4,7 +4,7 @@ public class Movie extends Film {
 
 	private int Fduration;
 	
-	Movie() {
+	public Movie() {
 		Fname = null;
 		Ficon = null;
 		Fgenre = null;
@@ -24,7 +24,7 @@ public class Movie extends Film {
 		this.Fgenre = B.Fgenre;
 	}
 	
-	Movie(String name, String icon, String genre, String director, int time, String date, String content){
+	public Movie(String name, String icon, String genre, String director, int time, String date, String content){
 		Fcontent = content;
 		Ficon = icon;
 		Fname = name;

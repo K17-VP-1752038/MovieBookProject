@@ -1,8 +1,8 @@
 package Panels;
-import java.awt.CardLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -19,8 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -28,11 +27,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
 
 public class filmManage extends JPanel implements ActionListener {
 
@@ -42,24 +36,25 @@ public class filmManage extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel tableModel;
 	private Application app;
-	private String type = "";
+	private String type;
 	private JTextField tfSearch;
 	private JButton btnSearch, btnNew;
 	private JPopupMenu jpu;
 	private JMenuItem jmiUpd;
 	private JMenuItem jmiDel;
 	private Film f[];
+	private JTable table;
+	private AdminFrame admin;
 	/**
 	 * Create the panel.
 	 */
-	@SuppressWarnings("serial")
-	public filmManage(Application app, String typ) {
+	public filmManage(Application app, AdminFrame ad, String typ) {
 
 		setLayout(new BorderLayout());
-		
+		this.admin = ad;
 		this.app = app;
 		this.type = typ;
-		
+
 		//--------Panel show all---------------------
 		JPanel paneTable = new JPanel();
 		paneTable.setLayout(new BoxLayout(paneTable, BoxLayout.Y_AXIS));
@@ -103,7 +98,7 @@ public class filmManage extends JPanel implements ActionListener {
         jmiDel.addActionListener(this);
         jpu.add(jmiUpd);
         jpu.add(jmiDel);
-		JTable table = new JTable(tableModel);
+		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
@@ -136,19 +131,46 @@ public class filmManage extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		if(e.getSource() == btnSearch) {
+		String str = e.getActionCommand();
+		if(str.equals("Search")) {
 			tableModel.setRowCount(0);
-			setModelList(app.searchByKeyWord(tfSearch.getText(), type));
+			
+			if(app.searchByKeyWord(tfSearch.getText(), type)== null)
+				JOptionPane.showMessageDialog(null, "Not found");
+			else 
+				setModelList(app.searchByKeyWord(tfSearch.getText(), type));
+			return;
+		}
+		if(str.equals("Add new")) {
+			InsertFrame insert = new InsertFrame(app, admin, type);
+			insert.setVisible(true);
 		}
 		
-		String str = e.getActionCommand();
 		if(str.equals("Update")) {
-			UpdateFrame up = new UpdateFrame(app,f[0]);
+			UpdateFrame up = new UpdateFrame(app, admin, f[0]);
 			up.setVisible(true);
+			admin.setEnabled(false);
+		}
+		if(str.equals("Delete")) {
+			int op = JOptionPane.showConfirmDialog(null, "Do you want to delete this film?");
+			if(op == 0) 
+				if(app.getLibrary().deleteFilm(f[0])) {
+					JOptionPane.showMessageDialog(null, "Delete successfully");
+					tableModel.setRowCount(0);
+					if(type.equals("movie"))
+						setModelList(app.readMovie());
+					else
+						setModelList(app.readSeries());
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Film not exists");
 		}
 		if(str.equals("Reload")) {
-			
+			tableModel.setRowCount(0);
+			if(type.equals("movie"))
+				setModelList(app.readMovie());
+			else
+				setModelList(app.readSeries());
 		}
 		
 	}
