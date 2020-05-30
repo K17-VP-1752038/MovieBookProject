@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import AppUsed.Application;
 import UserPack.*;
+import java.awt.Color;
 
 public class userManage extends JPanel implements ActionListener {
 
@@ -48,6 +49,8 @@ public class userManage extends JPanel implements ActionListener {
 		paneSearch.add(tfSearch);
 		
 		btnSearch = new JButton("Search");
+		btnSearch.setForeground(Color.WHITE);
+		btnSearch.setBackground(Color.BLACK);
 		btnSearch.addActionListener(this);
 		paneSearch.add(btnSearch);		
 		
@@ -79,10 +82,14 @@ public class userManage extends JPanel implements ActionListener {
 		paneTable.add(paneBtn);
 				
 		btnReload = new JButton("Reload");
+		btnReload.setForeground(Color.WHITE);
+		btnReload.setBackground(Color.BLACK);
 		btnReload.addActionListener(this);
 		paneBtn.add(btnReload);
 			
 		btnDel = new JButton("Delete");
+		btnDel.setForeground(Color.WHITE);
+		btnDel.setBackground(Color.BLACK);
 		btnDel.addActionListener(this);
 		paneBtn.add(btnDel);
 	}

@@ -36,15 +36,16 @@ public class AdminFrame extends JFrame {
 					Application app = new Application();
 					char[] pass = new char[] {'t', 'h', 'u', 'y', 't', 'r','a','n','g'};
 					app.login("nguyentthuytrang1110@gmail.com", pass);
-					AdminFrame frame = new AdminFrame(app);
+					MainFrame main = new MainFrame(app);
+					AdminFrame frame = new AdminFrame(app,main);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-*/
+	}*/
+
 	/**
 	 * Create the frame.
 	 */

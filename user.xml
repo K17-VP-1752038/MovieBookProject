@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Users>
-                                                                            
+                                                                                    
     
     
     
@@ -18,103 +18,11 @@
     
     
     
-    <User id="MEM1000" type="member">
-                                                                                                                                                    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <firstname>Nguyễn</firstname>
-                                                                                                                                                    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <name>Minh Châu</name>
-                                                                                                                                                    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <email>minhchau19396@gmail.com</email>
-                                                                                                                                                    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <password>Bongdien</password>
-                                                                                                                                                    
     
     
+                                                                                
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </User>
-                                                                            
     
     
     
@@ -133,7 +41,9 @@
     
     
     <User id="AD101" type="admin">
-                                                                                                                                                    	
+                                                                                                                                                                    	
+        
+        
         
         
         
@@ -152,7 +62,9 @@
         
         
         <firstname>Nguyễn Thị</firstname>
-                                                                                                                                                    	
+                                                                                                                                                                    	
+        
+        
         
         
         
@@ -171,7 +83,9 @@
         
         
         <name>Thùy Trang</name>
-                                                                                                                                                    	
+                                                                                                                                                                    	
+        
+        
         
         
         
@@ -190,7 +104,9 @@
         
         
         <email>nguyentthuytrang1110@gmail.com</email>
-                                                                                                                                                    	
+                                                                                                                                                                    	
+        
+        
         
         
         
@@ -209,7 +125,135 @@
         
         
         <password>thuytrang</password>
-                                                                                                                                                    
+                                                                                                                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </User>
+                                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <User id="MEM1001" type="member">
+                                                                                                                                                                    	
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <firstname>Đinh Nguyễn</firstname>
+                                                                                                                                                                    	
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <name>Quốc Bảo</name>
+                                                                                                                                                                    	
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <email>winterheartlove18@gmail.com</email>
+                                                                                                                                                                    	
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <password>beobeo99</password>
+                                                                                                                                                                    
+    
+    
     
     
     
@@ -229,124 +273,12 @@
     
     </User>
                                                                             
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <User id="MEM1001" type="member">
-                                                                                                                                                    	
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <firstname>Đinh Nguyễn</firstname>
-                                                                                                                                                    	
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <name>Quốc Bảo</name>
-                                                                                                                                                    	
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <email>winterheartlove18@gmail.com</email>
-                                                                                                                                                    	
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <password>beobeo99</password>
-                                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </User>
-                                                                    
 
     
 
 
+    
+    
     
     
     
@@ -361,7 +293,9 @@
     
     
     <User id="MEM1002" type="member">
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -375,7 +309,9 @@
         
         
         <name>Minh Nguyệt</name>
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -389,7 +325,9 @@
         
         
         <firstname>Nguyễn</firstname>
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -403,7 +341,9 @@
         
         
         <email>miknguyet99@gmail.com</email>
-                                                                                                                
+                                                                                                                                
+        
+        
         
         
         
@@ -417,7 +357,9 @@
         
         
         <password>cuncun99</password>
-                                                                                                            
+                                                                                                                            
+    
+    
     
     
     
@@ -431,7 +373,7 @@
     
     
     </User>
-                            
+                                    
     
     
     
@@ -444,51 +386,35 @@
     
     
     
-    <User id="MEM1004" type="member">
-                                                
-        
-        
-        
-        
-        <name>Binh Minh</name>
-                                                
-        
-        
-        
-        
-        <firstname>Vo</firstname>
-                                                
-        
-        
-        
-        
-        <email>venumvo17@gmail.com</email>
-                                                
-        
-        
-        
-        
-        <password>binhminh</password>
-                                            
     
-    
-    
-    
-    </User>
                 
 
 
+    
+    
     
     <User id="MEM1005" type="member">
-                
+                                
+        
+        
         <name>Tran</name>
-                
+                                
+        
+        
         <firstname>Huy Nam</firstname>
-                
+                                
+        
+        
         <email>1752035@student.hcmus.edu.vn</email>
-                
+                                
+        
+        
         <password>huynam</password>
-            
-    </User>
+                            
     
+    
+    </User>
+            
+
+
 </Users>

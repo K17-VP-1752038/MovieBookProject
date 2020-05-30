@@ -17,6 +17,10 @@ import IOFilmFile.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -25,8 +29,12 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.awt.Label;
+import java.awt.Panel;
 
 public class filmManage extends JPanel implements ActionListener {
 
@@ -45,6 +53,10 @@ public class filmManage extends JPanel implements ActionListener {
 	private Film f[];
 	private JTable table;
 	private AdminFrame admin;
+	private JPanel panel;
+	private JPanel panelBottom;
+	private Panel panelSave;
+	private JLabel lblsave;
 	/**
 	 * Create the panel.
 	 */
@@ -59,16 +71,22 @@ public class filmManage extends JPanel implements ActionListener {
 		JPanel paneTable = new JPanel();
 		paneTable.setLayout(new BoxLayout(paneTable, BoxLayout.Y_AXIS));
 		add(paneTable);
+		
+		panel = new JPanel();
+		paneTable.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 				
 		// Panel search
 		JPanel paneSearch = new JPanel();
-		paneTable.add(paneSearch);
+		panel.add(paneSearch);
 				
 		tfSearch = new JTextField();
 		tfSearch.setColumns(16);
 		paneSearch.add(tfSearch);
 		
 		btnSearch = new JButton("Search");
+		btnSearch.setForeground(Color.WHITE);
+		btnSearch.setBackground(Color.BLACK);
 		btnSearch.addActionListener(this);
 		paneSearch.add(btnSearch);		
 		
@@ -114,17 +132,50 @@ public class filmManage extends JPanel implements ActionListener {
 		});
 		table.setComponentPopupMenu(jpu);
 		paneTable.add(new JScrollPane(table));
+		
+		panelBottom = new JPanel();
+		paneTable.add(panelBottom);
+		panelBottom.setLayout(new GridLayout(2, 0, 0, 0));
 				
 		JPanel paneBtn = new JPanel();
-		paneTable.add(paneBtn);
+		panelBottom.add(paneBtn);
 				
 		JButton btnReload = new JButton("Reload");
+		btnReload.setForeground(Color.WHITE);
+		btnReload.setBackground(Color.BLACK);
 		btnReload.addActionListener(this);
 		paneBtn.add(btnReload);
 			
 		btnNew = new JButton("Add new");
+		btnNew.setForeground(Color.WHITE);
+		btnNew.setBackground(Color.BLACK);
 		btnNew.addActionListener(this);
 		paneBtn.add(btnNew);
+		
+		panelSave = new Panel();
+		panelSave.setLayout(new FlowLayout(FlowLayout.LEFT,5,5));
+		panelBottom.add(panelSave);
+		
+		lblsave = new JLabel("Do you want to save? ");
+		lblsave.setForeground(Color.BLUE);
+		lblsave.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		lblsave.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblsave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int op = JOptionPane.showConfirmDialog(null, "Do you want to save file?");
+				if(op == 0) {
+					if(typ.equals("movie")) {
+						app.getLibrary().updateMovieStore(typ);
+					}
+					else {
+						app.getLibrary().updateSeriesStore(typ);
+					}
+					JOptionPane.showMessageDialog(null, "Save file successfully");
+				}
+			}
+		});
+		panelSave.add(lblsave);
 		
 		
 	}
