@@ -53,7 +53,7 @@ public class Admin extends User {
 	
 	// Admin được xóa member
 	public boolean deleteUser(String ID, String pass) {
-		if(pass.equals(getPassword()))
+		if(!pass.equals(getPassword()))
 			return false;
 		if(findUser(ID) == null)
 			return false;

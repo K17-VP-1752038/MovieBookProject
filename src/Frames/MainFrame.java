@@ -37,7 +37,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenuItem mnChangepwd;
 	private JMenuItem mnLogOut;
 	private JMenuItem mnAbout;
-	private DetailPanel2 detail;
+	private DetailPanel detail;
 	private UserPanel user;
 	/**
 	 * Launch the application.
@@ -293,7 +293,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelTop.add(btnSearchGenre);
 		
 		getContentPane().add(panelTop, BorderLayout.NORTH);
-		detail = new DetailPanel2(app);
+		detail = new DetailPanel(app);
 		panelCenter.add("Show detail", detail);
 	}
 	
