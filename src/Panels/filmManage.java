@@ -2,7 +2,6 @@ package Panels;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -17,10 +16,6 @@ import IOFilmFile.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.*;
@@ -28,12 +23,8 @@ import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.BorderLayout;
-import java.awt.Label;
 import java.awt.Panel;
 
 public class filmManage extends JPanel implements ActionListener {
@@ -42,6 +33,7 @@ public class filmManage extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private DefaultTableModel tableModel;
 	private Application app;
 	private String type;
@@ -60,6 +52,7 @@ public class filmManage extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings("serial")
 	public filmManage(Application app, AdminFrame ad, String typ) {
 
 		setLayout(new BorderLayout());

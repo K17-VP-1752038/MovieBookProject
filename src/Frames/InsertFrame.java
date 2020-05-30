@@ -1,8 +1,6 @@
 package Frames;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,8 +10,6 @@ import AppUsed.Application;
 import IOFilmFile.Film;
 import IOFilmFile.Movie;
 import IOFilmFile.Series;
-import Panels.filmManage;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -23,7 +19,6 @@ import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
@@ -33,18 +28,17 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
 public class InsertFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtGenre;
 	private JTextField txtImg;
@@ -71,8 +65,8 @@ public class InsertFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InsertFrame(Application app, AdminFrame ad,String type) {
-		this.app = app;
+	public InsertFrame(Application ap, AdminFrame ad,String type) {
+		this.app = ap;
 		setTitle("Insert");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400,400);
