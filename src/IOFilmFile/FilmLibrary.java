@@ -2,7 +2,6 @@ package IOFilmFile;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -45,7 +44,7 @@ public class FilmLibrary {
 	}
 	
 	// **Load the ArrayList Film back to files
-	public void updateMovieStore(File file, String type) {
+	public void updateMovieStore(String type) {
 		try {
 			ArrayList<Film> movies = new ArrayList<>();
 			for(Film F : films) {
@@ -64,7 +63,7 @@ public class FilmLibrary {
 		}
 	}
 	
-	public void updateSeriesStore(File file, String type) {
+	public void updateSeriesStore(String type) {
 		try {
 			ArrayList<Film> series = new ArrayList<>();
 			for(Film F : films) {

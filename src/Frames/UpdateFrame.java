@@ -1,7 +1,6 @@
 package Frames;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,22 +9,24 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import AppUsed.Application;
 import IOFilmFile.Film;
-import Panels.filmManage;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.awt.event.ActionEvent;
 
 public class UpdateFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtGenre;
 	private JTextField txtImg;
 	private Application app;
 	private Film newF;
+	private File file;
 	/**
 	 * Launch the application.
 	 */
@@ -44,8 +45,8 @@ public class UpdateFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UpdateFrame(Application app, AdminFrame ad, Film f) {
-		this.app = app;
+	public UpdateFrame(Application ap, AdminFrame ad, Film f) {
+		this.app = ap;
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Update");
 		newF = f;
@@ -127,13 +128,11 @@ public class UpdateFrame extends JFrame {
 		        jfc.setFileFilter(imgF);
 		        jfc.setMultiSelectionEnabled(false);
 		        int r = jfc.showOpenDialog(null); 
-		        File file = jfc.getSelectedFile();
-		        if (r == JFileChooser.APPROVE_OPTION) { 
+		        file = jfc.getSelectedFile();
+		        if (r == JFileChooser.APPROVE_OPTION)
 		        	txtImg.setText(file.getAbsolutePath());
-		        	app.getLibrary().saveImage(f.getName(), file, f.getType());
-		        } 
 		        else
-		            JOptionPane.showMessageDialog(btnAdd, "User cancelled the operation"); 
+		            JOptionPane.showMessageDialog(btnAdd, "Cancelled the operation"); 
 		        
 			}
 		});
@@ -141,7 +140,7 @@ public class UpdateFrame extends JFrame {
 		btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAdd.setToolTipText("Add new image");
 		btnAdd.setBackground(Color.DARK_GRAY);
-		btnAdd.setIcon(new ImageIcon("D:\\JAVA\\project\\MovieBookProject\\icon\\add.png"));
+		btnAdd.setIcon(new ImageIcon("icon/add.png"));
 		panelImg.add(btnAdd);
 		
 		JPanel panelContent = new JPanel();
@@ -195,11 +194,21 @@ public class UpdateFrame extends JFrame {
 		JButton btnUpd = new JButton("Update");
 		btnUpd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(txtGenre.getText().isBlank() || txtContent.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null, "Must fill all text content.");
+					return;
+				}
 				newF.setGenre(txtGenre.getText());
 				newF.setIcon(txtImg.getText());
 				newF.setContent(txtContent.getText());
 				
-				app.getLibrary().updateFilm(f, newF);
+				if(app.getLibrary().updateFilm(f, newF)) {
+		        	app.getLibrary().saveImage(f.getName(), file, f.getType());
+					JOptionPane.showMessageDialog(null, "Successfully updated.");		        	
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Can't update film\nThere must be some error!");
+				
 				System.out.println(newF.getContent());
 				ad.setEnabled(true);
 				setVisible(false);
@@ -220,5 +229,4 @@ public class UpdateFrame extends JFrame {
 
 		    });
 		}
-
 }

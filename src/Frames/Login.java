@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 //import javax.swing.border.EmptyBorder;
@@ -48,7 +46,6 @@ public class Login extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private Application app = new Application();
-	private Random ran = new Random();
 	private JTextField tfEmail;
 	private JPasswordField tfPassword;
 	private String mail = "";
@@ -81,7 +78,7 @@ public class Login extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin0.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -102,7 +99,7 @@ public class Login extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		
 		try {
-			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin"+ ran.nextInt(2) +".jpg"));
+			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin0.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
 			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
@@ -162,6 +159,7 @@ public class Login extends JFrame implements ActionListener {
 		loginForm.add(panePassFogot);
 		
 		JLabel lblPassForgot = new JLabel("Password forgotten?");
+		lblPassForgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblPassForgot.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -174,7 +172,7 @@ public class Login extends JFrame implements ActionListener {
 		});
 		lblPassForgot.setForeground(new Color(0, 0, 255));
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 11));
+		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 13));
 		panePassFogot.add(lblPassForgot);
 		
 		JPanel paneEnter = new JPanel();
@@ -185,17 +183,18 @@ public class Login extends JFrame implements ActionListener {
 		btnLogin.addActionListener(this);
 		btnLogin.setBackground(Color.BLACK);
 		btnLogin.setForeground(Color.WHITE);
-		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		paneEnter.add(btnLogin);
 		
 		JPanel panelText = new JPanel();
 		loginForm.add(panelText);
 		
 		JLabel label = new JLabel("Don't have an account?");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		label.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		panelText.add(label);
 		
 		JLabel lblSignup = new JLabel("Sign up");
+		lblSignup.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblSignup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
