@@ -84,7 +84,8 @@ public class FilmLibrary {
 	
 	// Save image to local file
 	public void saveImage(String name, File file, String type) {
-		filmImage img = new filmImage(name, file, type);
+		String n = name.replaceAll(" ", "");
+		filmImage img = new filmImage(n, file, type);
 		images.add(img);
 	}
 	
@@ -106,8 +107,19 @@ public class FilmLibrary {
 	}
 	
 	// Delete film
-	public boolean deleteFilm(Film F) { 
+	public boolean deleteFilm(Film F) {
 		if(films.remove(F)) {
+			File filmImg = null;
+			if(F.getType().equals("movie"))
+				filmImg = new File("movies/Img/"+ F.getIcon());
+			else
+				filmImg = new File("series/Img/"+ F.getIcon());
+			
+		    if (filmImg.delete()) { 
+		      System.out.println("Deleted the file: " + filmImg.getName());
+		    } else {
+		      System.out.println("Failed to delete the file.");
+		    }
 			return true;
 		}
 		return false;
@@ -121,7 +133,7 @@ public class FilmLibrary {
 		if(checkDuplicate(F))
 			return false;
 		String name = F.getName().replaceAll(" ", "");
-		F.setIcon(name);
+		F.setIcon(name + ".jpg");
 		films.add(F);
 		return true;
 	}
@@ -132,7 +144,7 @@ public class FilmLibrary {
 		//if(checkDuplicate(newF)) return false;
 		if(!F.getType().equals(newF.getType())) return false;
 		String name = newF.getName().replaceAll(" ", "");
-		newF.setIcon(name);
+		newF.setIcon(name + ".jpg");
 		// find the location of Film F in films
 		int index = 0;
 		for(Film film : films) {

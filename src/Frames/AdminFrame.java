@@ -9,8 +9,11 @@ import AppUsed.Application;
 import Panels.*;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AdminFrame extends JFrame {
 
@@ -25,7 +28,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -40,15 +43,22 @@ public class AdminFrame extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public AdminFrame(Application app, MainFrame frame) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(950, 680);
 		setLocationRelativeTo(null);
+		
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				frame.setEnabled(true);
+			}
+		});
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.BLACK);
@@ -56,10 +66,8 @@ public class AdminFrame extends JFrame {
 		
 		JMenu mnReturn = new JMenu("< Return");
 		mnReturn.addMouseListener(new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				setVisible(false);
 				frame.setEnabled(true);
 			}

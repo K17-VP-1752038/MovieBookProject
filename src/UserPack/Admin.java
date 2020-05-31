@@ -28,17 +28,16 @@ public class Admin extends User {
 		return "admin";
 	}
 	
-	// Admin được tìm danh sách user theo tên 
+	// Admin được tìm danh sách user 
 	public ArrayList<User> searchUsers(String keyword) {
-		ArrayList<User> list = new ArrayList<>();
 		String k = keyword.toLowerCase();
 
-		list.addAll(urw.searchById(k));
-		list.addAll(urw.searchByName(k));
-		list.addAll(urw.searchByEmail(k));
+		ArrayList<User> list = urw.searchByKeyword(k);
 
+		System.out.println("list: "+ list.size());
 		return list;
 	}
+	
 	// Admin được quyền xem danh sách các users
 	public ArrayList<User> readUsers() {
 		return urw.ReadUserList();

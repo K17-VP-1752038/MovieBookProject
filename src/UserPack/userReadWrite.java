@@ -225,12 +225,12 @@ public class userReadWrite {
 	
 	//---------Search for users--------------------------
 	
-	ArrayList<User> searchByName(String name) {
+	ArrayList<User> searchByKeyword(String key) {
 		ArrayList<User> list = new ArrayList<>();
 		try {
 			ArrayList<User> users = ReadUserList();
 			for(User U : users) {
-				if(U.getName().contains(name))
+				if(U.getName().toLowerCase().contains(key) || U.getEmail().contains(key) || U.getId().toLowerCase().contains(key))
 					list.add(U);
 			}
 		} catch (Exception e) {
@@ -238,34 +238,7 @@ public class userReadWrite {
 		}
 		return list;
 	}
-	
-	ArrayList<User> searchById(String id) {
-		ArrayList<User> list = new ArrayList<>();
-		try {
-			ArrayList<User> users = ReadUserList();
-			for(User U : users) {
-				if(U.getId().contains(id))
-					list.add(U);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return list;
-	}
-	
-	ArrayList<User> searchByEmail(String mail) {
-		ArrayList<User> list = new ArrayList<>();
-		try {
-			ArrayList<User> users = ReadUserList();
-			for(User U : users) {
-				if(U.getEmail().contains(mail))
-					list.add(U);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return list;
-	}
+
 	//------------------------------------------------------
 	
 	// Lay danh sach cac thanh vien

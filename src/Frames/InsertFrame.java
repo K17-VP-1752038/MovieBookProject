@@ -28,6 +28,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
@@ -65,11 +67,20 @@ public class InsertFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InsertFrame(Application ap, AdminFrame ad,String type) {
+	public InsertFrame(Application ap, AdminFrame ad, String type) {
 		this.app = ap;
 		setTitle("Insert");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400,400);
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+			   	ad.setEnabled(true);
+			   	setVisible(false);
+			}
+		});
+		
+		setSize(500, 400);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -178,7 +189,6 @@ public class InsertFrame extends JFrame {
 		else {
 			lblF.setText("Episode");
 			textField.setColumns(34);
-
 		}
 
 		panel_2.add(textField);
@@ -254,7 +264,7 @@ public class InsertFrame extends JFrame {
 		btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAdd.setToolTipText("Add new image");
 		btnAdd.setBackground(Color.DARK_GRAY);
-		btnAdd.setIcon(new ImageIcon("D:\\JAVA\\project\\MovieBookProject\\icon\\add.png"));
+		btnAdd.setIcon(new ImageIcon("icon/add.png"));
 		panelImg.add(btnAdd);
 		
 		JPanel panelContent = new JPanel();

@@ -218,8 +218,7 @@ public class UpdateFrame extends JFrame {
 		btnUpd.setBackground(Color.BLACK);
 		panelBtn.add(btnUpd);
 		this.addWindowListener(
-		    new WindowAdapter() 
-		    {
+		    new WindowAdapter() {
 		        @Override
 		        public void windowClosing(WindowEvent e) 
 		        {

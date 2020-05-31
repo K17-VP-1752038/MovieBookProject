@@ -1,8 +1,12 @@
 eclipse.preferences.version=1
 encoding//series/Series_DB.txt=UTF-8
 encoding//src/AppUsed/Application.java=UTF-8
+encoding//src/Frames/AdminFrame.java=UTF-8
 encoding//src/Frames/SearchFrame.java=UTF-8
 encoding//src/IOFilmFile/filmReadWrite.java=UTF-8
+encoding//src/Panels/DetailPanel.java=UTF-8
+encoding//src/Panels/filmManage.java=UTF-8
+encoding//src/Panels/userManage.java=UTF-8
 encoding//src/UserPack/Admin.java=UTF-8
 encoding//src/UserPack/Member.java=UTF-8
 encoding//src/UserPack/User.java=UTF-8

@@ -188,6 +188,7 @@ public class filmManage extends JPanel implements ActionListener {
 		if(str.equals("Add new")) {
 			InsertFrame insert = new InsertFrame(app, admin, type);
 			insert.setVisible(true);
+			admin.setEnabled(false);
 		}
 		
 		if(str.equals("Update")) {
