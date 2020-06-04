@@ -208,8 +208,6 @@ public class UpdateFrame extends JFrame {
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Can't update film\nThere must be some error!");
-				
-				System.out.println(newF.getContent());
 				ad.setEnabled(true);
 				setVisible(false);
 			}
