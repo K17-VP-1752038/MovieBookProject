@@ -134,6 +134,8 @@ public class FilmLibrary {
 			return false;
 		String name = F.getName().replaceAll(" ", "");
 		F.setIcon(name + ".jpg");
+		String content = F.getContent().replaceAll("\n", " ");
+		F.setContent(content);
 		films.add(F);
 		return true;
 	}
@@ -145,6 +147,8 @@ public class FilmLibrary {
 		if(!F.getType().equals(newF.getType())) return false;
 		String name = newF.getName().replaceAll(" ", "");
 		newF.setIcon(name + ".jpg");
+		String content = newF.getContent().replaceAll("\n", " ");
+		newF.setContent(content);
 		// find the location of Film F in films
 		int index = 0;
 		for(Film film : films) {
