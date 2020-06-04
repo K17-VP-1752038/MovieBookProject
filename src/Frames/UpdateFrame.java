@@ -50,7 +50,7 @@ public class UpdateFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Update");
 		newF = f;
-		setSize(400,350);
+		setSize(500, 350);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
