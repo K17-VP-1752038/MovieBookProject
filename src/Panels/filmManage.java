@@ -45,10 +45,9 @@ public class filmManage extends JPanel implements ActionListener {
 	private Film f[];
 	private JTable table;
 	private AdminFrame admin;
-	private JPanel panel;
-	private JPanel panelBottom;
+	private JPanel panel, panelBottom;
 	private Panel panelSave;
-	private JLabel lblsave;
+	private JLabel lblsave, lblCount;
 	/**
 	 * Create the panel.
 	 */
@@ -83,6 +82,8 @@ public class filmManage extends JPanel implements ActionListener {
 		btnSearch.addActionListener(this);
 		paneSearch.add(btnSearch);		
 		
+		lblCount = new JLabel();
+		
 		if(type.equals("movie")) {
 			String[] header = {"Name", "Image", "Genre", "Director", "Duration (min)", "Released date", "Content"};
 			tableModel = new DefaultTableModel(header, 0){
@@ -99,9 +100,9 @@ public class filmManage extends JPanel implements ActionListener {
 					return false;
 				}
 			};
-			
 			setModelList(app.readSeries());
 		}
+		
 		jpu = new JPopupMenu();
         jmiUpd = new JMenuItem("Update");
         jmiDel = new JMenuItem("Delete");
@@ -126,10 +127,15 @@ public class filmManage extends JPanel implements ActionListener {
 		table.setComponentPopupMenu(jpu);
 		paneTable.add(new JScrollPane(table));
 		
+		JPanel paneCount = new JPanel();
+		paneTable.add(paneCount);
+		lblCount.setText("Total: "+ tableModel.getRowCount());
+		paneCount.add(lblCount);
+		
 		panelBottom = new JPanel();
 		paneTable.add(panelBottom);
 		panelBottom.setLayout(new GridLayout(2, 0, 0, 0));
-				
+		
 		JPanel paneBtn = new JPanel();
 		panelBottom.add(paneBtn);
 				
@@ -216,6 +222,7 @@ public class filmManage extends JPanel implements ActionListener {
 				setModelList(app.readMovie());
 			else
 				setModelList(app.readSeries());
+			lblCount.setText("Total: "+ tableModel.getRowCount());
 		}
 		
 	}
