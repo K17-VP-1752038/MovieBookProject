@@ -156,7 +156,6 @@ public class DetailPanel extends JPanel {
 				if(index < 0)
 					index = films.size() - 1;
 				setContent(getFilmInPos(index));
-				System.out.println(index);
 			}
 		});
 		paneBtn.add(panePrevious);
@@ -177,7 +176,6 @@ public class DetailPanel extends JPanel {
 				if(index > films.size()-1)
 					index = 0;
 				setContent(getFilmInPos(index));
-				System.out.println(index);
 			}
 		});
 		paneBtn.add(paneNext);
@@ -208,7 +206,9 @@ public class DetailPanel extends JPanel {
 		else {
 			lblF.setText("Episodes: " + String.valueOf(((Series)f).getEpisode()));
 			String str = "series\\Img\\" + f.getIcon();
-			lblimg.setIcon(new ImageIcon(str));
+			//lblimg.setIcon(new ImageIcon(str));
+			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+
 		}
 		
 		this.index = getPosOfFilm(f);

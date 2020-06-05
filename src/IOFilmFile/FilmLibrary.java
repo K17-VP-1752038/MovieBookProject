@@ -12,6 +12,8 @@ public class FilmLibrary {
 	private static final String seriesfile="series/Series_DB.txt";
 	private filmReadWrite auth = new filmReadWrite();
 	private ArrayList<Film> films = new ArrayList<>();
+	private ArrayList<String> del_movie_img = new ArrayList<>();
+	private ArrayList<String> del_series_img = new ArrayList<>();	
 	private ArrayList<filmImage> images = new ArrayList<>();
 	
 	// Constructor
@@ -58,6 +60,15 @@ public class FilmLibrary {
 				if(I.getType().equals("movie"))
 					ImageIO.write(image, "jpg", new File("movies/Img/"+ I.getName() +".jpg"));
 			}
+			
+			for(String img : del_movie_img) {
+				File filmImg = new File("movies/Img/"+ img);
+				if (filmImg.delete()) { 
+				      System.out.println("Deleted the file: " + filmImg.getName());
+				} else {
+				      System.out.println("Failed to delete the file.");
+				}
+			}
 		} catch (Exception e) {
 			System.out.println("Error update movie file: "+ e);
 		}
@@ -76,6 +87,14 @@ public class FilmLibrary {
 				BufferedImage image = ImageIO.read(I.getFile());
 				if(I.getType().equals("series"))
 					ImageIO.write(image, "jpg", new File("series/Img/"+ I.getName() +".jpg"));
+			}
+			
+			for(String img : del_series_img) {
+				File filmImg = new File("series/Img/"+ img);
+				if (filmImg.delete())
+				      System.out.println("Deleted the file: " + filmImg.getName());
+				else
+				      System.out.println("Failed to delete the file.");
 			}
 		} catch (Exception e) {
 			System.out.println("Error update series file: "+ e);
@@ -109,17 +128,10 @@ public class FilmLibrary {
 	// Delete film
 	public boolean deleteFilm(Film F) {
 		if(films.remove(F)) {
-			File filmImg = null;
 			if(F.getType().equals("movie"))
-				filmImg = new File("movies/Img/"+ F.getIcon());
+				del_movie_img.add(F.getIcon());
 			else
-				filmImg = new File("series/Img/"+ F.getIcon());
-			
-		    if (filmImg.delete()) { 
-		      System.out.println("Deleted the file: " + filmImg.getName());
-		    } else {
-		      System.out.println("Failed to delete the file.");
-		    }
+				del_series_img.add(F.getIcon());
 			return true;
 		}
 		return false;
@@ -208,5 +220,12 @@ public class FilmLibrary {
 				res += films.get(i).showFilm() + "\n";
 		}
 		return res;
+	}
+	
+	public void dellocate() {
+		films = null;
+		del_movie_img = null;
+		del_series_img = null;	
+		images = null;
 	}
 }

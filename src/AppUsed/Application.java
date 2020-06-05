@@ -39,6 +39,7 @@ public class Application {
 	public void logout() {
 		access = false;
 		user = null;
+		movieBook.dellocate();
 		movieBook = null;
 	}
 	

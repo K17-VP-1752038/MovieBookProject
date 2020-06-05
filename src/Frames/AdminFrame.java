@@ -9,11 +9,14 @@ import AppUsed.Application;
 import Panels.*;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+//import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminFrame extends JFrame {
 
@@ -28,7 +31,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,7 +46,7 @@ public class AdminFrame extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -56,7 +59,8 @@ public class AdminFrame extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) 
 			{
-				frame.setEnabled(true);
+				frame.setVisible(true);
+				dispose();
 			}
 		});
 		
@@ -68,12 +72,33 @@ public class AdminFrame extends JFrame {
 		mnReturn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setVisible(false);
-				frame.setEnabled(true);
+				frame.setVisible(true);
+				dispose();
 			}
 		});
 		mnReturn.setForeground(Color.WHITE);
 		menuBar.add(mnReturn);
+		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.TRAILING);
+		menuBar.add(panel);
+		
+		JButton btnRestart = new JButton("Restart");
+		btnRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				app.logout();
+				Login log = new Login(app.getUser().getEmail());
+				log.setVisible(true);
+				dispose();
+				frame.dispose();
+				//setVisible(false);
+			}
+		});
+		
+		btnRestart.setBackground(new Color(240, 248, 255));
+		panel.add(btnRestart);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -94,7 +119,7 @@ public class AdminFrame extends JFrame {
 		//------Panel Series created--------------------------
 		tabbedPane.addTab("Series management", new filmManage(app, this, "series"));
 		
-		//JPanel paneUser = new JPanel();
+		//------Panel Users created--------------------------
 		tabbedPane.addTab("Users management", new userManage(app));
 	}
 }

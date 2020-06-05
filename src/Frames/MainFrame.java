@@ -130,7 +130,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		});
 		panelRightTop.add(btnSearch);
 		
-		JLabel lblUser = new JLabel(app.getUser().getName());
+		JLabel lblUser = new JLabel(app.getUser().getFirstName());
 		lblUser.setForeground(Color.white);
 		panelRightTop.add(lblUser);
 		
@@ -334,7 +334,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		if(e.getSource() == mnAdmin) {
 			AdminFrame ad = new AdminFrame(app, this);
 			ad.setVisible(true);
-			setEnabled(false);
+			setVisible(false);
 			
 		}
 	}
@@ -457,7 +457,8 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 				app.logout();
 				Login login = new Login();
 				login.setVisible(true);
-				setVisible(false);
+				dispose();
+				//setVisible(false);
 			}
 		}
 		if(str.equals("About")) {

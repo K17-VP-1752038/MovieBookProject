@@ -70,7 +70,8 @@ public class InsertFrame extends JFrame {
 	public InsertFrame(Application ap, AdminFrame ad, String type) {
 		this.app = ap;
 		setTitle("Insert");
-
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) 

@@ -212,6 +212,7 @@ public class filmManage extends JPanel implements ActionListener {
 						setModelList(app.readMovie());
 					else
 						setModelList(app.readSeries());
+					lblCount.setText("Total: "+ tableModel.getRowCount());
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Film not exists");
