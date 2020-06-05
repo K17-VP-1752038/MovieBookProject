@@ -88,8 +88,8 @@ public class AdminFrame extends JFrame {
 		JButton btnRestart = new JButton("Restart");
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				app.logout();
 				Login log = new Login(app.getUser().getEmail());
+				app.logout();
 				log.setVisible(true);
 				dispose();
 				frame.dispose();

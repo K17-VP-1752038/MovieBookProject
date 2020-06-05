@@ -342,32 +342,42 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	void Filter(Film[]flist, JScrollPane scroll) {
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
-		JLabel[] lblImg = new JLabel[flist.length];
+		//JLabel[] lblImg = new JLabel[flist.length];
 		
 		for(int i = 0; i < flist.length; i++) {
 			JPanel panel = new JPanel();
+			JLabel lblImg = new JLabel();
 			panel.setLayout(new FlowLayout());
 			panel.setPreferredSize(new Dimension(280,250));
 			panel.setBackground(Color.white);
 			
-			lblImg[i] = new JLabel();
+			//lblImg[i] = new JLabel();
 			
 			BufferedImage img;
 			try {
-				if(flist[i].getType().equals("movie"))
-					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
-				else
-					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
+				if(flist[i].getType().equals("movie")) {
+					//img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
+					img = (BufferedImage) ImageIO.read(new File("movies/Img/12FeetDeep.jpg"));
+					//System.out.println("movie");
+				}
+				else {
+					//img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
+					img = (BufferedImage) ImageIO.read(new File("series/Img/13ReasonsWhy(Season1).jpg"));
+					//System.out.println("series");
+				}
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
-				lblImg[i].setIcon(icon);
+				//lblImg[i].setIcon(icon);
+				lblImg.setIcon(icon);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			lblImg[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
-			
-			panel.add(lblImg[i]);
+			//lblImg[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+			lblImg.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			//panel.add(lblImg[i]);
+			panel.add(lblImg);
 			Film f = flist[i];
-			lblImg[i].addMouseListener(new MouseAdapter() {
+			//lblImg[i].addMouseListener(new MouseAdapter() {
+			lblImg.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					detail.setContent(f);
