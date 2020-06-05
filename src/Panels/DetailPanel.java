@@ -201,13 +201,14 @@ public class DetailPanel extends JPanel {
 		if(f.getType().equals("movie")) {
 			lblF.setText("Running time: " + String.valueOf(((Movie)f).getDuration()) + " minutes");
 			String str = "movies\\Img\\" + f.getIcon();
-			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+			lblimg.setIcon(new ImageIcon(str));
+			//lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
 		}
 		else {
 			lblF.setText("Episodes: " + String.valueOf(((Series)f).getEpisode()));
 			String str = "series\\Img\\" + f.getIcon();
-			//lblimg.setIcon(new ImageIcon(str));
-			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+			lblimg.setIcon(new ImageIcon(str));
+			//lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
 
 		}
 		
