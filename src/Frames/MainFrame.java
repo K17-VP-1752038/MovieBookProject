@@ -356,14 +356,14 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			BufferedImage img;
 			try {
 				if(flist[i].getType().equals("movie")) {
-					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
-					//img = (BufferedImage) ImageIO.read(new File("movies/Img/12FeetDeep.jpg"));
-					//System.out.println("movie");
+					//img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
+					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+flist[i].getIcon()));
+					System.out.println(flist[i].getName());
 				}
 				else {
+					//img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
 					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
-					//img = (BufferedImage) ImageIO.read(new File("series/Img/13ReasonsWhy(Season1).jpg"));
-					//System.out.println("series");
+					System.out.println(flist[i].getName());
 				}
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
 				//lblImg[i].setIcon(icon);
