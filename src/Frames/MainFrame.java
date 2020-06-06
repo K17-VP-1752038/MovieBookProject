@@ -65,7 +65,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		this.app = app;
 		
 		setTitle("Movie Book");
-		setSize(950,680);
+		setSize(950, 720);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
