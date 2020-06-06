@@ -11,13 +11,18 @@ public class FilmLibrary {
 	private static final String moviesfile="movies/Movies_DB.txt";
 	private static final String seriesfile="series/Series_DB.txt";
 	private filmReadWrite auth = new filmReadWrite();
-	private ArrayList<Film> films = new ArrayList<>();
-	private ArrayList<String> del_movie_img = new ArrayList<>();
-	private ArrayList<String> del_series_img = new ArrayList<>();	
-	private ArrayList<filmImage> images = new ArrayList<>();
+	private ArrayList<Film> films;
+	private ArrayList<String> del_movie_img;
+	private ArrayList<String> del_series_img;	
+	private ArrayList<filmImage> images;
 	
 	// Constructor
 	public FilmLibrary() {
+		films = new ArrayList<>();
+		del_movie_img = new ArrayList<>();
+		del_series_img = new ArrayList<>();
+		images = new ArrayList<>();
+		
 		films.addAll(auth.readMovieFile(moviesfile));
 		films.addAll(auth.readSeriesFile(seriesfile));
 	}
