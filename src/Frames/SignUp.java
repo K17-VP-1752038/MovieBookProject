@@ -145,7 +145,8 @@ public class SignUp extends JFrame {
 				Login frame = new Login();
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 				frame.setVisible(true);
 			}
 		});
@@ -181,7 +182,8 @@ public class SignUp extends JFrame {
 						frame.setSize(getSize());
 						frame.setLocation(getLocation());
 						frame.setVisible(true);
-						setVisible(false);
+						//setVisible(false);
+						dispose();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Please fill your infomation.");

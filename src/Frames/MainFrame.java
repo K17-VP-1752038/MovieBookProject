@@ -335,6 +335,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			AdminFrame ad = new AdminFrame(app, this);
 			ad.setVisible(true);
 			setVisible(false);
+			//dispose();
 			
 		}
 	}

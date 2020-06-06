@@ -183,7 +183,8 @@ public class UpdateFrame extends JFrame {
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ad.setEnabled(true);
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 			}
 		});
 		btnClose.setForeground(Color.WHITE);
@@ -209,7 +210,8 @@ public class UpdateFrame extends JFrame {
 				else
 					JOptionPane.showMessageDialog(null, "Can't update film\nThere must be some error!");
 				ad.setEnabled(true);
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 			}
 		});
 		btnUpd.setForeground(Color.WHITE);
@@ -221,7 +223,8 @@ public class UpdateFrame extends JFrame {
 		        public void windowClosing(WindowEvent e) 
 		        {
 		        	ad.setEnabled(true);
-		        	setVisible(false);
+		        	//setVisible(false);
+		        	dispose();
 		        }
 
 		    });

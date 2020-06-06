@@ -180,7 +180,8 @@ private static final long serialVersionUID = 1L;
 			frame.setSize(getSize());
 			frame.setLocation(getLocation());
 			frame.setVisible(true);
-			setVisible(false);
+			//setVisible(false);
+			dispose();
 		}
 		
 		if(e.getSource() == btnNext) {
@@ -189,7 +190,8 @@ private static final long serialVersionUID = 1L;
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
 				frame.setVisible(true);
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 			}
 		}
 	}

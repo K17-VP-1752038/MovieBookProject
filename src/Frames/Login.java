@@ -33,7 +33,8 @@ class MyThread extends Thread{
 			main = new MainFrame(app);
 			//Thread.sleep(1000);
 			main.setVisible(true);
-			load.setVisible(false);
+			//load.setVisible(false);
+			load.dispose();
         } catch (Exception e) { 
             // Throwing an exception 
             System.out.println ("Exception in thread is caught"); 
@@ -166,7 +167,8 @@ public class Login extends JFrame implements ActionListener {
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
 				frame.setVisible(true);
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 			}
 		});
 		lblPassForgot.setForeground(new Color(0, 0, 255));
@@ -200,7 +202,8 @@ public class Login extends JFrame implements ActionListener {
 				SignUp frame = new SignUp(app);
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 				frame.setVisible(true);
 			}
 		});
@@ -221,7 +224,8 @@ public class Login extends JFrame implements ActionListener {
 		
 		if(app.login(tfEmail.getText(), tfPassword.getPassword()))
 		{
-			this.setVisible(false);
+			//this.setVisible(false);
+			dispose();
 			MyThread thrd = new MyThread("Movie Book", app);
 			thrd.start();
 		}

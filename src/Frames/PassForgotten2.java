@@ -142,7 +142,8 @@ private static final long serialVersionUID = 1L;
 			PassForgotten frame = new PassForgotten("", app);
 			frame.setSize(getSize());
 			frame.setLocation(getLocation());
-			setVisible(false);
+			//setVisible(false);
+			dispose();
 			frame.setVisible(true);
 		}
 		
@@ -157,7 +158,8 @@ private static final long serialVersionUID = 1L;
 					setOpacity(1f);
 					if(app.login(email, tfPassword.getPassword())) {
 //						System.out.println("Login success!");
-						this.setVisible(false);
+						//this.setVisible(false);
+						dispose();
 						MyThread thrd = new MyThread("Movie Book", app);
 						thrd.start();
 					}

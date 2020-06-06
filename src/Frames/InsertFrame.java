@@ -77,7 +77,8 @@ public class InsertFrame extends JFrame {
 			public void windowClosing(WindowEvent e) 
 			{
 			   	ad.setEnabled(true);
-			   	setVisible(false);
+			   	//setVisible(false);
+			   	dispose();
 			}
 		});
 		
@@ -307,7 +308,8 @@ public class InsertFrame extends JFrame {
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ad.setEnabled(true);
-				setVisible(false);
+				//setVisible(false);
+				dispose();
 			}
 		});
 		btnClose.setForeground(Color.WHITE);
@@ -338,7 +340,8 @@ public class InsertFrame extends JFrame {
 						f = new Series(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), sd, txtContent.getText(), Integer.parseInt(textField.getText()));
 					if(app.getLibrary().insertFilm(f)) {
 						app.getLibrary().saveImage(txtName.getText(), file, type);
-						setVisible(false);
+						//setVisible(false);
+						dispose();
 						ad.setEnabled(true);
 						JOptionPane.showMessageDialog(null, "Insert successfully");
 					}
