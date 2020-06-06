@@ -61,8 +61,8 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(Application app) {
-		this.app = app;
+	public MainFrame(Application ap) {
+		this.app = ap;
 		
 		setTitle("Movie Book");
 		setSize(950, 720);
@@ -359,12 +359,10 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 				if(flist[i].getType().equals("movie")) {
 					//img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
 					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+flist[i].getIcon()));
-					System.out.println(flist[i].getName());
 				}
 				else {
 					//img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
 					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
-					System.out.println(flist[i].getName());
 				}
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
 				//lblImg[i].setIcon(icon);
@@ -466,10 +464,14 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 			int op = JOptionPane.showConfirmDialog(null, "Are you sure want to log out?");
 			if(op == 0) {
 				app.logout();
+				app = null;
+				
 				Login login = new Login();
 				login.setVisible(true);
 				dispose();
-				//setVisible(false);
+				
+				System.gc();
+				System.out.println("Cleaned up memory.");
 			}
 		}
 		if(str.equals("About")) {

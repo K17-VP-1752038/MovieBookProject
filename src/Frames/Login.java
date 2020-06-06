@@ -20,6 +20,7 @@ class MyThread extends Thread{
 	private LoadingFrame load;
 	private MainFrame main;
 	private Application app;
+	
 	MyThread(String name, Application app) {
 		super(name);
 		this.app = app;
@@ -28,6 +29,7 @@ class MyThread extends Thread{
 	public void run() {
 		try
         { 	
+			
 			load = new LoadingFrame();
 			load.setVisible(true);
 			main = new MainFrame(app);
@@ -58,6 +60,8 @@ public class Login extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					System.gc();
+					
 					Login frame = new Login("miknguyet99@gmail.com");
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -112,7 +116,7 @@ public class Login extends JFrame implements ActionListener {
 		initialize();
 	}
 
-	void initialize() {
+	void initialize() {		
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
 //		loginForm.setSize(200, 300);
