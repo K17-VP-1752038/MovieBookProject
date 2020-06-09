@@ -64,10 +64,10 @@ public class userReadWrite {
 	}
 	
 	// Tim 1 user trong danh sach va tra ve (LOGIN)
-	User getUser(String email, String pas) {
+	public User getUser(String email) {
 		ArrayList<User> list = ReadUserList();
 		for(User U : list) {
-			if(U.getEmail().equals(email) && U.getPassword().equals(pas))
+			if(U.getEmail().equals(email))
 				return U;
 		}
 		return null;
