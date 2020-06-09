@@ -51,9 +51,10 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdminFrame(Application app, MainFrame frame) {
+	public AdminFrame(Application ap, MainFrame frame) {
 		setSize(950, 680);
 		setLocationRelativeTo(null);
+		this.app = ap;
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -89,10 +90,16 @@ public class AdminFrame extends JFrame {
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login log = new Login(app.getUser().getEmail());
+				
 				app.logout();
+				app = null;
+				
 				log.setVisible(true);
-				dispose();
 				frame.dispose();
+				dispose();
+
+				System.gc();
+				System.out.println("Cleaned up memory.");
 				//setVisible(false);
 			}
 		});
@@ -103,9 +110,7 @@ public class AdminFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		this.app = app;
-		
+				
 		initialize();
 	}
 
