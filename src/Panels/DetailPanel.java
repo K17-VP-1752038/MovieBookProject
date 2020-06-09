@@ -31,11 +31,7 @@ public class DetailPanel extends JPanel {
 	private JPanel paneBtn, panePrevious, paneNext;
 	private JLabel lblPrevious, lblNext;
 	private int index;
-	private JScrollPane scrollPane;
-	private JLabel label;
-	private JLabel label_1;
-	private JLabel label_2;
-	private JLabel label_3;
+	
 	private JScrollPane scrollPane_1;
 	
 	public DetailPanel(Application app) {
@@ -105,6 +101,15 @@ public class DetailPanel extends JPanel {
 		txtName.setFont(new Font("Segoe UI Black", Font.PLAIN, 35));
 		txtName.setForeground(Color.RED);
 		
+		JPanel panelDirector = new JPanel();
+		panelDirector.setOpaque(false);
+		panelDirector.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
+		panel_subTop.add(panelDirector);
+		
+		lblDirector = new JLabel();
+		panelDirector.add(lblDirector);
+		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
 		JPanel panelType = new JPanel();
 		panelType.setBackground(Color.WHITE);
 		panelType.setOpaque(false);
@@ -156,13 +161,7 @@ public class DetailPanel extends JPanel {
 		txtContent.setWrapStyleWord(true);
 		txtContent.setEditable(false);
 		panelContent.add(txtContent);
-		JPanel panelDirector = new JPanel();
-		panelDirector.setOpaque(false);
-		panelDirector.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		
-		lblDirector = new JLabel();
-		panelDirector.add(lblDirector);
-		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		
 		JPanel panelBottom = new JPanel();
