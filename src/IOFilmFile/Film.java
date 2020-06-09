@@ -11,22 +11,28 @@ public abstract class Film{
 	protected String Fdate;
 	protected String Fcontent;
 	
+	
 	// SET methods
 	public void setName(String name) {
 		this.Fname = name;
 	}
+	
 	public void setIcon(String icon) {
 		this.Ficon = icon;
 	}
+	
 	public void setGenre(String genre) {
 		this.Fgenre = genre;
 	}
+	
 	public void setDirector(String director) {
 		this.Fdirector = director;
 	}
+	
 	public void setDate(String date) {
 		this.Fdate = date;
 	}
+	
 	public void setContent(String content) {
 		this.Fcontent = content;
 	}
@@ -35,18 +41,23 @@ public abstract class Film{
 	public String getName() {
 		return this.Fname;
 	}
+	
 	public String getGenre() {
 		return this.Fgenre;
 	}
+	
 	public String getDirector() {
 		return this.Fdirector;
 	}
+	
 	public String getDate() {
 		return this.Fdate;
 	}
+	
 	public String getContent() {
 		return this.Fcontent;
 	}
+	
 	public String getIcon() {
 		return this.Ficon;
 	}

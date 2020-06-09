@@ -44,7 +44,10 @@ public abstract class User {
 	
 	// Admin and member can do
 	public User login(String email, String password) {
-		return urw.getUser(email, password);
+		User U = urw.getUser(email);
+		if(U.getPassword().equals(password))
+			return U;
+		return null;
 	}
 	
 	public boolean updateUserPassword(String oldpass, String newpass) {
