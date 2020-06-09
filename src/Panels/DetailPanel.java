@@ -32,6 +32,11 @@ public class DetailPanel extends JPanel {
 	private JLabel lblPrevious, lblNext;
 	private int index;
 	private JScrollPane scrollPane;
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
+	private JScrollPane scrollPane_1;
 	
 	public DetailPanel(Application app) {
 		this.films = app.getLibrary().getFilms();
@@ -68,12 +73,27 @@ public class DetailPanel extends JPanel {
 		
 		panelRight = new JPanel();
 		panelRight.setBackground(Color.WHITE);
-		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+		//panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+		panelRight.setLayout(new BorderLayout(0,0));
 		this.add(panelRight);
+		JPanel panelTop = new JPanel();		
+		panelRight.add(panelTop, BorderLayout.CENTER);
+		panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelTop.add(scrollPane_1);
+		
+		JPanel panel_subTop = new JPanel();
+		panel_subTop.setBackground(Color.WHITE);
+		scrollPane_1.setViewportView(panel_subTop);
+		panel_subTop.setLayout(new BoxLayout(panel_subTop, BoxLayout.Y_AXIS));
+
 		
 		JPanel panelName = new JPanel();
+		panelName.setBackground(Color.WHITE);
 		panelName.setOpaque(false);
-		panelRight.add(panelName);
+		panel_subTop.add(panelName);
 		
 		txtName = new JTextArea();
 		txtName.setLineWrap(true);
@@ -86,62 +106,70 @@ public class DetailPanel extends JPanel {
 		txtName.setForeground(Color.RED);
 		
 		JPanel panelType = new JPanel();
+		panelType.setBackground(Color.WHITE);
 		panelType.setOpaque(false);
-		panelRight.add(panelType);
+		panel_subTop.add(panelType);
 		panelType.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		
 		lblType = new JLabel();
 		panelType.add(lblType);
 		lblType.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
+		lblF = new JLabel();
+		lblF.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		JPanel panelF = new JPanel();
+		panelF.setBackground(Color.WHITE);
+		panelF.setOpaque(false);
+		panel_subTop.add(panelF);
+		panelF.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
+		panelF.add(lblF);
+		
+		JPanel panelDate = new JPanel();
+		panelDate.setBackground(Color.WHITE);
+		FlowLayout flowLayout_1 = (FlowLayout) panelDate.getLayout();
+		flowLayout_1.setHgap(20);
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+		panelDate.setOpaque(false);
+		panel_subTop.add(panelDate);
+		
+		lblDate = new JLabel();
+		panelDate.add(lblDate);
+		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
+		
+		
+		JPanel panelContent = new JPanel();
+		panelContent.setBackground(Color.WHITE);
+		panel_subTop.add(panelContent);
+		panelContent.setOpaque(false);
+		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
+		panelContent.setLayout(new BorderLayout(0, 0));
+		
+		//scrollPane = new JScrollPane();
+		//scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		
+		txtContent = new JTextArea();
+		//scrollPane.setViewportView(txtContent);
+		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
+		txtContent.setLineWrap(true);
+		txtContent.setWrapStyleWord(true);
+		txtContent.setEditable(false);
+		panelContent.add(txtContent);
 		JPanel panelDirector = new JPanel();
 		panelDirector.setOpaque(false);
-		panelRight.add(panelDirector);
 		panelDirector.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
 		
 		lblDirector = new JLabel();
 		panelDirector.add(lblDirector);
 		lblDirector.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		lblF = new JLabel();
-		lblF.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
-		JPanel panelF = new JPanel();
-		panelF.setOpaque(false);
-		panelRight.add(panelF);
-		panelF.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 5));
-		panelF.add(lblF);
-		
-		JPanel panelDate = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panelDate.getLayout();
-		flowLayout_1.setHgap(20);
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
-		panelDate.setOpaque(false);
-		panelRight.add(panelDate);
-		
-		lblDate = new JLabel();
-		panelDate.add(lblDate);
-		lblDate.setFont(new Font("Tahoma", Font.BOLD, 15));
-		
-		JPanel panelContent = new JPanel();
-		panelRight.add(panelContent);
-		panelContent.setOpaque(false);
-		panelContent.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 10));
-		panelContent.setLayout(new BorderLayout(0, 0));
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		panelContent.add(scrollPane);
-		
-		txtContent = new JTextArea();
-		scrollPane.setViewportView(txtContent);
-		txtContent.setFont(new Font("Calibri", Font.PLAIN, 18));
-		txtContent.setLineWrap(true);
-		txtContent.setWrapStyleWord(true);
-		txtContent.setEditable(false);
-		
+		JPanel panelBottom = new JPanel();
+		panelRight.add(panelBottom, BorderLayout.SOUTH);
+		panelBottom.setLayout(new BoxLayout(panelBottom, BoxLayout.X_AXIS));
 		paneBtn = new JPanel();
-		panelRight.add(paneBtn);
+		panelBottom.add(paneBtn);
 		paneBtn.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		panePrevious = new JPanel();
