@@ -140,9 +140,9 @@ public class userReadWrite {
                 Node nNode = nodeListUser.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 	Element U = (Element) nNode;
-                	
                 	// Tim ra user can cap nhat trong danh sach
                 	String id = U.getAttribute("id");
+                	
                 	if(id.equals(user.getId())) {
                 		Element name = (Element) U.getElementsByTagName("name").item(0);
             			name.setTextContent(user.getName());

@@ -76,7 +76,7 @@ private static final long serialVersionUID = 1L;
 		JPanel panelText = new JPanel();
 		panelText.setBorder(new EmptyBorder(5, 0, 5, 0));
 		loginForm.add(panelText);
-		JLabel lblForgotPassword = new JLabel("FORGOT PASSWORD");
+		JLabel lblForgotPassword = new JLabel("CHANGE PASSWORD");
 		lblForgotPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panelText.add(lblForgotPassword);
 		
@@ -131,7 +131,7 @@ private static final long serialVersionUID = 1L;
 		
 		btnFinish = new JButton("Finish");
 		btnFinish.addActionListener(this);
-		btnFinish.setBackground(new Color(165, 42, 42));
+		btnFinish.setBackground(new Color(139, 0, 0));
 		btnFinish.setForeground(Color.WHITE);
 		paneFinish.add(btnFinish);
 	}
@@ -142,9 +142,8 @@ private static final long serialVersionUID = 1L;
 			PassForgotten frame = new PassForgotten("", app);
 			frame.setSize(getSize());
 			frame.setLocation(getLocation());
-			//setVisible(false);
-			dispose();
 			frame.setVisible(true);
+			dispose();
 		}
 		
 		if(e.getSource() == btnFinish) {
@@ -158,7 +157,6 @@ private static final long serialVersionUID = 1L;
 					setOpacity(1f);
 					if(app.login(email, tfPassword.getPassword())) {
 //						System.out.println("Login success!");
-						//this.setVisible(false);
 						dispose();
 						MyThread thrd = new MyThread("Movie Book", app);
 						thrd.start();

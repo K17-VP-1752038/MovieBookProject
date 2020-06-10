@@ -119,7 +119,7 @@ public class Login extends JFrame implements ActionListener {
 	void initialize() {		
 		JPanel loginForm = new JPanel();
 		getContentPane().add(loginForm);
-//		loginForm.setSize(200, 300);
+		loginForm.setPreferredSize(new Dimension(270, 300));
 		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
 		loginForm.setBorder(new EmptyBorder(3, 3, 3, 3));
 		
@@ -142,8 +142,8 @@ public class Login extends JFrame implements ActionListener {
 		loginForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
-		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
-	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
+		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 5));
+	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 5));
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
 		
@@ -228,7 +228,6 @@ public class Login extends JFrame implements ActionListener {
 		
 		if(app.login(tfEmail.getText(), tfPassword.getPassword()))
 		{
-			//this.setVisible(false);
 			dispose();
 			MyThread thrd = new MyThread("Movie Book", app);
 			thrd.start();

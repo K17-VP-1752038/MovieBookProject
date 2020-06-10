@@ -185,12 +185,15 @@ private static final long serialVersionUID = 1L;
 		}
 		
 		if(e.getSource() == btnNext) {
+			if(tfCode.getText().isBlank()) {
+				JOptionPane.showMessageDialog(null, "Please fill your verify code.");
+				return;
+			}
 			if(randomCode == Integer.parseInt(tfCode.getText())) {
 				PassForgotten2 frame = new PassForgotten2(email, app);
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
 				frame.setVisible(true);
-				//setVisible(false);
 				dispose();
 			}
 		}

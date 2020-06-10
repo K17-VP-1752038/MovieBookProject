@@ -52,12 +52,12 @@ public class filmManage extends JPanel implements ActionListener {
 	 * Create the panel.
 	 */
 	@SuppressWarnings("serial")
-	public filmManage(Application app, AdminFrame ad, String typ) {
+	public filmManage(Application app, AdminFrame ad, String tp) {
 
 		setLayout(new BorderLayout());
 		this.admin = ad;
 		this.app = app;
-		this.type = typ;
+		this.type = tp;
 
 		//--------Panel show all---------------------
 		JPanel paneTable = new JPanel();
@@ -155,21 +155,20 @@ public class filmManage extends JPanel implements ActionListener {
 		panelSave.setLayout(new FlowLayout(FlowLayout.LEFT,5,5));
 		panelBottom.add(panelSave);
 		
-		lblsave = new JLabel("Do you want to save? ");
+		lblsave = new JLabel("Save the changes?");
 		lblsave.setForeground(Color.BLUE);
 		lblsave.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblsave.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblsave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int op = JOptionPane.showConfirmDialog(null, "Do you want to save file?");
+				int op = JOptionPane.showConfirmDialog(null, "Are you sure you want to save file?");
 				if(op == 0) {
-					if(typ.equals("movie")) {
-						app.getLibrary().updateMovieStore(typ);
-					}
-					else {
-						app.getLibrary().updateSeriesStore(typ);
-					}
+					if(type.equals("movie"))
+						app.getLibrary().updateMovieStore(type);
+					else
+						app.getLibrary().updateSeriesStore(type);
+
 					JOptionPane.showMessageDialog(null, "Save file successfully");
 				}
 			}

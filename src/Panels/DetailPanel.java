@@ -216,7 +216,7 @@ public class DetailPanel extends JPanel {
 		txtName.setText(f.getName());
 		lblDirector.setText("Directed by: " + f.getDirector());
 		lblDate.setText("Released date: "+ f.getDate());
-		lblType.setText("Type: " + f.getGenre());
+		lblType.setText("Genre: " + f.getGenre());
 		txtContent.setText(f.getContent());
 		
 		String[]name = f.getName().split(" ");

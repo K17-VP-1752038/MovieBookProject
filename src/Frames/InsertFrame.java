@@ -50,20 +50,7 @@ public class InsertFrame extends JFrame {
 	private JPanel panel_1_1;
 	private JTextField textField;
 	private File file;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	
 	/**
 	 * Create the frame.
 	 */
@@ -77,12 +64,11 @@ public class InsertFrame extends JFrame {
 			public void windowClosing(WindowEvent e) 
 			{
 			   	ad.setEnabled(true);
-			   	//setVisible(false);
 			   	dispose();
 			}
 		});
 		
-		setSize(500, 400);
+		setSize(500, 500);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
@@ -220,7 +206,7 @@ public class InsertFrame extends JFrame {
 		dateChooser.setBounds(10, 5, 273, 23);
 		dateChooser.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 15));
 		dateChooser.setDateFormatString("dd/MM/yyyy");
-		//dateChooser.setFont(arg0);
+
 		paneDateChooser.add(dateChooser);
 		panelDate.add(paneDateChooser, BorderLayout.CENTER);
 		
@@ -248,9 +234,9 @@ public class InsertFrame extends JFrame {
 				JFileChooser jfc = new JFileChooser();
 				jfc.setAcceptAllFileFilterUsed(false); 
 
-				jfc.setDialogTitle("Select a image"); 
+				jfc.setDialogTitle("Select an image"); 
 
-				FileNameExtensionFilter imgF = new FileNameExtensionFilter(" .jpg", "jpg"); 
+				FileNameExtensionFilter imgF = new FileNameExtensionFilter(".jpg", "jpg"); 
 		        jfc.setFileFilter(imgF);
 		        jfc.setMultiSelectionEnabled(false);
 		        int r = jfc.showOpenDialog(null); 

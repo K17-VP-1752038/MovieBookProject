@@ -65,7 +65,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		this.app = ap;
 		
 		setTitle("Movie Book");
-		setSize(950, 680);
+		setSize(950, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
@@ -112,7 +112,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		
 		txtSearch = new JTextField();
 		panelRightTop.add(txtSearch);
-		txtSearch.setColumns(10);
+		txtSearch.setColumns(12);
 		
 		JButton btnSearch = new JButton("");
 		btnSearch.setPreferredSize(new Dimension(30,30));
@@ -429,10 +429,14 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		// TODO Auto-generated method stub
 		String str = e.getActionCommand();
 		if(str.equals("Filter")) {
+			if(listCheckbox.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Check the box to filter");
+				return;
+			}
 			Film[]f = app.searchByGenre(listCheckbox);
 			if(f.length == 0) 
 				JOptionPane.showMessageDialog(panelBottom, "Not Found");
-			else 
+			else
 				Filter(f, scrollFilter);
 			cbaction.setSelected(false);
 			cbadventure.setSelected(false);

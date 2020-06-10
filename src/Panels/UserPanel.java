@@ -56,9 +56,9 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 	/**
 	 * Create the frame.
 	 */
-	public UserPanel(Application app) {
+	public UserPanel(Application ap) {
 		setLayout(new BorderLayout(5,5));
-	
+		this.app = ap;
 		String[] option = {"Change Information", "Change Password"};
 	
 		list = new JList<>();
@@ -90,14 +90,11 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		iconPane.add(lblIcon);
 		iconPane.setBorder(new EmptyBorder(10, 5, 5, 5));
 		panel.add(iconPane);
-	
-//		JPanel paneMail = new JPanel();
-//		paneMail.add(new JLabel(app.getUser().getEmail()));
-//		panel.add(paneMail);
-		
+
 		JPanel paneName = new JPanel();
 		paneName.setBackground(SystemColor.activeCaption);
 		name = new JLabel(app.getUser().getFirstName() + " "+ app.getUser().getName());
+		name.setFont(new Font("Tahoma", Font.BOLD, 16));
 		paneName.add(name);
 		panel.add(paneName);
 		
@@ -156,15 +153,18 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		btnChangeInfo = new JButton("Change name");
 		btnChangeInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tfFirstName.getText().isBlank() && tfLastName.getText().isBlank())
+				if(tfFirstName.getText().isBlank() || tfLastName.getText().isBlank())
 					JOptionPane.showMessageDialog(new JFrame(), "Name can't be null.");
 				else {
 					// Steps to change the user name in database
 					app.getUser().setName(tfLastName.getText());
 					app.getUser().setFirstName(tfFirstName.getText());
-					app.getUser().updateUserInfo();
+					app.getUser().updateUserInfo(app.getUser());
 					// Change the name in screen
 					name.setText(tfFirstName.getText() + " "+ tfLastName.getText());
+					
+					tfFirstName.setText(null);
+					tfLastName.setText(null);
 				}
 			}
 		});
@@ -225,12 +225,14 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		btnChangePw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tfOldPass.getPassword().length< 6 || tfNewPass.getPassword().length < 6 || !Arrays.equals(tfConfirm.getPassword(),tfNewPass.getPassword()))
-					JOptionPane.showMessageDialog(new JFrame(), "Password is invalid or not match");
+					JOptionPane.showMessageDialog(new JFrame(), "Password is invalid or not matched");
 				else if(app.updatePassword(tfOldPass.getPassword(), tfNewPass.getPassword()))
 					JOptionPane.showMessageDialog(new JFrame(), "Password is incorrect");				
 				else {
 					try {
 						MailConfig.sendEmail(app.getUser().getEmail(), "Password Changed", "You have changed your password in Movie Book since "+ new java.util.Date());
+						tfOldPass.setText(null);
+						tfNewPass.setText(null);
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
@@ -282,14 +284,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 			CardLayout cardLayout = (CardLayout)(paneCard.getLayout());
 			cardLayout.show(paneCard, "Change Password");
 		}
-//		if(list.getSelectedIndex() == 2) {
-//			int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?");
-//			if(option == 0) {
-//				app.logout();
-//				Login frame = new Login();
-//				frame.setVisible(true);
-//			}
-//		}
+
 	}
 
 	@Override

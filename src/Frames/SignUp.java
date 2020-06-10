@@ -11,6 +11,7 @@ import AppUsed.*;
 import javax.swing.JTextField;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.awt.FlowLayout;
 
-public class SignUp extends JFrame {
+public class SignUp extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -31,22 +32,6 @@ public class SignUp extends JFrame {
 	private JTextField tfEmail, tfFirstName, tfLastName;
 	private JPasswordField tfPassword, tfConfirm;
 	private Application app;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SignUp frame = new SignUp();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
@@ -74,26 +59,25 @@ public class SignUp extends JFrame {
 	}
 	
 	void initialize() {
-//		getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 200, 200));
-		JPanel loginForm = new JPanel();
-		getContentPane().add(loginForm);
-		loginForm.setLayout(new BoxLayout(loginForm, BoxLayout.Y_AXIS));
-		
+		JPanel resgForm = new JPanel();
+		getContentPane().add(resgForm);
+		resgForm.setLayout(new BoxLayout(resgForm, BoxLayout.Y_AXIS));
+		resgForm.setPreferredSize(new Dimension(360, 210));
 
 		JPanel title = new JPanel();
 		title.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel SignUp = new JLabel("SIGN UP");
 		SignUp.setForeground(Color.BLACK);
 		title.add(SignUp);
-		loginForm.add(title);
+		resgForm.add(title);
 		
 		JPanel form = new JPanel();
-		form.setBorder(new EmptyBorder(8, 5, 3, 5));
-		loginForm.add(form);
+		form.setBorder(new EmptyBorder(8, 5, 5, 5));
+		resgForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
-		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 3));
-	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 3));
+		JPanel inputLabels = new JPanel(new GridLayout(0, 1, 3, 5));
+	    JPanel inputFields = new JPanel(new GridLayout(0, 1, 3, 5));
 		form.add(inputLabels, BorderLayout.WEST);
 		form.add(inputFields, BorderLayout.CENTER);
 		
@@ -118,20 +102,24 @@ public class SignUp extends JFrame {
 		inputLabels.add(new JLabel("Confirm Password: "));
 		tfEmail = new JTextField(15);
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		tfPassword = new JPasswordField(15);
 		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		tfConfirm = new JPasswordField(15);
 		tfConfirm.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfConfirm.addActionListener(this);
+		
 		inputFields.add(tfEmail);
 		inputFields.add(tfPassword);
 		inputFields.add(tfConfirm);
 		
 		JPanel panePassFogot = new JPanel();
-		loginForm.add(panePassFogot);
+		resgForm.add(panePassFogot);
 		
 		JPanel paneBtn = new JPanel();
 		paneBtn.setBorder(new EmptyBorder(3, 0, 1, 0));
-		loginForm.add(paneBtn);
+		resgForm.add(paneBtn);
 		paneBtn.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		JPanel paneReturn = new JPanel();
@@ -145,9 +133,8 @@ public class SignUp extends JFrame {
 				Login frame = new Login();
 				frame.setSize(getSize());
 				frame.setLocation(getLocation());
-				//setVisible(false);
-				dispose();
 				frame.setVisible(true);
+				dispose();
 			}
 		});
 		paneReturn.add(btnReturn);
@@ -159,40 +146,46 @@ public class SignUp extends JFrame {
 		flowLayout_1.setAlignment(FlowLayout.TRAILING);
 		paneBtn.add(paneNext);
 		
-		JButton btnNext = new JButton("Sign Up");
-		btnNext.setBackground(Color.BLACK);
+		JButton btnNext = new JButton("Register");
+		btnNext.setBackground(new Color(139, 0, 0));
 		btnNext.setForeground(Color.WHITE);
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(app.getUser().isExist(tfEmail.getText())) {
-					JOptionPane.showMessageDialog(null, "Email account's already existed.");
-					return;
-				}
-				if(tfPassword.getPassword().length < 6) {
-					JOptionPane.showMessageDialog(null, "Password must have at least 6 characters.");
-					return;
-				}				
-				if(Arrays.equals(tfPassword.getPassword(), tfConfirm.getPassword())) {
-					if(!MailConfig.emailValidate(tfEmail.getText())) {
-						JOptionPane.showMessageDialog(new JFrame(), "Email is invalid.");
-						return;
-					}
-					if(app.signUp(tfLastName.getText(), tfFirstName.getText(), tfEmail.getText(), tfPassword.getPassword())) {
-						Login frame = new Login(tfEmail.getText());
-						frame.setSize(getSize());
-						frame.setLocation(getLocation());
-						frame.setVisible(true);
-						//setVisible(false);
-						dispose();
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Please fill your infomation.");
-					}
-				}
-				else
-					JOptionPane.showMessageDialog(null, "Password is incorrect.");
-			}
-		});
+		btnNext.addActionListener(this);
 		paneNext.add(btnNext);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if(tfLastName.getText().isBlank() || tfEmail.getText().isBlank() || tfFirstName.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Please fill all your information.");
+			return;
+		}
+		if(app.getUser().isExist(tfEmail.getText())) {
+			JOptionPane.showMessageDialog(null, "Email account's already existed.");
+			return;
+		}
+		if(tfPassword.getPassword().length < 6) {
+			JOptionPane.showMessageDialog(null, "Password must have at least 6 characters.");
+			return;
+		}				
+		if(Arrays.equals(tfPassword.getPassword(), tfConfirm.getPassword())) {
+			if(!MailConfig.emailValidate(tfEmail.getText())) {
+				JOptionPane.showMessageDialog(new JFrame(), "Email is invalid.");
+				return;
+			}
+			if(app.signUp(tfLastName.getText(), tfFirstName.getText(), tfEmail.getText(), tfPassword.getPassword())) {
+				Login frame = new Login(tfEmail.getText());
+				frame.setSize(getSize());
+				frame.setLocation(getLocation());
+				frame.setVisible(true);
+				dispose();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Your infomation is invalid.");
+			}
+		}
+		else
+			JOptionPane.showMessageDialog(null, "Password not matching.");
+	
 	}
 }

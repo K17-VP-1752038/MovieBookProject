@@ -45,8 +45,9 @@ public abstract class User {
 	// Admin and member can do
 	public User login(String email, String password) {
 		User U = urw.getUser(email);
-		if(U.getPassword().equals(password))
-			return U;
+		if(U != null)
+			if(U.getPassword().equals(password))
+				return U;
 		return null;
 	}
 	
@@ -68,8 +69,8 @@ public abstract class User {
 		return false;
 	}
 	
-	public void updateUserInfo() {
-		urw.updateUserInfo(this);
+	public void updateUserInfo(User U) {
+		urw.updateUserInfo(U);
 	}
 	
 	public boolean isExist(String email) {
