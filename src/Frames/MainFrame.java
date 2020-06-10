@@ -17,7 +17,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.JMenuItem;
 
-class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener {
+public class MainFrame extends JFrame implements MouseListener, ActionListener, ItemListener {
 	/**
 	 * 
 	 */
@@ -39,6 +39,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 	private JMenuItem mnAbout;
 	private DetailPanel detail;
 	private UserPanel user;
+	private JLabel lblUser;
 	/**
 	 * Launch the application.
 	 */
@@ -130,7 +131,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		});
 		panelRightTop.add(btnSearch);
 		
-		JLabel lblUser = new JLabel(app.getUser().getFirstName());
+		lblUser = new JLabel(app.getUser().getFirstName());
 		lblUser.setForeground(Color.white);
 		panelRightTop.add(lblUser);
 		
@@ -190,7 +191,7 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelCenter.add("Show series",scrollSeries);
 		panelCenter.add("Search",scrollSearch);
 		panelCenter.add("Filter",scrollFilter);
-		user = new UserPanel(app);
+		user = new UserPanel(app,this);
 		panelCenter.add("Settings", user);
 		
 		panelBottom = new JPanel();
@@ -300,6 +301,10 @@ class MainFrame extends JFrame implements MouseListener, ActionListener, ItemLis
 		panelCenter.add("Show detail", detail);
 	}
 	
+	public void setUser(String name) {
+		lblUser.setText(name);
+	}
+
 	void search(String txtsearch, Application app) {
 		if(txtsearch.isEmpty() == false) {
 			Film[]flist = app.searchByKeyWord(txtsearch);

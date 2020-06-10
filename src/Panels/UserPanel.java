@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import AppUsed.Application;
 import AppUsed.MailConfig;
+import Frames.*;
 
 public class UserPanel extends JPanel implements ActionListener, MouseListener, ListSelectionListener {
 
@@ -56,7 +57,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 	/**
 	 * Create the frame.
 	 */
-	public UserPanel(Application ap) {
+	public UserPanel(Application ap, MainFrame frame) {
 		setLayout(new BorderLayout(5,5));
 		this.app = ap;
 		String[] option = {"Change Information", "Change Password"};
@@ -98,7 +99,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		paneName.add(name);
 		panel.add(paneName);
 		
-		initPaneInfo();
+		initPaneInfo(frame);
 		initPanePassword();
 		
 		paneCard = new JPanel();
@@ -108,7 +109,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		paneCard.add("Change Password", pane2);
 	}
 	
-	private void initPaneInfo() {
+	private void initPaneInfo(MainFrame frame) {
 		pane1 = new JPanel();
 		pane1.setBackground(SystemColor.activeCaption);
 		
@@ -165,6 +166,8 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 					
 					tfFirstName.setText(null);
 					tfLastName.setText(null);
+					frame.setUser(app.getUser().getFirstName());
+					
 				}
 			}
 		});

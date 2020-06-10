@@ -195,7 +195,7 @@ public class UpdateFrame extends JFrame {
 		JButton btnUpd = new JButton("Update");
 		btnUpd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtGenre.getText().isBlank() || txtContent.getText().isBlank()) {
+				if(txtGenre.getText().isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "Must fill all text content.");
 					return;
 				}

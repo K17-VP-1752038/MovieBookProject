@@ -46,6 +46,7 @@ public class DetailPanel extends JPanel {
 		panelLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		
 		lblimg = new JLabel("");
+		lblimg.setToolTipText("Click To Watch The Trailer");
 		lblimg.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblimg.addMouseListener(new MouseAdapter() {
 			@Override

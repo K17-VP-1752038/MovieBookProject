@@ -112,7 +112,7 @@ public class InsertFrame extends JFrame {
 		
 		txtName = new JTextField();
 		txtName.setText("");
-		txtName.setColumns(34);
+		txtName.setColumns(40);
 		panelName.add(txtName);
 		
 		JPanel panelGenre = new JPanel();
@@ -132,7 +132,7 @@ public class InsertFrame extends JFrame {
 		
 		txtGenre = new JTextField();
 		panelGenre.add(txtGenre);
-		txtGenre.setColumns(34);
+		txtGenre.setColumns(40);
 		
 		JPanel panelDirector = new JPanel();
 		panelDirector.setBackground(SystemColor.activeCaption);
@@ -149,7 +149,7 @@ public class InsertFrame extends JFrame {
 		
 		txtDirector = new JTextField();
 		panelDirector.add(txtDirector);
-		txtDirector.setColumns(34);
+		txtDirector.setColumns(40);
 		
 		JPanel panel_2 = new JPanel();
 		FlowLayout flowLayout_3 = (FlowLayout) panel_2.getLayout();
@@ -169,14 +169,15 @@ public class InsertFrame extends JFrame {
 		panelFMovie_Series.add(lblF);
 		
 		textField = new JTextField();
+		textField.setColumns(40);
 		if(type.equals("movie")) {
 			lblF.setText("Time");
-			textField.setColumns(34);
+			//textField.setColumns(40);
 			panelFMovie_Series.setBorder(new EmptyBorder(0, 0, 0, 19));
 		}
 		else {
 			lblF.setText("Episode");
-			textField.setColumns(34);
+			//textField.setColumns(38);
 		}
 
 		panel_2.add(textField);
@@ -226,7 +227,7 @@ public class InsertFrame extends JFrame {
 		
 		txtImg = new JTextField();
 		panelImg.add(txtImg);
-		txtImg.setColumns(30);
+		txtImg.setColumns(40);
 		
 		JButton btnAdd = new JButton("");
 		btnAdd.addActionListener(new ActionListener() {
@@ -311,15 +312,15 @@ public class InsertFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Film f;	
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				try {
-					String sd = dateFormat.format(dateChooser.getDate());
-					if(txtName.getText().isBlank() || txtGenre.getText().isBlank() || sd.isBlank() ||
+					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					if(txtName.getText().isBlank() || txtGenre.getText().isBlank() || (dateChooser.getDate()==null) ||
 						txtDirector.getText().isBlank() || txtImg.getText().isBlank() || 
 						txtContent.getText().isBlank() || textField.getText().isBlank()){
 						JOptionPane.showMessageDialog(null, "Missing text content");
 						return;
 					}
+					String sd = dateFormat.format(dateChooser.getDate());
 					if(type.equals("movie")) 
 						f = new Movie(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), Integer.parseInt(textField.getText()), sd, txtContent.getText());
 					else
