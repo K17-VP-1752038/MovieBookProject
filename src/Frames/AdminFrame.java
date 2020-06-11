@@ -52,7 +52,6 @@ public class AdminFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminFrame(Application ap, MainFrame frame) {
-		setSize(950, 680);
 		setLocationRelativeTo(null);
 		this.app = ap;
 		

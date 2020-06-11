@@ -95,7 +95,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		JPanel paneName = new JPanel();
 		paneName.setBackground(SystemColor.activeCaption);
 		name = new JLabel(app.getUser().getFirstName() + " "+ app.getUser().getName());
-		name.setFont(new Font("Tahoma", Font.BOLD, 16));
+		name.setFont(new Font("Tahoma", Font.BOLD, 18));
 		paneName.add(name);
 		panel.add(paneName);
 		

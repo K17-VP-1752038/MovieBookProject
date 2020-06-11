@@ -47,7 +47,7 @@ class MyThread extends Thread{
 public class Login extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private Application app = new Application();
+	private Application app;
 	private JTextField tfEmail;
 	private JPasswordField tfPassword;
 	private String mail = "";
@@ -113,6 +113,8 @@ public class Login extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		mail = email;
+		app = new Application();
+		
 		initialize();
 	}
 
@@ -169,7 +171,7 @@ public class Login extends JFrame implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				PassForgotten frame = new PassForgotten(tfEmail.getText(), app);
 				frame.setSize(getSize());
-				frame.setLocation(getLocation());
+				frame.setLocation(getLocationOnScreen());
 				frame.setVisible(true);
 				//setVisible(false);
 				dispose();
@@ -205,7 +207,7 @@ public class Login extends JFrame implements ActionListener {
 			public void mousePressed(MouseEvent e) {
 				SignUp frame = new SignUp(app);
 				frame.setSize(getSize());
-				frame.setLocation(getLocation());
+				frame.setLocation(getLocationOnScreen());
 				//setVisible(false);
 				dispose();
 				frame.setVisible(true);

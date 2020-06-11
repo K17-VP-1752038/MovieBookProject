@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 	public PassForgotten2(String mail, Application ap) {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(628, 445);
+//		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
@@ -141,7 +141,7 @@ private static final long serialVersionUID = 1L;
 		if(e.getSource() == btnReturn) {
 			PassForgotten frame = new PassForgotten("", app);
 			frame.setSize(getSize());
-			frame.setLocation(getLocation());
+			frame.setLocation(getLocationOnScreen());
 			frame.setVisible(true);
 			dispose();
 		}
@@ -154,12 +154,13 @@ private static final long serialVersionUID = 1L;
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
-					setOpacity(1f);
 					if(app.login(email, tfPassword.getPassword())) {
-//						System.out.println("Login success!");
+						Login frame = new Login(email);
+						app = null;
+						frame.setSize(getSize());
+						frame.setLocation(getLocationOnScreen());
+						frame.setVisible(true);
 						dispose();
-						MyThread thrd = new MyThread("Movie Book", app);
-						thrd.start();
 					}
 				}
 			}

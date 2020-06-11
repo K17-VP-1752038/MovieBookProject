@@ -338,17 +338,18 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		}
 		if(e.getSource() == mnAdmin) {
 			AdminFrame ad = new AdminFrame(app, this);
+			ad.setSize(getSize());
+			ad.setLocation(getLocationOnScreen());
 			ad.setVisible(true);
+			
 			setVisible(false);
 			//dispose();
-			
 		}
 	}
 	
 	void Filter(Film[]flist, JScrollPane scroll) {
 		panelBottom = new JPanel();
 		panelBottom.setBackground(Color.WHITE);
-		//JLabel[] lblImg = new JLabel[flist.length];
 		
 		for(int i = 0; i < flist.length; i++) {
 			JPanel panel = new JPanel();
@@ -357,30 +358,27 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			panel.setPreferredSize(new Dimension(280,250));
 			panel.setBackground(Color.white);
 			
-			//lblImg[i] = new JLabel();
 			
 			BufferedImage img;
 			try {
 				if(flist[i].getType().equals("movie")) {
-					//img = (BufferedImage) ImageIO.read(new File("movies/Img/"+ flist[i].getIcon()));
 					img = (BufferedImage) ImageIO.read(new File("movies/Img/"+flist[i].getIcon()));
 				}
 				else {
-					//img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
 					img = (BufferedImage) ImageIO.read(new File("series/Img/"+ flist[i].getIcon()));
 				}
 				ImageIcon icon = new ImageIcon(img.getScaledInstance(280, 200, Image.SCALE_SMOOTH));
-				//lblImg[i].setIcon(icon);
+
 				lblImg.setIcon(icon);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			//lblImg[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 			lblImg.setCursor(new Cursor(Cursor.HAND_CURSOR));
-			//panel.add(lblImg[i]);
+
 			panel.add(lblImg);
 			Film f = flist[i];
-			//lblImg[i].addMouseListener(new MouseAdapter() {
+
 			lblImg.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -399,7 +397,6 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			panel.add(txtName);
 			panelBottom.add(panel);
 		}
-		//getContentPane().add(scrollPane);
 		scroll.setViewportView(panelBottom);
 		panelBottom.setLayout(new GridLayout(0, 3, 10, 15));
 	}
@@ -435,7 +432,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		String str = e.getActionCommand();
 		if(str.equals("Filter")) {
 			if(listCheckbox.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Check the box to filter");
+				JOptionPane.showMessageDialog(null, "Please check the box to filter");
 				return;
 			}
 			Film[]f = app.searchByGenre(listCheckbox);
@@ -480,7 +477,6 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 				dispose();
 				
 				System.gc();
-				System.out.println("Cleaned up memory.");
 			}
 		}
 		if(str.equals("About")) {

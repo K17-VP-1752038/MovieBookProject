@@ -176,7 +176,7 @@ public class SignUp extends JFrame implements ActionListener {
 			if(app.signUp(tfLastName.getText(), tfFirstName.getText(), tfEmail.getText(), tfPassword.getPassword())) {
 				Login frame = new Login(tfEmail.getText());
 				frame.setSize(getSize());
-				frame.setLocation(getLocation());
+				frame.setLocation(getLocationOnScreen());
 				frame.setVisible(true);
 				dispose();
 			}
