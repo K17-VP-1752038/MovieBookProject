@@ -154,6 +154,7 @@ public class Login extends JFrame implements ActionListener {
 		tfEmail = new JTextField(15);
 		tfEmail.setText(mail);
 		tfEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		tfPassword = new JPasswordField(15);
 		tfPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		tfPassword.setToolTipText("Password must have at least 6 characters.");

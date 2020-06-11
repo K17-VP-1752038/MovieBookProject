@@ -131,6 +131,8 @@ private static final long serialVersionUID = 1L;
 		
 		tfCode = new JTextField(15);
 		tfCode.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfCode.addActionListener(this);
+		
 		inputFields.add(emailSent);
 		inputFields.add(tfCode);
 		
@@ -154,7 +156,15 @@ private static final long serialVersionUID = 1L;
 		paneBtn.add(paneReturn);
 		
 		btnReturn = new JButton("Return");
-		btnReturn.addActionListener(this);
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login frame = new Login();
+				frame.setSize(getSize());
+				frame.setLocation(getLocationOnScreen());
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		paneReturn.add(btnReturn);
 		btnReturn.setBackground(Color.BLACK);
 		btnReturn.setForeground(Color.WHITE);
@@ -175,27 +185,16 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == btnReturn) {
-			Login frame = new Login();
+		if(tfCode.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Please fill your verify code.");
+			return;
+		}
+		if(randomCode == Integer.parseInt(tfCode.getText())) {
+			PassForgotten2 frame = new PassForgotten2(email, app);
 			frame.setSize(getSize());
 			frame.setLocation(getLocationOnScreen());
 			frame.setVisible(true);
-			//setVisible(false);
 			dispose();
-		}
-		
-		if(e.getSource() == btnNext) {
-			if(tfCode.getText().isBlank()) {
-				JOptionPane.showMessageDialog(null, "Please fill your verify code.");
-				return;
-			}
-			if(randomCode == Integer.parseInt(tfCode.getText())) {
-				PassForgotten2 frame = new PassForgotten2(email, app);
-				frame.setSize(getSize());
-				frame.setLocation(getLocationOnScreen());
-				frame.setVisible(true);
-				dispose();
-			}
 		}
 	}
 	
