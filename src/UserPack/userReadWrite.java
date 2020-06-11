@@ -79,15 +79,15 @@ public class userReadWrite {
 		// Neu email da ton tai, return false
 		if(isExist(mem.getEmail()))
 			return false;
-		String s = userList.get(0).getId().substring(3);
-		int count = Integer.parseInt(s) + 1;
+
+		int count = 1000;
 		String Id = "MEM" + count; 
 		while(count < 9999) {
 			boolean had = false;
-			for(User U : userList) {
+			for(User U : userList)
 				if(U.getId().equals(Id))
 					had = true;
-			}
+			
 			if(!had) break;
 			else {
 				count++;

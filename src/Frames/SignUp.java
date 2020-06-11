@@ -40,7 +40,7 @@ public class SignUp extends JFrame implements ActionListener {
 		setTitle("Movie Book");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		setBounds(100, 100, 628, 445);
-		setSize(628, 445);
+//		setSize(628, 445);
 		setLocationRelativeTo(null);
 
 		try {
@@ -67,12 +67,12 @@ public class SignUp extends JFrame implements ActionListener {
 		JPanel title = new JPanel();
 		title.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		JLabel SignUp = new JLabel("SIGN UP");
-		SignUp.setForeground(Color.BLACK);
+//		SignUp.setForeground(Color.BLACK);
 		title.add(SignUp);
 		resgForm.add(title);
 		
 		JPanel form = new JPanel();
-		form.setBorder(new EmptyBorder(8, 5, 5, 5));
+		form.setBorder(new EmptyBorder(8, 8, 5, 8));
 		resgForm.add(form);
 		form.setLayout(new BorderLayout(5, 5));
 		
