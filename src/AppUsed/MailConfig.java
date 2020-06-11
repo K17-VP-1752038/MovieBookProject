@@ -30,7 +30,7 @@ public class MailConfig {
 		// Check if email's validate
 		if(validator.isValid(email)) {
 			try {
-				MailConfig.sendEmail(email, "Welcome to Movie Book", "Welcome to Movie Book,\nYou have register in our application Movie Book since " + new java.util.Date() +"/nThankyou for choosing us and hope you have a good experience");
+				MailConfig.sendEmail(email, "Welcome - Movie Book", "Welcome to Movie Book,\nYou have register in our application Movie Book since " + new java.util.Date() +"\nThankyou for choosing us and hope you have a good experience.");
 				return true;
 			} catch (Exception e) {
 				return false;
