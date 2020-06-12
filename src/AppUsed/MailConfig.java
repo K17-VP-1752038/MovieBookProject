@@ -18,16 +18,21 @@ public class MailConfig {
 	private static final String user = "applicationautomatic@gmail.com";
 	private static final String pass = "BlackDiamond";
 
-	public static void main(String[] args) {
-
-		System.out.println(MailConfig.emailValidate("miknguyet99@123.com"));
-	}
+//	public static void main(String[] args) {
+//
+//		System.out.println(MailConfig.emailValidate("miknguyet99@123.com"));
+//	}
 
 	public static boolean emailValidate(String email) {
 		
 		EmailValidator validator = EmailValidator.getInstance();
 		
 		// Check if email's validate
+		String tail = email.substring(email.indexOf("@"));
+		for(int i = 0; i < tail.length(); i++)
+			if(Character.isDigit(tail.charAt(i)))
+				return false;
+		
 		if(validator.isValid(email)) {
 			try {
 				MailConfig.sendEmail(email, "Welcome - Movie Book", "Welcome to Movie Book,\nYou have register in our application Movie Book since " + new java.util.Date() +"\nThankyou for choosing us and hope you have a good experience.");
@@ -37,7 +42,6 @@ public class MailConfig {
 			}
 		}
 		return false;
-		
 	}
 	
 	public static void sendEmail(String toMail, String subject, String cont) throws AddressException, MessagingException {
