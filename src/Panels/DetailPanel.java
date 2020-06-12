@@ -46,7 +46,7 @@ public class DetailPanel extends JPanel {
 		flowLayout_3.setAlignment(FlowLayout.TRAILING);
 		this.add(panelClose, BorderLayout.NORTH);
 		
-		lblClose = new JLabel("Close X");
+		lblClose = new JLabel("< Return");
 		lblClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -55,6 +55,7 @@ public class DetailPanel extends JPanel {
 				card.show(panelCenter, presentCard);
 			}
 		});
+		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblClose.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblClose.setForeground(SystemColor.textHighlight);
 		panelClose.add(lblClose);

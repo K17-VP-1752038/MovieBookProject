@@ -308,15 +308,16 @@ public class UpdateFrame extends JFrame implements ItemListener{
 		JButton btnUpd = new JButton("Update");
 		btnUpd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*if(txtGenre.getText().isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
-					JOptionPane.showMessageDialog(null, "Must fill all text content.");
-					return;
-				}*/
+				
 				String txtGenre = "";
 				for(int i = 0; i < listCheckbox.size(); i++) {
 					if(i == (listCheckbox.size() - 1))
 						txtGenre = txtGenre + listCheckbox.get(i);
 					else txtGenre = txtGenre + listCheckbox.get(i) + ", ";
+				}
+				if(txtGenre.isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null, "Must fill all text content.");
+					return;
 				}
 				newF.setGenre(txtGenre);
 				newF.setIcon(txtImg.getText());
