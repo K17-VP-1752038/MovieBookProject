@@ -123,7 +123,7 @@ public class FilmLibrary {
 	// If there's duplicate error, return true
 	private boolean checkDuplicate(Film F) {
 		for(Film film : films) {
-			if(film.getName().equals(F.getName()) && film.getDirector().equals(F.getDirector())) {
+			if(film.getName().equals(F.getName())) {
 				return true;
 			}
 		}
