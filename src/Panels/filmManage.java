@@ -112,6 +112,8 @@ public class filmManage extends JPanel implements ActionListener {
         jpu.add(jmiDel);
 		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setToolTipText("Click right mouse to update or delete film");
+
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent me) {
 				if(SwingUtilities.isRightMouseButton(me) == true)
