@@ -31,15 +31,40 @@ public class DetailPanel extends JPanel {
 	private JPanel paneBtn, panePrevious, paneNext;
 	private JLabel lblPrevious, lblNext;
 	private int index;
-	
+	private String presentCard;
 	private JScrollPane scrollPane_1;
+	private JLabel lblClose;
 	
-	public DetailPanel(Application app) {
+	public DetailPanel(Application app, JPanel panelCenter) {
 		this.films = app.getLibrary().getFilms();
 		
-		setLayout(new GridLayout(0, 2, 0, 0));
+		setLayout(new BorderLayout());
+		
+		JPanel panelClose = new JPanel();
+		panelClose.setOpaque(false);
+		FlowLayout flowLayout_3 = (FlowLayout) panelClose.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.TRAILING);
+		this.add(panelClose, BorderLayout.NORTH);
+		
+		lblClose = new JLabel("x");
+		lblClose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				CardLayout card = (CardLayout)panelCenter.getLayout();
+				System.out.println(presentCard);
+				card.show(panelCenter, presentCard);
+			}
+		});
+		lblClose.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblClose.setForeground(SystemColor.textHighlight);
+		panelClose.add(lblClose);
+		
+		JPanel panelDetail = new JPanel();
+		panelDetail.setLayout(new GridLayout(0, 2, 0, 0));
+		this.add(panelDetail, BorderLayout.CENTER);
+		
 		panelLeft = new JPanel();
-		this.add(panelLeft);
+		panelDetail.add(panelLeft);
 		
 		panelLeft.setBackground(Color.WHITE);
 		panelLeft.setOpaque(false);
@@ -72,7 +97,8 @@ public class DetailPanel extends JPanel {
 		panelRight.setBackground(Color.WHITE);
 		//panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
 		panelRight.setLayout(new BorderLayout(0,0));
-		this.add(panelRight);
+		panelDetail.add(panelRight);
+				
 		JPanel panelTop = new JPanel();		
 		panelRight.add(panelTop, BorderLayout.CENTER);
 		panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
@@ -229,14 +255,14 @@ public class DetailPanel extends JPanel {
 		if(f.getType().equals("movie")) {
 			lblF.setText("Running time: " + String.valueOf(((Movie)f).getDuration()) + " minutes");
 			String str = "movies\\Img\\" + f.getIcon();
-			lblimg.setIcon(new ImageIcon(str));
-			//lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+			//lblimg.setIcon(new ImageIcon(str));
+			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(420, 560, Image.SCALE_DEFAULT)));
 		}
 		else {
 			lblF.setText("Episodes: " + String.valueOf(((Series)f).getEpisode()));
 			String str = "series\\Img\\" + f.getIcon();
-			lblimg.setIcon(new ImageIcon(str));
-			//lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(390, 520, Image.SCALE_DEFAULT)));
+			//lblimg.setIcon(new ImageIcon(str));
+			lblimg.setIcon(new ImageIcon(new ImageIcon(str).getImage().getScaledInstance(420, 560, Image.SCALE_DEFAULT)));
 
 		}
 		
@@ -255,7 +281,10 @@ public class DetailPanel extends JPanel {
 	public int getIndex() {
 		return index;
 	}
-//
+
+	public void setPreviousCard(String c) {
+		presentCard = c;
+	}
 //	public void setIndex(int index) {
 //		this.index = index;
 //	}

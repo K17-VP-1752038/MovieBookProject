@@ -33,13 +33,12 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 	private JMenu mnAdmin;
 	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
-	private JMenuItem mnChangeinfo;
-	private JMenuItem mnChangepwd;
-	private JMenuItem mnLogOut;
-	private JMenuItem mnAbout;
+	private JMenuItem mnChangeinfo, mnChangepwd, mnLogOut, mnAbout;
 	private DetailPanel detail;
 	private UserPanel user;
 	private JLabel lblUser;
+	private CardLayout card;
+
 	/**
 	 * Launch the application.
 	 */
@@ -166,6 +165,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		
 		panelCenter = new JPanel();
 		panelCenter.setLayout(new CardLayout());
+		card = (CardLayout)panelCenter.getLayout();
+		
 		scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(2.0f);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -297,7 +298,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		panelTop.add(btnSearchGenre);
 		
 		getContentPane().add(panelTop, BorderLayout.NORTH);
-		detail = new DetailPanel(app);
+		detail = new DetailPanel(app, panelCenter);
+		detail.setPreviousCard("Show films");
 		panelCenter.add("Show detail", detail);
 	}
 	
@@ -310,8 +312,9 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			Film[]flist = app.searchByKeyWord(txtsearch);
 			if(flist.length > 0) {
 				Filter(flist, scrollSearch);
-				CardLayout card = (CardLayout)panelCenter.getLayout();
+//				CardLayout card = (CardLayout)panelCenter.getLayout();
 				card.show(panelCenter, "Search");
+				detail.setPreviousCard("Search");
 			}else
 				JOptionPane.showMessageDialog(panelBottom, "Not Found");
 			
@@ -325,16 +328,19 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == mnHome) {
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Show films");
+			detail.setPreviousCard("Show films");
 		}
 		if(e.getSource() == mnTVseries) {
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Show series");
+			detail.setPreviousCard("Show series");
 		}
 		if(e.getSource() == mnMovies) {
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Show movies");
+			detail.setPreviousCard("Show movies");
 		}
 		if(e.getSource() == mnAdmin) {
 			AdminFrame ad = new AdminFrame(app, this);
@@ -383,7 +389,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					detail.setContent(f);
-					CardLayout card = (CardLayout) panelCenter.getLayout();
+//					CardLayout card = (CardLayout) panelCenter.getLayout();
 					card.show(panelCenter, "Show detail");
 				}
 			});
@@ -453,17 +459,18 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			cbsport.setSelected(false);
 			cbthriller.setSelected(false);
 			listCheckbox.clear();
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Filter");
+			detail.setPreviousCard("Filter");
 		}
 		if(str.equals("Change Information")) {
 			user.setIndex(0);
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Settings");
 		}
 		if(str.equals("Change Password")) {
 			user.setIndex(1);
-			CardLayout card = (CardLayout)panelCenter.getLayout();
+//			CardLayout card = (CardLayout)panelCenter.getLayout();
 			card.show(panelCenter, "Settings");
 		}
 		if(str.equals("Log Out")) {
