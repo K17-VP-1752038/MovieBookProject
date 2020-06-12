@@ -225,6 +225,7 @@ public class UpdateFrame extends JFrame implements ItemListener{
 		lblImg.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		txtImg = new JTextField();
+		txtImg.setEditable(false);
 		txtImg.setText(f.getIcon());
 		panelImg.add(txtImg);
 		txtImg.setColumns(30);
@@ -317,6 +318,10 @@ public class UpdateFrame extends JFrame implements ItemListener{
 				}
 				if(txtGenre.isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "Must fill all text content.");
+					return;
+				}
+				if(txtContent.getText().length() < 30) {
+					JOptionPane.showMessageDialog(null, "Text content must be longer than 30");
 					return;
 				}
 				newF.setGenre(txtGenre);

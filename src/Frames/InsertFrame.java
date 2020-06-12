@@ -322,6 +322,7 @@ public class InsertFrame extends JFrame implements ItemListener{
 		lblImg.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		txtImg = new JTextField();
+		txtImg.setEditable(false);
 		panelImg.add(txtImg);
 		txtImg.setColumns(40);
 		
@@ -422,7 +423,10 @@ public class InsertFrame extends JFrame implements ItemListener{
 						JOptionPane.showMessageDialog(null, "Missing text content");
 						return;
 					}
-					
+					if(txtContent.getText().length() < 30) {
+						JOptionPane.showMessageDialog(null, "Text content must be longer than 30");
+						return;
+					}
 					String sd = dateFormat.format(dateChooser.getDate());
 					
 					if(type.equals("movie"))
