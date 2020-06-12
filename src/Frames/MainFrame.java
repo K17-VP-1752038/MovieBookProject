@@ -477,7 +477,6 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			int op = JOptionPane.showConfirmDialog(null, "Are you sure want to log out?");
 			if(op == 0) {
 				app.logout();
-				app = null;
 				
 				Login login = new Login();
 				login.setVisible(true);
