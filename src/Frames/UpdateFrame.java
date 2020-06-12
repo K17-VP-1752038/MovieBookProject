@@ -2,8 +2,6 @@ package Frames;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -13,20 +11,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
-public class UpdateFrame extends JFrame {
+public class UpdateFrame extends JFrame implements ItemListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtGenre;
 	private JTextField txtImg;
 	private Application app;
 	private Film newF;
 	private File file;
+	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbromance, cbfantasy,cbfiction,cbcomedy,cbdetective;
+	private String txtgenre;
+	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	/**
 	 * Launch the application.
 	 */
@@ -77,25 +77,138 @@ public class UpdateFrame extends JFrame {
 		panelBottom.add(panelName_Img, BorderLayout.NORTH);
 		panelName_Img.setLayout(new GridLayout(2, 0, 0, 0));
 		
-		JPanel panelGenre = new JPanel();
-		panelGenre.setBackground(SystemColor.activeCaption);
-		FlowLayout fl_panelGenre = (FlowLayout) panelGenre.getLayout();
-		fl_panelGenre.setAlignment(FlowLayout.LEFT);
-		panelName_Img.add(panelGenre);
+		JPanel panel_2 = new JPanel();
+		panelName_Img.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(0, 0, 0, 3));
-		panel.setBackground(SystemColor.activeCaption);
-		panelGenre.add(panel);
+		txtgenre = f.getGenre();
+		
+		JPanel panelGenre = new JPanel();
+		panel_2.add(panelGenre, BorderLayout.WEST);
+		panelGenre.setBackground(SystemColor.activeCaption);
+		panelGenre.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JPanel panellblGenre = new JPanel();
+		panellblGenre.setBorder(new EmptyBorder(0, 0, 0, 3));
+		panellblGenre.setBackground(SystemColor.activeCaption);
+		panelGenre.add(panellblGenre);
 		
 		JLabel lblGenre = new JLabel("Genre");
-		panel.add(lblGenre);
+		panellblGenre.add(lblGenre);
 		lblGenre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		txtGenre = new JTextField();
-		txtGenre.setText(f.getGenre());
-		panelGenre.add(txtGenre);
-		txtGenre.setColumns(34);
+		JPanel panelCbGenre = new JPanel();
+		panelCbGenre.setBackground(SystemColor.activeCaption);
+		panel_2.add(panelCbGenre, BorderLayout.CENTER);
+		panelCbGenre.setLayout(new BoxLayout(panelCbGenre, BoxLayout.X_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBorder(new EmptyBorder(0, 0, 0, 100));
+		panelCbGenre.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JScrollPane scrollPaneCb = new JScrollPane();
+		scrollPaneCb.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		panel.add(scrollPaneCb);
+		
+		JPanel panelCb = new JPanel();
+		panelCb.setBackground(SystemColor.activeCaption);
+		scrollPaneCb.setViewportView(panelCb);
+		panelCb.setLayout(new BoxLayout(panelCb, BoxLayout.X_AXIS));
+		
+		cbaction = new JCheckBox("Action");
+		cbaction.setBackground(Color.WHITE);
+		panelCb.add(cbaction);
+		
+		cbfiction = new JCheckBox("Fiction");
+		cbfiction.setBackground(Color.WHITE);
+		panelCb.add(cbfiction);
+		
+		cbdetective = new JCheckBox("Detective");
+		cbdetective.setBackground(Color.WHITE);
+		panelCb.add(cbdetective);
+		
+		cbcomedy = new JCheckBox("Comedy");
+		cbcomedy.setBackground(Color.WHITE);
+		panelCb.add(cbcomedy);
+		
+		cbsport = new JCheckBox("Sport");
+		cbsport.setBackground(Color.WHITE);
+		panelCb.add(cbsport);
+		
+		cbthriller = new JCheckBox("Thriller");
+		cbthriller.setBackground(Color.WHITE);
+		panelCb.add(cbthriller);
+		
+		cbadventure = new JCheckBox("Adventure");
+		cbadventure.setBackground(Color.WHITE);
+		panelCb.add(cbadventure);
+		
+		cbdrama = new JCheckBox("Drama");
+		cbdrama.setBackground(Color.WHITE);
+		panelCb.add(cbdrama);
+		
+		cbhorror = new JCheckBox("Horror");
+		cbhorror.setBackground(Color.WHITE);
+		panelCb.add(cbhorror);
+		
+		cbanimation = new JCheckBox("Animation");
+		cbanimation.setBackground(Color.WHITE);
+		panelCb.add(cbanimation);
+		
+		cbromance = new JCheckBox("Romance");
+		cbromance.setBackground(Color.WHITE);
+		panelCb.add(cbromance);
+		
+		cbfantasy = new JCheckBox("Fantasy");
+		cbfantasy.setBackground(Color.WHITE);
+		panelCb.add(cbfantasy);
+		
+		//the loai hien tai
+		String[]listF_genre = txtgenre.split(",");
+		for(int i = 0; i < listF_genre.length; i++) 
+			listF_genre[i] = listF_genre[i].replaceAll(" ", "");
+		
+		for(int i = 0; i < listF_genre.length; i++) {
+			if(cbaction.getText().equals(listF_genre[i]))
+				cbaction.setSelected(true);
+			if(cbadventure.getText().equals(listF_genre[i]))
+				cbadventure.setSelected(true);
+			if(cbanimation.getText().equals(listF_genre[i]))
+				cbanimation.setSelected(true);
+			if(cbcomedy.getText().equals(listF_genre[i]))
+				cbcomedy.setSelected(true);
+			if(cbdetective.getText().equals(listF_genre[i]))
+				cbdetective.setSelected(true);
+			if(cbdrama.getText().equals(listF_genre[i]))
+				cbdrama.setSelected(true);
+			if(cbfantasy.getText().equals(listF_genre[i]))
+				cbfantasy.setSelected(true);
+			if(cbfiction.getText().equals(listF_genre[i]))
+				cbfiction.setSelected(true);
+			if(cbhorror.getText().equals(listF_genre[i]))
+				cbhorror.setSelected(true);
+			if(cbromance.getText().equals(listF_genre[i]))
+				cbromance.setSelected(true);
+			if(cbsport.getText().equals(listF_genre[i]))
+				cbsport.setSelected(true);
+			if(cbthriller.getText().equals(listF_genre[i]))
+				cbthriller.setSelected(true);
+		}
+		
+		cbaction.addItemListener(this);
+		cbadventure.addItemListener(this);
+		cbcomedy.addItemListener(this);
+		cbdetective.addItemListener(this);
+		cbdrama.addItemListener(this);
+		cbfantasy.addItemListener(this);
+		cbfiction.addItemListener(this);
+		cbhorror.addItemListener(this);
+		cbromance.addItemListener(this);
+		cbsport.addItemListener(this);
+		cbthriller.addItemListener(this);
+		cbanimation.addItemListener(this);
 		
 		JPanel panelImg = new JPanel();
 		panelImg.setBackground(SystemColor.activeCaption);
@@ -195,11 +308,17 @@ public class UpdateFrame extends JFrame {
 		JButton btnUpd = new JButton("Update");
 		btnUpd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtGenre.getText().isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
+				/*if(txtGenre.getText().isBlank() || txtContent.getText().isBlank() || txtImg.getText().isBlank()) {
 					JOptionPane.showMessageDialog(null, "Must fill all text content.");
 					return;
+				}*/
+				String txtGenre = "";
+				for(int i = 0; i < listCheckbox.size(); i++) {
+					if(i == (listCheckbox.size() - 1))
+						txtGenre = txtGenre + listCheckbox.get(i);
+					else txtGenre = txtGenre + listCheckbox.get(i) + ", ";
 				}
-				newF.setGenre(txtGenre.getText());
+				newF.setGenre(txtGenre);
 				newF.setIcon(txtImg.getText());
 				newF.setContent(txtContent.getText());
 				
@@ -229,4 +348,12 @@ public class UpdateFrame extends JFrame {
 
 		    });
 		}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub	
+		JCheckBox cb = (JCheckBox)e.getItem();
+		if(cb.isSelected()) 
+			listCheckbox.add(cb.getText());
+	}
 }

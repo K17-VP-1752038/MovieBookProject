@@ -227,7 +227,7 @@ public class filmManage extends JPanel implements ActionListener {
 		
 	}
 
-	void setModelList(Film[] films) {
+	public void setModelList(Film[] films) {
 		if(type.equals("movie")) {
 			for(Film M : films) {
 				Object[] ob = {M.getName(), M.getIcon(), M.getGenre(), M.getDirector(), ((Movie)M).getDuration(), M.getDate(), M.getContent()};

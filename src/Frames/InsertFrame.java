@@ -10,6 +10,8 @@ import AppUsed.Application;
 import IOFilmFile.Film;
 import IOFilmFile.Movie;
 import IOFilmFile.Series;
+import Panels.filmManage;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -28,21 +30,25 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JCheckBox;
 
-public class InsertFrame extends JFrame {
+public class InsertFrame extends JFrame implements ItemListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtGenre;
 	private JTextField txtImg;
 	private Application app;
 	private JTextField txtName;
@@ -50,7 +56,8 @@ public class InsertFrame extends JFrame {
 	private JPanel panel_1_1;
 	private JTextField textField;
 	private File file;
-	
+	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbromance,cbfantasy,cbfiction,cbcomedy,cbdetective;
+	private ArrayList<String> listCheckbox = new ArrayList<String>();
 	/**
 	 * Create the frame.
 	 */
@@ -111,28 +118,117 @@ public class InsertFrame extends JFrame {
 		panel_1_2.add(lblImg_2);
 		
 		txtName = new JTextField();
-		txtName.setText("");
 		txtName.setColumns(40);
 		panelName.add(txtName);
 		
-		JPanel panelGenre = new JPanel();
-		panelGenre.setBackground(SystemColor.activeCaption);
-		FlowLayout fl_panelGenre = (FlowLayout) panelGenre.getLayout();
-		fl_panelGenre.setAlignment(FlowLayout.LEFT);
-		panelF.add(panelGenre);
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(SystemColor.activeCaption);
+		FlowLayout flowLayout_4 = (FlowLayout) panel_4.getLayout();
+		flowLayout_4.setVgap(0);
+		flowLayout_4.setHgap(0);
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
+		panelF.add(panel_4);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(0, 0, 0, 3));
-		panel.setBackground(SystemColor.activeCaption);
-		panelGenre.add(panel);
+		JPanel panelGenre = new JPanel();
+		panel_4.add(panelGenre);
+		panelGenre.setPreferredSize(new Dimension(476, 39));
+		panelGenre.setBackground(SystemColor.activeCaption);
+		panelGenre.setLayout(new BoxLayout(panelGenre, BoxLayout.X_AXIS));
+		
+		
+		JPanel panellblGenre = new JPanel();
+		panellblGenre.setBackground(SystemColor.activeCaption);
+		panellblGenre.setLayout(new FlowLayout(FlowLayout.CENTER,5,10));
+		panelGenre.add(panellblGenre);
 		
 		JLabel lblGenre = new JLabel("Genre");
-		panel.add(lblGenre);
+		panellblGenre.add(lblGenre);
 		lblGenre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		txtGenre = new JTextField();
-		panelGenre.add(txtGenre);
-		txtGenre.setColumns(40);
+		JPanel panelCbGenre = new JPanel();
+		panelCbGenre.setBorder(new EmptyBorder(0, 13, 0, 46));
+		panelCbGenre.setBackground(SystemColor.activeCaption);
+		panelGenre.add(panelCbGenre);
+		panelCbGenre.setLayout(new BoxLayout(panelCbGenre, BoxLayout.X_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
+		panelCbGenre.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JScrollPane scrollPaneCb = new JScrollPane();
+		scrollPaneCb.setBackground(SystemColor.activeCaption);
+		scrollPaneCb.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		panel.add(scrollPaneCb);
+		
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(SystemColor.activeCaption);
+		scrollPaneCb.setViewportView(panel_3);
+	
+		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.X_AXIS));
+		
+		cbaction = new JCheckBox("Action");
+		cbaction.setBackground(Color.WHITE);
+		panel_3.add(cbaction);
+		
+		cbsport = new JCheckBox("Sport");
+		cbsport.setBackground(Color.WHITE);
+		panel_3.add(cbsport);
+		
+		cbdetective = new JCheckBox("Detective");
+		cbdetective.setBackground(Color.WHITE);
+		panel_3.add(cbdetective);
+		
+		cbfantasy = new JCheckBox("Fantasy");
+		cbfantasy.setBackground(Color.WHITE);
+		panel_3.add(cbfantasy);
+		
+		cbanimation = new JCheckBox("Animation");
+		cbanimation.setBackground(Color.WHITE);
+		panel_3.add(cbanimation);
+		
+		cbfiction = new JCheckBox("Fiction");
+		cbfiction.setBackground(Color.WHITE);
+		panel_3.add(cbfiction);
+		
+		cbdrama = new JCheckBox("Drama");
+		cbdrama.setBackground(Color.WHITE);
+		panel_3.add(cbdrama);
+		
+		cbromance = new JCheckBox("Romance");
+		cbromance.setBackground(Color.WHITE);
+		panel_3.add(cbromance);
+		
+		cbthriller = new JCheckBox("Thriller");
+		cbthriller.setBackground(Color.WHITE);
+		panel_3.add(cbthriller);
+		
+		cbhorror = new JCheckBox("Horror");
+		cbhorror.setBackground(Color.WHITE);
+		panel_3.add(cbhorror);
+		
+		cbadventure = new JCheckBox("Adventure");
+		cbadventure.setBackground(Color.WHITE);
+		panel_3.add(cbadventure);
+		
+		cbcomedy = new JCheckBox("Comedy");
+		cbcomedy.setBackground(Color.WHITE);
+		panel_3.add(cbcomedy);
+		
+		cbaction.addItemListener(this);
+		cbadventure.addItemListener(this);
+		cbcomedy.addItemListener(this);
+		cbdetective.addItemListener(this);
+		cbdrama.addItemListener(this);
+		cbfantasy.addItemListener(this);
+		cbfiction.addItemListener(this);
+		cbhorror.addItemListener(this);
+		cbromance.addItemListener(this);
+		cbsport.addItemListener(this);
+		cbthriller.addItemListener(this);
+		cbanimation.addItemListener(this);
+		
 		
 		JPanel panelDirector = new JPanel();
 		panelDirector.setBackground(SystemColor.activeCaption);
@@ -314,17 +410,25 @@ public class InsertFrame extends JFrame {
 				Film f;	
 				try {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-					if(txtName.getText().isBlank() || txtGenre.getText().isBlank() || (dateChooser.getDate()==null) ||
+					String txtGenre = "";
+					for(int i = 0; i < listCheckbox.size(); i++) {
+						if(i == (listCheckbox.size() - 1))
+							txtGenre = txtGenre + listCheckbox.get(i);
+						else txtGenre = txtGenre + listCheckbox.get(i) + ", ";
+					}
+					if(txtName.getText().isBlank() || txtGenre.isBlank() || (dateChooser.getDate()==null) ||
 						txtDirector.getText().isBlank() || txtImg.getText().isBlank() || 
 						txtContent.getText().isBlank() || textField.getText().isBlank()){
 						JOptionPane.showMessageDialog(null, "Missing text content");
 						return;
 					}
+					
 					String sd = dateFormat.format(dateChooser.getDate());
-					if(type.equals("movie")) 
-						f = new Movie(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), Integer.parseInt(textField.getText()), sd, txtContent.getText());
+					
+					if(type.equals("movie"))
+						f = new Movie(txtName.getText(), txtImg.getText(), txtGenre, txtDirector.getText(), Integer.parseInt(textField.getText()), sd, txtContent.getText());
 					else
-						f = new Series(txtName.getText(), txtImg.getText(), txtGenre.getText(), txtDirector.getText(), sd, txtContent.getText(), Integer.parseInt(textField.getText()));
+						f = new Series(txtName.getText(), txtImg.getText(), txtGenre, txtDirector.getText(), sd, txtContent.getText(), Integer.parseInt(textField.getText()));
 					if(app.getLibrary().insertFilm(f)) {
 						app.getLibrary().saveImage(txtName.getText(), file, type);
 						//setVisible(false);
@@ -341,4 +445,11 @@ public class InsertFrame extends JFrame {
 		panelBtn.add(btnInsert);
 	}
 
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		JCheckBox cb = (JCheckBox)e.getItem();
+		if(cb.isSelected()) 
+			listCheckbox.add(cb.getText());
+	}
 }
