@@ -52,8 +52,9 @@ public abstract class User {
 	}
 	
 	public boolean updateUserPassword(String oldpass, String newpass) {
-		if(newpass.length() < 6)
-			return false;
+		System.out.println(oldpass);
+		System.out.println(getPassword());
+		
 		if(oldpass.equals(getPassword())) {
 			if(urw.updateUserPassword(getEmail(), newpass))
 				return true;

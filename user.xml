@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Users>
-                                                                                                                            
+                                                                                                                                        
     
     
     
@@ -21,6 +21,9 @@
     
     
                                                                                 
+    
+    
+    
     
     
     
@@ -51,7 +54,10 @@
     
     
     <User id="AD101" type="admin">
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -82,7 +88,10 @@
         
         
         <firstname>Thùy Trang</firstname>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -113,7 +122,10 @@
         
         
         <name>Nguyễn Thị</name>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -144,7 +156,10 @@
         
         
         <email>nguyentthuytrang1110@gmail.com</email>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -175,7 +190,10 @@
         
         
         <password>thuytrang</password>
-                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                            
+    
+    
+    
     
     
     
@@ -206,7 +224,10 @@
     
     
     </User>
-                                                                                                                            
+                                                                                                                                        
+    
+    
+    
     
     
     
@@ -237,7 +258,10 @@
     
     
     <User id="MEM1001" type="member">
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -268,7 +292,10 @@
         
         
         <firstname>Quốc Bảo</firstname>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -299,7 +326,10 @@
         
         
         <name>Đinh Nguyễn</name>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -330,7 +360,10 @@
         
         
         <email>winterheartlove18@gmail.com</email>
-                                                                                                                                                                                                                                                    	
+                                                                                                                                                                                                                                                                            	
+        
+        
+        
         
         
         
@@ -361,7 +394,10 @@
         
         
         <password>beobeo99</password>
-                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                            
+    
+    
+    
     
     
     
@@ -392,11 +428,14 @@
     
     
     </User>
-                                                                                                                    
+                                                                                                                                
 
     
 
 
+    
+    
+    
     
     
     
@@ -423,7 +462,10 @@
     
     
     <User id="MEM1000" type="member">
-                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
+        
+        
+        
         
         
         
@@ -449,7 +491,10 @@
         
         
         <name>Nguyễn</name>
-                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
+        
+        
+        
         
         
         
@@ -475,7 +520,10 @@
         
         
         <firstname>Minh Nguyệt</firstname>
-                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
+        
+        
+        
         
         
         
@@ -501,7 +549,10 @@
         
         
         <email>miknguyet99@gmail.com</email>
-                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
+        
+        
+        
         
         
         
@@ -527,7 +578,10 @@
         
         
         <password>cuncun99</password>
-                                                                                                                                                                                                            
+                                                                                                                                                                                                                                    
+    
+    
+    
     
     
     
@@ -553,10 +607,13 @@
     
     
     </User>
-                                                    
+                                                                
 
 
 
+    
+    
+    
     
     
     
@@ -567,7 +624,10 @@
     
     
     <User id="MEM1002" type="member">
-                                                                                
+                                                                                                        
+        
+        
+        
         
         
         
@@ -577,7 +637,10 @@
         
         
         <name>nguyen</name>
-                                                                                
+                                                                                                        
+        
+        
+        
         
         
         
@@ -587,7 +650,10 @@
         
         
         <firstname>minh chau</firstname>
-                                                                                
+                                                                                                        
+        
+        
+        
         
         
         
@@ -597,7 +663,10 @@
         
         
         <email>minhchau19396@gmail.com</email>
-                                                                                
+                                                                                                        
+        
+        
+        
         
         
         
@@ -607,7 +676,10 @@
         
         
         <password>emnguyet99</password>
-                                                                            
+                                                                                                    
+    
+    
+    
     
     
     
@@ -617,7 +689,10 @@
     
     
     </User>
-                                    
+                                                
+    
+    
+    
     
     
     
@@ -627,7 +702,10 @@
     
     
     <User id="MEM1003" type="member">
-                                                                        
+                                                                                                
+        
+        
+        
         
         
         
@@ -636,7 +714,10 @@
         
         
         <name>Nam</name>
-                                                                        
+                                                                                                
+        
+        
+        
         
         
         
@@ -645,7 +726,10 @@
         
         
         <firstname>Huy</firstname>
-                                                                        
+                                                                                                
+        
+        
+        
         
         
         
@@ -654,7 +738,10 @@
         
         
         <email>huynam177199@gmail.com</email>
-                                                                        
+                                                                                                
+        
+        
+        
         
         
         
@@ -663,7 +750,10 @@
         
         
         <password>123456</password>
-                                                                    
+                                                                                            
+    
+    
+    
     
     
     
@@ -672,11 +762,50 @@
     
     
     </User>
+                
+    
+    
     
     <User id="MEM1004" type="member">
+                                
+        
+        
         <name>nguyễn</name>
+                                
+        
+        
         <firstname>moon</firstname>
+                                
+        
+        
         <email>1752038@student.hcmus.edu.vn</email>
+                                
+        
+        
         <password>cuncun99</password>
+                            
+    
+    
     </User>
+            
+    
+    
+    <User id="MEM1005" type="member">
+                        
+        
+        <name>Trương</name>
+                        
+        
+        <firstname>Trúc</firstname>
+                        
+        
+        <email>tructruc.11051999@gmail.com</email>
+                        
+        
+        <password>tructruc11</password>
+                    
+    
+    </User>
+        
+
 </Users>

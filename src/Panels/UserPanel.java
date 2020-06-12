@@ -92,6 +92,11 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		iconPane.setBorder(new EmptyBorder(10, 5, 5, 5));
 		panel.add(iconPane);
 
+		JPanel paneID = new JPanel();
+		paneID.setBackground(SystemColor.activeCaption);
+		paneID.add(new JLabel(app.getUser().getId()));
+		panel.add(paneID);
+		
 		JPanel paneName = new JPanel();
 		paneName.setBackground(SystemColor.activeCaption);
 		name = new JLabel(app.getUser().getFirstName() + " "+ app.getUser().getName());
@@ -208,7 +213,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		tfOldPass.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		tfNewPass = new JPasswordField(15);
-		tfOldPass.setFont(new Font("Arial", Font.PLAIN, 12));
+		tfNewPass.setFont(new Font("Arial", Font.PLAIN, 12));
 	
 		tfConfirm = new JPasswordField(15);
 		tfConfirm.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -227,15 +232,19 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		btnChangePw = new JButton("Change password");
 		btnChangePw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int op = JOptionPane.showConfirmDialog(null, "Are you sure you want to change password?");
+				if(op != 0) return;
 				if(tfOldPass.getPassword().length< 6 || tfNewPass.getPassword().length < 6 || !Arrays.equals(tfConfirm.getPassword(),tfNewPass.getPassword()))
-					JOptionPane.showMessageDialog(new JFrame(), "Password is invalid or not matched");
-				else if(app.updatePassword(tfOldPass.getPassword(), tfNewPass.getPassword()))
-					JOptionPane.showMessageDialog(new JFrame(), "Password is incorrect");				
+					JOptionPane.showMessageDialog(null, "Password is invalid or not matched");
+				else if(!app.updatePassword(tfOldPass.getPassword(), tfNewPass.getPassword()))
+					JOptionPane.showMessageDialog(null, "Password is incorrect");				
 				else {
 					try {
 						MailConfig.sendEmail(app.getUser().getEmail(), "Password Changed", "You have changed your password in Movie Book since "+ new java.util.Date());
 						tfOldPass.setText(null);
 						tfNewPass.setText(null);
+						tfConfirm.setText(null);
+						JOptionPane.showMessageDialog(null, "Changed password successfully");
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
@@ -247,6 +256,7 @@ public class UserPanel extends JPanel implements ActionListener, MouseListener, 
 		btnChangePw.setForeground(Color.WHITE);
 		btnChangePw.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		paneEnter.add(btnChangePw);
+		
 	}
 
 	@Override
