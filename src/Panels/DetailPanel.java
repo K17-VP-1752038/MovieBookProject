@@ -46,7 +46,7 @@ public class DetailPanel extends JPanel {
 		flowLayout_3.setAlignment(FlowLayout.TRAILING);
 		this.add(panelClose, BorderLayout.NORTH);
 		
-		lblClose = new JLabel("close X");
+		lblClose = new JLabel("Close X");
 		lblClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
