@@ -32,7 +32,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 	private JMenu mnMovies;
 	private JMenu mnAdmin;
 	private ArrayList<String> listCheckbox = new ArrayList<String>();
-	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbroman,cbfantasy,cbfiction,cbcomedy,cbdetective;
+	private JCheckBox cbaction, cbadventure, cbsport, cbdrama, cbanimation,cbhorror, cbthriller, cbromance,cbfantasy,cbfiction,cbcomedy,cbdetective;
 	private JMenuItem mnChangeinfo, mnChangepwd, mnLogOut, mnAbout;
 	private DetailPanel detail;
 	private UserPanel user;
@@ -231,10 +231,10 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		cbanimation.setBorderPainted(false);
 		panelTop.add(cbanimation);
 		
-		cbroman = new JCheckBox("Roman");
-		cbroman.setToolTipText("Roman");
-		cbroman.setBorderPainted(false);
-		panelTop.add(cbroman);
+		cbromance = new JCheckBox("Romance");
+		cbromance.setToolTipText("Romance");
+		cbromance.setBorderPainted(false);
+		panelTop.add(cbromance);
 		
 		cbdrama = new JCheckBox("Drama");
 		cbdrama.setToolTipText("Drama");
@@ -284,7 +284,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 		cbfantasy.addItemListener(this);
 		cbfiction.addItemListener(this);
 		cbhorror.addItemListener(this);
-		cbroman.addItemListener(this);
+		cbromance.addItemListener(this);
 		cbsport.addItemListener(this);
 		cbthriller.addItemListener(this);
 		cbanimation.addItemListener(this);
@@ -455,7 +455,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener, 
 			cbfantasy.setSelected(false);
 			cbfiction.setSelected(false);
 			cbhorror.setSelected(false);
-			cbroman.setSelected(false);
+			cbromance.setSelected(false);
 			cbsport.setSelected(false);
 			cbthriller.setSelected(false);
 			listCheckbox.clear();
