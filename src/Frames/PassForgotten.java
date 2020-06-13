@@ -105,13 +105,13 @@ private static final long serialVersionUID = 1L;
 		JButton btnSent = new JButton("Sent");
 		btnSent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(email.equals(null))
+				if(tfEmail.getText().isBlank())
 					JOptionPane.showMessageDialog(new JFrame(), "Please write your email.");
 				else {
 					if(app.getUser().isExist(tfEmail.getText())) {
 						randomCode = ran.nextInt(999999);
 						try {
-							MailConfig.sendEmail(email, "Forgot Password", "Your verify code is "+ randomCode);
+							MailConfig.sendEmail(tfEmail.getText(), "Forgot Password", "Your verify code is "+ randomCode);
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}

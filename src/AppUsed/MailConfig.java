@@ -20,7 +20,7 @@ public class MailConfig {
 
 //	public static void main(String[] args) {
 //
-//		System.out.println(MailConfig.emailValidate("miknguyet99@123.com"));
+//		System.out.println(MailConfig.emailValidate("tuongvi91199@gmail.com"));
 //	}
 
 	public static boolean emailValidate(String email) {
@@ -29,6 +29,8 @@ public class MailConfig {
 		
 		// Check if email's validate
 		String tail = email.substring(email.indexOf("@"));
+		System.out.println(tail);
+		
 		for(int i = 0; i < tail.length(); i++)
 			if(Character.isDigit(tail.charAt(i)))
 				return false;
