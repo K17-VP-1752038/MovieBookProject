@@ -62,7 +62,7 @@ public class Login extends JFrame implements ActionListener {
 				try {
 					System.gc();
 					
-					Login frame = new Login("miknguyet99@gmail.com");
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
