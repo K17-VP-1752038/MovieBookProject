@@ -88,18 +88,16 @@ public class AdminFrame extends JFrame {
 		JButton btnRestart = new JButton("Restart");
 		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login log = new Login(app.getUser().getEmail());
-				
-				app.logout();
-				app = null;
-				
-				log.setVisible(true);
+//				Login log = new Login(app.getUser().getEmail());
+//				
+//				app.logout();
 				frame.dispose();
+				MyThread thrd = new MyThread("Movie Book", app);
+				
+				app = null;
 				dispose();
-
-				System.gc();
-				System.out.println("Cleaned up memory.");
-				//setVisible(false);
+				
+				thrd.start();
 			}
 		});
 		
