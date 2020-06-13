@@ -10,8 +10,6 @@ import AppUsed.Application;
 import IOFilmFile.Film;
 import IOFilmFile.Movie;
 import IOFilmFile.Series;
-import Panels.filmManage;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 

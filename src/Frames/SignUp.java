@@ -47,7 +47,7 @@ public class SignUp extends JFrame implements ActionListener {
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin0.jpg"));
 			ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 45);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 50);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {
@@ -132,7 +132,7 @@ public class SignUp extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				Login frame = new Login();
 				frame.setSize(getSize());
-				frame.setLocation(getLocation());
+				frame.setLocation(getLocationOnScreen());
 				frame.setVisible(true);
 				dispose();
 			}

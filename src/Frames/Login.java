@@ -85,7 +85,7 @@ public class Login extends JFrame implements ActionListener {
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin0.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 50);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {

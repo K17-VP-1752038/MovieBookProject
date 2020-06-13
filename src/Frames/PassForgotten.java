@@ -59,7 +59,7 @@ private static final long serialVersionUID = 1L;
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin2.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 55);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {
@@ -118,7 +118,7 @@ private static final long serialVersionUID = 1L;
 						JOptionPane.showMessageDialog(new JFrame(), "The verify code has been sent to your email.");
 					}
 					else
-						JOptionPane.showMessageDialog(new JFrame(), "This account does not exist.");
+						JOptionPane.showMessageDialog(new JFrame(), "Email account does not exist.");
 				}
 			}
 		});
@@ -139,7 +139,7 @@ private static final long serialVersionUID = 1L;
 		JPanel panePassFogot = new JPanel();
 		loginForm.add(panePassFogot);
 		
-		JLabel lblPassForgot = new JLabel("The verified code will be sent to your email.");
+		JLabel lblPassForgot = new JLabel("A verified code will be sent to your email.");
 		lblPassForgot.setForeground(new Color(0, 0, 255));
 		lblPassForgot.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassForgot.setFont(new Font("Arial", Font.ITALIC, 12));

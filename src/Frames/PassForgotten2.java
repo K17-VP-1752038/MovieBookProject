@@ -55,7 +55,7 @@ private static final long serialVersionUID = 1L;
 			BufferedImage myImage = (BufferedImage) ImageIO.read(new File("Img/bgLogin2.jpg"));
 			Frames.ImagePanel imagePanel = new ImagePanel(myImage);
 			setContentPane(imagePanel);
-			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 40);
+			FlowLayout fl_imagePanel = new FlowLayout(FlowLayout.CENTER, 5, 55);
 			imagePanel.setLayout(fl_imagePanel);
 			
 		} catch (IOException e) {
